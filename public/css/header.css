@@ -1,5 +1,6 @@
 .header-top-container {
     padding: 13px 0 3px;
+    background-color: #f44344;
 }
 
 .header-info-container {
@@ -11,30 +12,19 @@
     padding-top: 2px;
   }
 .header-contact li {
-      color: #666666;
+      color: #e8e8e8;
       display: inline-block;
-      margin-right: 57px;
       position: relative;
-  }
-.header-contact li::before {
-      background-color: #e7e7e7;
-      content: "";
-      height: 25px;
-      margin: 0 auto;
-      position: absolute;
-      right: -30px;
-      top: 0;
-      width: 2px;
   }
 .header-contact li:last-child::before {
       content: inherit;
   }
 .header-contact li a {
-      color: #666666;
+      color: #e8e8e8;
   }
 .header-contact li a,
 .header-contact li {
-      color: #8185a0;
+      color: #e8e8e8;
       font-weight: bold;
   }
 
@@ -54,7 +44,7 @@
     padding-bottom: 10px;
   }
 .header-function ul li a {
-      color: #666;
+      color: #e8e8e8;
       position: relative;
       margin-right: 30px;
   }
