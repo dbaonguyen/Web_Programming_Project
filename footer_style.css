@@ -8,8 +8,8 @@
     unicode-range: U+1F00-1FFF;
 }
 
-.test{
-    color:aqua;
+.footer-into-wrapper>footer-info-content>a{
+    text-decoration: none;
 }
 
 h3{
@@ -18,7 +18,8 @@ h3{
 
 ul{
     list-style-type: none;
-    margin-left:0;
+    text-align: left;
+    padding-left:0px;
 }
 
 li > a{
@@ -26,6 +27,11 @@ li > a{
     color: inherit;
 }
 
+.footer-into-wrapper>a:hover{
+    color:red;
+}
+
 li:hover{
     color: red;
 }
+
