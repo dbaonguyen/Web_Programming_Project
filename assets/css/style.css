@@ -6617,6 +6617,9 @@ h1.cart-heading {
     margin-bottom: 25px;
     text-transform: uppercase;
 }
+.cart-heading2{
+    margin-bottom: 25px;
+}
 .cart-title-area {
     padding-top: 30px;
 }
