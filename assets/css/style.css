@@ -6909,36 +6909,27 @@ p.checkout-coupon input[type="submit"] {
     text-transform: uppercase;
     width: 100%;
 }
-.country-select {
+.select-list {
     margin-bottom: 30px;
     position: relative;
 }
-.country-select label,
+.select-list label,
 .checkout-form-list label {
     color: #333;
     margin: 0 0 5px;
     display: block;
 }
-.country-select label span.required,
+.select-list label span.required,
 .checkout-form-list label span.required {
     color: red;
 }
-.country-select select {
+.select-list select {
     -moz-appearance: none;
     border: 1px solid #ddd;
     height: 32px;
     padding-left: 10px;
     width: 100%;
     background-color: transparent;
-}
-.country-select::before {
-    content: "";
-    display: inline-block;
-    font-family: "Pe-icon-7-stroke";
-    font-size: 26px;
-    position: absolute;
-    right: 12px;
-    top: 23px;
 }
 .checkout-form-list {
     margin-bottom: 30px;
