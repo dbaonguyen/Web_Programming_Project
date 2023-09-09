@@ -244,7 +244,7 @@
                 <div class="container-fluid">
                     <div class="furniture-bottom-wrapper">
                         <div class="furniture-login">
-    
+                            somethingg
                         </div>
                         <div class="furniture-search">
                             <form action="#">
@@ -279,7 +279,7 @@
                 <div class="row">
                     <div class="col-md-12 col-12 col-lg-12 col-xl-6 ml-auto mr-auto">
                         <div class="login-form-container">
-                            <div class="login-form">
+                            <div class="furniture-bottom-wrapper">
                                 <div class="col-4 role-choice choosen">
                                     <a href="">Customer</a>
                                 </div>
@@ -306,13 +306,20 @@
                                         <p>Choose your avatar(optional):</p>
                                         <input type="file" id="myFile" name="filename" accept="image/*">
                                         <p>Do you have any experience?</p>
-                                        <input type="radio" id="none" name="experience" value="none" checked>
-                                        <label for="none">None</label>
-                                        <input type="radio" id="less-6" name="experience" value="less-6">
-                                        <label for="less-6">Less than 6 months</label>
-                                        <input type="radio" id="more-6" name="experience" value="more-6">
-                                        <label for="more-6">More than 6 months</label>
-                                        <br><br><label for="hubs">Choose a hub you like to work with:</label>
+                                        <div class="row">
+                                            <input class="col-1" type="radio" id="none" name="experience" value="none" checked>
+                                            <label class="col-11" for="none">None</label>
+                                        </div>
+                                        <div class="row">
+                                            <input class="col-1" type="radio" id="less-6" name="experience" value="less-6">
+                                            <label class="col-11" for="less-6">Less than 6 months</label>
+                                        </div>
+                                        <div class="row">
+                                            <input class="col-1" type="radio" id="more-6" name="experience" value="more-6">
+                                            <label class="col-11" for="more-6">More than 6 months</label>
+                                        </div>
+                                        
+                                        <label for="hubs">Choose a hub you like to work with:</label>
                                         <select name="hubs" id="hubs">
                                             <option value="hcm">Ho Chi Minh</option>
                                             <option value="dn">Da Nang</option>

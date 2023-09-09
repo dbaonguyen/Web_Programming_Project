@@ -4439,6 +4439,16 @@ a.icon-cart-furniture span.green {
     padding-right: 60px;
     width: 630px;
 }
+
+.role-choice{
+    display: flex;
+    padding-left: 12%;
+}
+
+.row > .col-11{
+    display: flex;
+    padding-top: 10px;
+}
 .subscribe-form-4 form input::-moz-placeholder,
 .furniture-search form input::-moz-placeholder {
     color: #999;

@@ -297,10 +297,14 @@
                                 <div class="login-form">
                                     <form action="#" method="post">
                                         <p>Seller type:</p>
-                                        <input type="radio" id="individual" name="seller_type" value="individual" checked>
-                                        <label for="individual">Individual</label>
-                                        <input type="radio" id="bussiness" name="seller_type" value="bussiness">
-                                        <label for="bussiness">Registered bussiness</label>
+                                        <div class="row">
+                                            <input class="col-1" type="radio" id="individual" name="seller_type" value="individual" checked>
+                                            <label class="col-11" for="individual">Individual</label>
+                                        </div>
+                                        <div class="row">
+                                            <input class="col-1" type="radio" id="bussiness" name="seller_type" value="bussiness">
+                                            <label class="col-11" for="bussiness">Registered bussiness</label>
+                                        </div>
                                         <input type="text" name="user-name" placeholder="User name*" required>
                                         <input type="text" name="shop-name" placeholder="Shop name*" required>
                                         <input type="password" name="user-password" placeholder="Password*" required>
