@@ -6923,6 +6923,16 @@ p.checkout-coupon input[type="submit"] {
     text-transform: uppercase;
     width: 100%;
 }
+
+.login-form h3 {
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 25px;
+    margin: 0 0 20px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    width: 100%;
+}
+
 .select-list {
     margin-bottom: 30px;
     position: relative;
@@ -7094,6 +7104,26 @@ p.checkout-coupon input[type="submit"] {
     cursor: pointer;
 }
 .order-button-payment input:hover {
+    background: #050035;
+    border: 1px solid #050035;
+    color: #fff;
+}
+.add-product-button input {
+    background: #464646 none repeat scroll 0 0;
+    border: medium none;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    height: 50px;
+    margin: 20px 0 0;
+    padding: 0;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+    width: 100%;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+.add-product-button input:hover {
     background: #050035;
     border: 1px solid #050035;
     color: #fff;
