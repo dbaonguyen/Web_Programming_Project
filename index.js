@@ -37,20 +37,23 @@ app.get('/kid', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login')
 });
+
 app.get('/men', (req, res) => {
     res.render('men-t-shirts')
 });
+
 app.get('/product-details', (req, res) => {
     res.render('product-details')
 });
+
 app.get('/register', (req, res) => {
-    res.render('register-cus')
+    res.render('register_cus')
 });
 app.get('/register-ship', (req, res) => {
-    res.render('register-ship')
+    res.render('register_ship')
 });
 app.get('/register-ven', (req, res) => {
-    res.render('register-ven')
+    res.render('register_ven')
 });
 app.get('/shipper', (req, res) => {
     res.render('shipper-page')
