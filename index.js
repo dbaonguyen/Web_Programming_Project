@@ -1,71 +1,96 @@
-const express = require('express');
+const express = require("express");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
+const session = require("express-session");
+const passport = require("passport");
 
-app.set('view engine','ejs');
+const AuthRoute = require('./routes/auth')
 
-app.use(express.static('public'));
-
-app.get('/', (req, res) => {
-    res.render('index')
-});
-
-app.get('/cart', (req, res) => {
-    res.render('cart')
-});
-app.get('/add-product', (req, res) => {
-    res.render('add-product')
-});
-app.get('/checkout', (req, res) => {
-    res.render('checkout')
-});
-app.get('/complain', (req, res) => {
-    res.render('footer-complain')
-});
-app.get('/contact', (req, res) => {
-    res.render('footer-contact')
-});
-app.get('/privacy', (req, res) => {
-    res.render('footer-privacy')
-});
-app.get('/property', (req, res) => {
-    res.render('footer-property')
-});
-app.get('/kid', (req, res) => {
-    res.render('kid-bags')
-});
-app.get('/login', (req, res) => {
-    res.render('login')
-});
-
-app.get('/men', (req, res) => {
-    res.render('men-t-shirts')
-});
-
-app.get('/product-details', (req, res) => {
-    res.render('product-details')
-});
-
-app.get('/register', (req, res) => {
-    res.render('register_cus')
-});
-app.get('/register-ship', (req, res) => {
-    res.render('register_ship')
-});
-app.get('/register-ven', (req, res) => {
-    res.render('register_ven')
-});
-app.get('/shipper', (req, res) => {
-    res.render('shipper-page')
-});
-app.get('/vendor', (req, res) => {
-    res.render('vendor-page')
-});
-app.get('/women', (req, res) => {
-    res.render('women-sweaters')
-});
+mongoose
+  .connect(
+    "mongodb+srv://baond39:bao123@cluster0.jeatohh.mongodb.net/?retryWrites=true&w=majority"
+  )
+  .then(() => console.log("Connected to mongo"))
+  .catch((error) => console.log(error.message));
 
 
-app.listen(port, () => {
-    console.log(`Server listening on http://localhost:3000/`)
+dotenv.config();
+const PORT = process.env.PORT || 3000;
+
+app.set("view engine", "ejs");
+
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
+
+
+app.get("/", (req, res) => {
+  res.render("index");
 });
+
+app.get("/cart", (req, res) => {
+  res.render("cart");
+});
+app.get("/add-product", (req, res) => {
+  res.render("add-product");
+});
+app.get("/checkout", (req, res) => {
+  res.render("checkout");
+});
+app.get("/complain", (req, res) => {
+  res.render("footer-complain");
+});
+app.get("/contact", (req, res) => {
+  res.render("footer-contact");
+});
+app.get("/privacy", (req, res) => {
+  res.render("footer-privacy");
+});
+app.get("/property", (req, res) => {
+  res.render("footer-property");
+});
+app.get("/kid", (req, res) => {
+  res.render("kid-bags");
+});
+
+// app.get("/login", (req, res) => {
+//   res.render("login");
+// });
+
+// app.get("/register", (req, res) => {
+//   res.render("register_cus");
+// });
+
+app.get("/men", (req, res) => {
+  res.render("men-t-shirts");
+});
+
+app.get("/product-details", (req, res) => {
+  res.render("product-details");
+});
+
+app.get("/register-ship", (req, res) => {
+  res.render("register_ship");
+});
+app.get("/register-ven", (req, res) => {
+  res.render("register_ven");
+});
+app.get("/shipper", (req, res) => {
+  res.render("shipper-page");
+});
+app.get("/vendor", (req, res) => {
+  res.render("vendor-page");
+});
+app.get("/women", (req, res) => {
+  res.render("women-sweaters");
+});
+
+app.use('/api',AuthRoute);
+
+app.listen(PORT, () => {
+  console.log(`Server listening at port ${PORT}`);
+});
+
+
+
