@@ -100,6 +100,7 @@ app.get("/women", (req, res) => {
 });
 
 app.use('/api', AuthRoute);
+app.use('/product', productRoute);
 
 app.listen(PORT, console.log("Server start for port: " + PORT));
 
