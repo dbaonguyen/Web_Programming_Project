@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const config = require('./startup/config');
 const winston = require('winston');
 const err = require('./middleware/errors');
+const productRoute = require('./routes/product');
 const session = require("express-session");
 const passport = require("passport");
 const app = express();
@@ -38,7 +39,7 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
-app.use(productRoutes.routes);
+app.use(productRoute.routes);
 app.use(err);
 
 app.get("/", (req, res) => {
