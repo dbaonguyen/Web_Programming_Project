@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const config = require('./startup/config');
 const winston = require('winston');
 const err = require('./middleware/errors');
-const customerRoutes = require('./routes/customer-routes');
 const session = require("express-session");
 const passport = require("passport");
 const productRoute = require("./routes/product");
@@ -19,11 +18,6 @@ const AuthRoute = require('./routes/auth')
 require('./startup/db')();
 require('./startup/logging')();
 require('./startup/validations')();
-
-app.use(express.urlencoded({extended: true}));
-app.use(cors());
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose
   .connect(
@@ -45,6 +39,8 @@ app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
+app.use(productRoutes.routes);
+app.use(err);
 
 app.get("/", (req, res) => {
   res.render("index");
