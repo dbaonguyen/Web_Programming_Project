@@ -1,12 +1,28 @@
 const express = require("express");
+const cors = require('cors');
+const path = require('path');
+const expressLayoutes = require('express-ejs-layouts');
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
-const app = express();
+const config = require('./startup/config');
+const winston = require('winston');
+const err = require('./middleware/errors');
+const customerRoutes = require('./routes/customer-routes');
 const session = require("express-session");
 const passport = require("passport");
+const app = express();
 
 const AuthRoute = require('./routes/auth')
+
+require('./startup/db')();
+require('./startup/logging')();
+require('./startup/validations')();
+
+app.use(express.urlencoded({extended: true}));
+app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 mongoose
   .connect(
@@ -19,11 +35,14 @@ mongoose
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
+app.use(expressLayoutes);
 app.set("view engine", "ejs");
 
-app.use(express.static("public"));
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(express.urlencoded({extended: true}));
+app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
 
 
 app.get("/", (req, res) => {
@@ -89,9 +108,7 @@ app.get("/women", (req, res) => {
 
 app.use('/api',AuthRoute);
 
-app.listen(PORT, () => {
-  console.log(`Server listening at port ${PORT}`);
-});
+app.listen(config.port, () => winston.info(`Server listening at url https://localhost:` + config.port));
 
 
 
