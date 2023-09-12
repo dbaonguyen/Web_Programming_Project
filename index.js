@@ -34,6 +34,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
+
 // app.use(productRoute.routes);
 // app.use(err);
 
