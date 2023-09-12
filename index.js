@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require('cors');
 const path = require('path');
-const expressLayoutes = require('express-ejs-layouts');
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
@@ -25,8 +24,6 @@ mongoose
 
 dotenv.config();
 
-
-app.use(expressLayoutes);
 app.set("view engine", "ejs");
 
 app.use(express.urlencoded({extended: true}));
