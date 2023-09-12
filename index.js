@@ -11,6 +11,7 @@ const err = require('./middleware/errors');
 const customerRoutes = require('./routes/customer-routes');
 const session = require("express-session");
 const passport = require("passport");
+const productRoute = require("./routes/product");
 const app = express();
 
 const AuthRoute = require('./routes/auth')
