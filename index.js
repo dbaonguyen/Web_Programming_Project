@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require('cors');
 const path = require('path');
-const expressLayoutes = require('express-ejs-layouts');
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
@@ -24,9 +23,13 @@ mongoose
 
 
 dotenv.config();
+<<<<<<< HEAD
 app.use('/', require('./routes/login'));
 
 app.use(expressLayoutes);
+=======
+
+>>>>>>> e24642dfdade98e1bc60367cc16c982b5774b1aa
 app.set("view engine", "ejs");
 
 // app.use(express.urlencoded({extended: true}));
@@ -100,6 +103,11 @@ app.get("/women", (req, res) => {
   res.render("women-sweaters");
 });
 
+<<<<<<< HEAD
+=======
+app.use('/api', AuthRoute);
+app.use('/product', productRoute);
+>>>>>>> e24642dfdade98e1bc60367cc16c982b5774b1aa
 
 app.listen(PORT, console.log("Server start for port: " + PORT));
 
