@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const config = require('./startup/config');
 const winston = require('winston');
 const err = require('./middleware/errors');
-const customerRoutes = require('./routes/customer-routes');
 const session = require("express-session");
 const passport = require("passport");
 const app = express();
