@@ -37,6 +37,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(productRoutes.routes);
 app.use(err);

@@ -9,21 +9,26 @@ const register = (req, res, next) => {
                 error:err
             })
         }
-    })
-
-    let customer = new Customer({
-        username : req.body.username,
-        password : hashedPass,
-        address: req.body.address,
-        email: req.body.email,
-        phone: req.body.phone
-    
-    })
-    customer.save().then(customer =>{
-        res.json({
-            message : 'An error occured!'
+        let customer = new Customer({
+            username : req.body.username,
+            password : hashedPass,
+            address: req.body.address,
+            email: req.body.email,
+            phone: req.body.phone
+        
+        })
+        customer.save().then(customer =>{
+            res.json({
+                message : 'User Added Successfully!'
+            })
+        }).catch(error => {
+            res.json({
+                message: 'An Error occured'
+            })
         })
     })
+
+   
     
 }
 
