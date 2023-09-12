@@ -28,7 +28,15 @@ const productController = {
           res.status(500).json(err);
         }
     },
-};    
-
-
-module.exports = productController; 
+    deleteProduct: async (req, res,) =>{
+      try {
+        const id = req.params.id;
+        const product = await Product.findByIdAndRemove(id);
+        if(!product) return res.status(404).send('Product with the given id not found');
+        res.redirect('/');        
+    } catch (err) {
+        res.status(500).send(err);
+    }
+  },
+}
+module.exports = productController;
