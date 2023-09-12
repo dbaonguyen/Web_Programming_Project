@@ -19,11 +19,6 @@ require('./startup/db')();
 require('./startup/logging')();
 require('./startup/validations')();
 
-app.use(express.urlencoded({extended: true}));
-app.use(cors());
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')));
-
 mongoose
   .connect(
     "mongodb+srv://baond39:bao123@cluster0.jeatohh.mongodb.net/?retryWrites=true&w=majority"
@@ -43,6 +38,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
+app.use(productRoutes.routes);
+app.use(err);
 
 app.get("/", (req, res) => {
   res.render("index");

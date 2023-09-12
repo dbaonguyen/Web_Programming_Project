@@ -34,4 +34,4 @@ const validateProduct = (product) => {
 
 
 module.exports.Product = Product;
-module.exports.validate = validateProduct;
+module.exports.validate = validatePr;
