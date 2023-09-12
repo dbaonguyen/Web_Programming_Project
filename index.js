@@ -6,13 +6,13 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const err = require('./middleware/errors');
-const productRoute = require('./routes/product');
+// const productRoute = require('./routes/product');
 const session = require("express-session");
 const passport = require("passport");
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-const AuthRoute = require('./routes/auth')
+const AuthRoute = require('./routes/login')
 
 
 mongoose
@@ -24,15 +24,16 @@ mongoose
 
 
 dotenv.config();
-
+app.use('/', require('./routes/login'));
 
 app.use(expressLayoutes);
 app.set("view engine", "ejs");
 
-app.use(express.urlencoded({extended: true}));
+// app.use(express.urlencoded({extended: true}));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public"));
+app.use(express.urlencoded({extended: false}));
 
 
 // app.use(productRoute.routes);
@@ -99,7 +100,6 @@ app.get("/women", (req, res) => {
   res.render("women-sweaters");
 });
 
-app.use('/api', AuthRoute);
 
 app.listen(PORT, console.log("Server start for port: " + PORT));
 
