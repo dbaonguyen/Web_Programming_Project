@@ -5,19 +5,15 @@ const expressLayoutes = require('express-ejs-layouts');
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
-const config = require('./startup/config');
-const winston = require('winston');
 const err = require('./middleware/errors');
 const productRoute = require('./routes/product');
 const session = require("express-session");
 const passport = require("passport");
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 const AuthRoute = require('./routes/auth')
 
-require('./startup/db')();
-require('./startup/logging')();
-require('./startup/validations')();
 
 mongoose
   .connect(
@@ -28,7 +24,7 @@ mongoose
 
 
 dotenv.config();
-const PORT = process.env.PORT || 3000;
+
 
 app.use(expressLayoutes);
 app.set("view engine", "ejs");
@@ -37,10 +33,9 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended: false }));
 
-app.use(productRoute.routes);
-app.use(err);
+// app.use(productRoute.routes);
+// app.use(err);
 
 app.get("/", (req, res) => {
   res.render("index");
@@ -103,9 +98,9 @@ app.get("/women", (req, res) => {
   res.render("women-sweaters");
 });
 
-app.use('/api',AuthRoute);
+app.use('/api', AuthRoute);
 
-app.listen(config.port, () => winston.info(`Server listening at url https://localhost:` + config.port));
+app.listen(PORT, console.log("Server start for port: " + PORT));
 
 
 

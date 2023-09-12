@@ -1,34 +1,40 @@
-const Customer =  require('../model/Customer');
+const Customer = require('../model/Customer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const register = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10, function(err,hashedPass) {
-        if (err){
-            res.json({
-                error:err
-            })
-        }
-    })
-
     let customer = new Customer({
-        username : req.body.username,
-        password : hashedPass,
+        username: req.body.username,
         address: req.body.address,
         email: req.body.email,
-        phone: req.body.phone
-    
-    })
-    customer.save().then(customer =>{
-        res.json({
-            message : 'An error occured!'
-        })
-    })
-    
-}
+        phone: req.body.phone,
+    });
 
+    bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
+        if (err) {
+            res.json({
+                error: err,
+            });
+        } else {
+            customer.password = hashedPass; // Set the hashed password
 
+            customer.save()
+                .then((savedCustomer) => {
+                    res.json({
+                        message: 'Customer registered successfully!',
+                        customer: savedCustomer,
+                    });
+                })
+                .catch((error) => {
+                    res.json({
+                        message: 'An error occurred during registration!',
+                        error: error,
+                    });
+                });
+        }
+    });
+};
 
 module.exports = {
-    register
-}
+    register,
+};
