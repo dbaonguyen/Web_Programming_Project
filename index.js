@@ -25,7 +25,11 @@ if (process.env.NODE_ENV !== 'production'){
 
 
 
-initializePassport(passport,username => Customer.find(user => user.username === username))
+initializePassport(passport, 
+  async (username) => await Customer.findOne({ username: username }),
+  async (id) => await Customer.findOne({ _id: id })
+);
+
 
 app.use(express.static(path.join(__dirname + '../public')));
 
@@ -94,6 +98,13 @@ app.post("/register", async (req, res) => {
   }
 });
 
+app.post("/login",passport.authenticate("local",{
+  successRedirect:"/",
+  failureRedirect:"/login",
+  failureFlash:true
+}));
+
+
 // app.post("/login", async (req, res) => {
 //   try {
 //     const check = await Customer.findOne({ username: req.body.username });
@@ -114,11 +125,6 @@ app.post("/register", async (req, res) => {
 //   }
 // });
 
-app.post("/login",passport.authenticate("local",{
-  successRedirect:"/",
-  failureRedirect:"/login",
-  failureFlash:true
-}))
 
 
 app.get("/cart", (req, res) => {
