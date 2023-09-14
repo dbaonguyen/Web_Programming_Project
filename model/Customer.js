@@ -10,15 +10,15 @@ const customerSchema = new Schema({
         type: String
 
     },
-    // address : {
-    //     type : String
-    // },
+    address : {
+        type : String
+    },
     email : {
         type : String
     },
-    // phone : {
-    //     type : String
-    // }
+    phone : {
+        type : String
+    }
 }); ({timestamps : true})
 
 const Customer = mongoose.model('Customer',customerSchema);
