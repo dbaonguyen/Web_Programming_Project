@@ -7,10 +7,12 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const err = require('./middleware/errors');
+const morgan = require("morgan")
 // const productRoute = require('./routes/product');
 const session = require("express-session");
 const passport = require("passport");
 const Customer = require('./model/Customer');
+const productRoute = require("./routes/product");
 const LocalStrategy = require("passport-local");
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -35,9 +37,10 @@ app.set("view engine", "ejs");
 
 app.use(express.urlencoded({extended: false}));
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit:"50mb"}));
 app.use(express.static("public"));
-
+app.use(morgan("common"));
+app.use("/product", productRoute);
 
 app.get('/login', (req,res) => {
   res.render("login")
