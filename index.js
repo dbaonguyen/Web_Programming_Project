@@ -14,9 +14,18 @@ const passport = require("passport");
 const Customer = require('./model/Customer');
 const productRoute = require("./routes/product");
 const LocalStrategy = require("passport-local");
+const flash = require('express-flash');
 const PORT = process.env.PORT || 3000;
 const app = express();
-// const initializePassport = require('./middleware/passport-config')
+const initializePassport = require('./middleware/passport-config')
+if (process.env.NODE_ENV !== 'production'){
+  require('dotenv').config()
+}
+
+
+
+
+initializePassport(passport,username => Customer.find(user => user.username === username))
 
 app.use(express.static(path.join(__dirname + '../public')));
 
@@ -41,6 +50,16 @@ app.use(bodyParser.json({limit:"50mb"}));
 app.use(express.static("public"));
 app.use(morgan("common"));
 app.use("/product", productRoute);
+app.use(flash());
+app.use(session({
+  secret:process.env.SESSION_SECRET,
+  resave:false,
+  saveUninitialized:false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+
+
 
 app.get('/login', (req,res) => {
   res.render("login")
@@ -75,25 +94,31 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post("/login", async (req, res) => {
-  try {
-    const check = await Customer.findOne({ username: req.body.username });
+// app.post("/login", async (req, res) => {
+//   try {
+//     const check = await Customer.findOne({ username: req.body.username });
 
-    if (check) {
-      const passwordMatch = await bcrypt.compare(req.body.password, check.password);
-      if (passwordMatch) {
-        res.render('index');
-      } else {
-        res.send("Wrong password");
-      }
-    } else {
-      res.send("User not found");
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
+//     if (check) {
+//       const passwordMatch = await bcrypt.compare(req.body.password, check.password);
+//       if (passwordMatch) {
+//         res.render('index');
+//       } else {
+//         res.send("Wrong password");
+//       }
+//     } else {
+//       res.send("User not found");
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
+
+app.post("/login",passport.authenticate("local",{
+  successRedirect:"/",
+  failureRedirect:"/login",
+  failureFlash:true
+}))
 
 
 app.get("/cart", (req, res) => {
