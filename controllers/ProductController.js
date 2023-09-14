@@ -42,8 +42,10 @@ const productController = {
     // delete Product
     deleteProduct: async(req,res) =>{
         try{
-            await Product.findByIdAndDelete(req.params.id);
-            res.status(200).json("Deleted Successfully")
+            const product = await Product.findByIdAndDelete(req.params.id);
+            if(!product) return res.status(404).send('Customer with the given id not found');
+            res.redirect('/');
+            res.status(200).json("Deleted Successfully");
         }catch(err) {
             res.status(500).json(err);
         }
