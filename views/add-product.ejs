@@ -7,64 +7,26 @@
                             <div class="login-form-container">
                                 <div class="login-form">
                                     <h3>Add Product</h3>
-                                    <form action="#" method="post">
+                                    <form action="/product" method="post">
                                         <div class="col-md-12">
                                             <div class="checkout-form-list">
-                                                <label>Product Name <span class="required">*</span></label>										
-                                                <input type="text" placeholder="Please enter the product names" />
+                                                <label for="name">Product Name <span class="required">*</span></label>										
+                                                <input type="text" id="name" name="name" placeholder="Please enter the product names" />
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="checkout-form-list">
-                                                <label>Product Description <span class="required">*</span></label>										
-                                                <input type="text" placeholder="Please enter the product description" />
+                                                <label for="price">Price <span class="required">*</span></label>										
+                                                <input type="text" id="price" name="price" placeholder="Please enter the product price" />
                                             </div>
                                             <div class="checkout-form-list">
-                                                <label>Brand </label>										
-                                                <input type="text" placeholder="Please enter the brand" />
-                                                </div>
-                                                <div class="checkout-form-list">
-                                                    <label>Color <span class="required">*</span></label>
-                                                </div>
-                                                <div class="sidebar-widget sidebar-overflow mb-45">
-                                                    <div class="product-color">
-                                                        <ul>
-                                                            <li class="red">b</li>
-                                                            <li class="pink">p</li>
-                                                            <li class="blue">b</li>
-                                                            <li class="sky">b</li>
-                                                            <li class="green">y</li>
-                                                            <li class="purple">g</li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                                <div class="col-md-12">
-                                                    <div class="checkout-form-list">
-                                                        <label>Size <span class="required">*</span></label>
-                                                    </div>
-                                                    <div class="sidebar-widget mb-40">
-                                                        <div class="product-size">
-                                                            <ul>
-                                                                <li><a href="#">xl</a></li>
-                                                                <li><a href="#">m</a></li>
-                                                                <li><a href="#">l</a></li>
-                                                                <li><a href="#">ml</a></li>
-                                                                <li><a href="#">lm</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="checkout-form-list">
-                                                        <label>Quantity <span class="required">*</span></label>
-                                                        <input type="text" placeholder="Please enter the quantity" />
-                                                    </div>
-                                                    <div class="add-product-button">
-                                                        <input type="submit" value="Proceed To Add Product" />
-                                                    </div>			
+                                                <label for="description">Product Description <span class="required">*</span></label>										
+                                                <input type="text" id="description"  name="description" placeholder="Please enter the product description" />
+                                            </div>                                                   
+                                            <div class="add-product-button">
+                                                    <input type="submit" value="Proceed To Add Product" />
+                                            </div>			
                                         </div>
-                                    </div>
                                 </form>
                             </div>
                         </div>
