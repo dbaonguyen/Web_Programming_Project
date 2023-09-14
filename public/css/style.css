@@ -132,7 +132,6 @@
 .logo {
     padding-left: 100px;
 }
-
 .language {
     padding-left: 50px;
 }
@@ -1185,7 +1184,7 @@
 
 /* 2.12 Footer style */
 
-/* .footer-widget {
+.footer-widget {
     position: relative;
     z-index: 9;
 }
@@ -1318,7 +1317,7 @@
     margin-right: 5px;
     position: relative;
     top: 2px;
-} */
+}
 
 /* 3.2 Menu style of book */
 
@@ -4439,16 +4438,6 @@ a.icon-cart-furniture span.green {
     padding-right: 60px;
     width: 630px;
 }
-
-.role-choice{
-    display: flex;
-    padding-left: 12%;
-}
-
-.row > .col-11{
-    display: flex;
-    padding-top: 10px;
-}
 .subscribe-form-4 form input::-moz-placeholder,
 .furniture-search form input::-moz-placeholder {
     color: #999;
@@ -6512,23 +6501,22 @@ a.icon-cart-furniture.food-cart span {
 
 /*------- 12. Breadcrumb style -------------*/
 .breadcrumb-content h2 {
-    color: #000;
+    color: #fff;
     font-size: 40px;
     font-weight: bold;
     margin-bottom: 16px;
     text-transform: capitalize;
 }
 .breadcrumb-content li {
-    color: #000;
+    color: #fff;
     display: inline-block;
     font-weight: 600;
     text-transform: uppercase;
-    padding-left: 10px;
 }
 .breadcrumb-content li a {
-    color: #000;
+    color: #fff;
     position: relative;
-    padding-right: 7px;
+    padding-right: 18px;
 }
 .breadcrumb-content li a:hover {
     color: #ccc;
@@ -6627,9 +6615,6 @@ h1.cart-heading {
     font-size: 25px;
     margin-bottom: 25px;
     text-transform: uppercase;
-}
-.cart-heading2{
-    margin-bottom: 25px;
 }
 .cart-title-area {
     padding-top: 30px;
@@ -6923,37 +6908,36 @@ p.checkout-coupon input[type="submit"] {
     text-transform: uppercase;
     width: 100%;
 }
-
-.login-form h3 {
-    border-bottom: 1px solid #e5e5e5;
-    font-size: 25px;
-    margin: 0 0 20px;
-    padding-bottom: 10px;
-    text-transform: uppercase;
-    width: 100%;
-}
-
-.select-list {
+.country-select {
     margin-bottom: 30px;
     position: relative;
 }
-.select-list label,
+.country-select label,
 .checkout-form-list label {
     color: #333;
     margin: 0 0 5px;
     display: block;
 }
-.select-list label span.required,
+.country-select label span.required,
 .checkout-form-list label span.required {
     color: red;
 }
-.select-list select {
+.country-select select {
     -moz-appearance: none;
     border: 1px solid #ddd;
     height: 32px;
     padding-left: 10px;
     width: 100%;
     background-color: transparent;
+}
+.country-select::before {
+    content: "";
+    display: inline-block;
+    font-family: "Pe-icon-7-stroke";
+    font-size: 26px;
+    position: absolute;
+    right: 12px;
+    top: 23px;
 }
 .checkout-form-list {
     margin-bottom: 30px;
@@ -7104,26 +7088,6 @@ p.checkout-coupon input[type="submit"] {
     cursor: pointer;
 }
 .order-button-payment input:hover {
-    background: #050035;
-    border: 1px solid #050035;
-    color: #fff;
-}
-.add-product-button input {
-    background: #464646 none repeat scroll 0 0;
-    border: medium none;
-    color: #fff;
-    font-size: 17px;
-    font-weight: 600;
-    height: 50px;
-    margin: 20px 0 0;
-    padding: 0;
-    text-transform: uppercase;
-    transition: all 0.3s ease 0s;
-    width: 100%;
-    border: 1px solid transparent;
-    cursor: pointer;
-}
-.add-product-button input:hover {
     background: #050035;
     border: 1px solid #050035;
     color: #fff;
@@ -9624,12 +9588,6 @@ input.cart-plus-minus-box {
 .modal-content .close:hover {
     color: #050035;
 }
-
-.footer-padding {
-    padding-top: 150px;
-    padding-bottom: 100px
-}
-
 @media only screen and (min-width: 1200px) and (max-width: 1600px) {
     .footer-padding {
         padding-top: 150px;
