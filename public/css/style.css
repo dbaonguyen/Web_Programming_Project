@@ -1185,7 +1185,7 @@
 
 /* 2.12 Footer style */
 
-.footer-widget {
+/* .footer-widget {
     position: relative;
     z-index: 9;
 }
@@ -1318,7 +1318,7 @@
     margin-right: 5px;
     position: relative;
     top: 2px;
-}
+} */
 
 /* 3.2 Menu style of book */
 
@@ -9623,4 +9623,270 @@ input.cart-plus-minus-box {
 }
 .modal-content .close:hover {
     color: #050035;
+}
+
+.footer-padding {
+    padding-top: 150px;
+    padding-bottom: 100px
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1600px) {
+    .footer-padding {
+        padding-top: 150px;
+        padding-bottom: 100px
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .footer-padding {
+        padding-top: 50px;
+        padding-bottom: 50px
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .footer-padding {
+        padding-top: 50px;
+        padding-bottom: 50px
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .footer-padding {
+        padding-top: 50px;
+        padding-bottom: 50px
+    }
+}
+
+@media (max-width: 767px) {
+    .footer-padding {
+        padding-top: 50px;
+        padding-bottom: 50px
+    }
+}
+
+.footer-padding2 {
+    padding-top: 100px;
+    padding-bottom: 100px
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1600px) {
+    .footer-padding2 {
+        padding-top: 100px;
+        padding-bottom: 100px
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .footer-padding2 {
+        padding-top: 0px;
+        padding-bottom: 50px
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .footer-padding2 {
+        padding-top: 0px;
+        padding-bottom: 50px
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .footer-padding2 {
+        padding-top: 0px;
+        padding-bottom: 50px
+    }
+}
+
+@media (max-width: 767px) {
+    .footer-padding2 {
+        padding-top: 0px;
+        padding-bottom: 50px
+    }
+}
+
+.footer-padding3 {
+    padding-bottom: 100px
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1600px) {
+    .footer-padding3 {
+        padding-bottom: 100px
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .footer-padding3 {
+        padding-bottom: 50px
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .footer-padding3 {
+        padding-bottom: 50px
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .footer-padding3 {
+        padding-bottom: 50px
+    }
+}
+
+@media (max-width: 767px) {
+    .footer-padding3 {
+        padding-bottom: 50px
+    }
+}
+
+
+.footer-area .footer-logo {
+    margin-bottom: 30px
+}
+
+.footer-area .footer-pera .info1 {
+    margin-bottom: 10px;
+    line-height: 1.8
+}
+
+.footer-area .footer-pera .info2 {
+    margin-bottom: 5px;
+    line-height: 1.6;
+    padding-right: 15px;
+}
+
+.footer-area .footer-pera.footer-pera2 p {
+    padding: 0
+}
+
+.footer-area .footer-tittle h4 {
+    color: #000;
+    font-size: 18px;
+    margin-bottom: 48px;
+    font-weight: 700
+}
+
+.footer-area .footer-tittle ul li {
+    color: #012f5f;
+    margin-bottom: 15px
+}
+
+.footer-area .footer-tittle ul li a {
+    color: #868c98;
+    font-weight: 300
+}
+
+.footer-area .footer-tittle ul li a:hover {
+    color: #fe0000;
+    padding-left: 5px
+}
+
+.alert-success {
+    padding: 10px 20px;
+}
+
+.footer-area .footer-form {
+    margin-top: 30px
+}
+
+.footer-area .footer-form form {
+    position: relative
+}
+
+.footer-area .footer-form form input {
+    width: 100%;
+    height: 43px;
+    padding: 10px 20px;
+    border: 1px solid #fff;
+    background: #f9f9fe
+}
+
+.footer-area .footer-form form .form-icon button {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 11px 22px;
+    background: #f44344;
+    line-height: 1
+}
+
+.footer-area .info.error {
+    color: #f44344
+}
+
+.footer-area .footer-copy-right {
+    padding-top: 20px
+}
+
+@media (max-width: 767px) {
+    .footer-area .footer-copy-right {
+        padding-top: 0px
+    }
+}
+
+.footer-area .footer-copy-right p {
+    color: #888888;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 2;
+    margin-bottom: 12px
+}
+
+.footer-area .footer-copy-right p i {
+    color: #f9218d
+}
+
+.footer-area .footer-copy-right p a {
+    color: #f9218d
+}
+
+.footer-area .footer-copy-right p a:hover {
+    color: #8f1bdc
+}
+
+footer ul, header ul {
+    margin: 0px;
+    padding: 0px
+}
+
+footer li, header li {
+    list-style: none
+}
+
+.footer-area .footer-tittle ul li a:hover {
+    color: #fe0000;
+    padding-left: 5px
+}
+
+a, .button {
+    -webkit-transition: all .3s ease-out 0s;
+    -moz-transition: all .3s ease-out 0s;
+    -ms-transition: all .3s ease-out 0s;
+    -o-transition: all .3s ease-out 0s;
+    transition: all .3s ease-out 0s
+}
+
+a:focus, .button:focus {
+    text-decoration: none;
+    outline: none
+}
+
+a {
+    color: #635c5c
+}
+
+a:hover {
+    color: #fff
+}
+
+a:focus, a:hover {
+    text-decoration: none
+}
+
+a, button {
+    color: #fff;
+    outline: medium none
 }
