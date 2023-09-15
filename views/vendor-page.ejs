@@ -1,5 +1,43 @@
 <%- include ('partials/header') %>
-        <div class="container-fluid">
+<main id="site-main">
+    <div class="container">
+        <div class="box-nav d-flex justify-between">
+            <a href="/add-product" class="border-shadow">
+                <span class="text-gradient">New Product <i class="ti-user"></i></span>
+            </a>
+        </div>
+
+        <!-- form handling -->
+        <form action="/" method="POST">
+            <table class="product-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Product Description</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>T-shirt</td>
+                        <td>Men T-shirt</td>
+                        <td>$9.99</td>
+                        <td>
+                        <a href="#" class="btn border-shadow update">
+                            <span class="text-gradient"><i class="ti-pencil"></i></span>
+                        </a>
+                        <a href="#" class="btn border-shadow delete">
+                            <span class="text-gradient"><i class="ti-close"></i></span>
+                        </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</main>
+        <!-- <div class="container-fluid">
             <div class="breadcrumb-content text-center">
                 <h2>Sweaters</h2>
                 <ul>
@@ -513,5 +551,5 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 <%- include ('partials/footer') %>

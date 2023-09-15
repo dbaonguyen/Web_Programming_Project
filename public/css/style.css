@@ -118,7 +118,7 @@
     
 -----------------------------------------------------------------------------------*/
 
-
+@import url('https://fonts.googleapis.com/css2?family=Barlow&family=PT+Sans&display=swap');
 /* 2. index page */
 /* 2.1 Header sidebar */
 .header-left-sidebar {
@@ -2833,7 +2833,64 @@ a.banner-book-style-btn:hover {
 }
 
 /* 4.5 Product style of electronics */
+.#site-main{
+    margin-top: 6em;
+    font-family: 'Barlow', sans-serif;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#site-main .container .box-nav > a{
+    font-size: 1em;
+    padding: .5em 1em;
+}
 
+#site-main .container form{
+    margin: 2em 0;
+}
+
+.d-flex{
+    display: flex;
+    flex-wrap: wrap;
+}
+.justify-between{
+    justify-content: space-between;
+}
+.border-shadow{
+    border: 1px solid var(--border-btn);
+    box-shadow: 1px 3px 10px #e9ecef;
+}
+.text-gradient{
+    background: linear-gradient(to right, #8e2de2, #4a00e0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.product-table{
+    border-spacing: 0px;
+    width: 100%;
+}
+
+.product-table td, .product-table th{
+    padding: .75em;
+    vertical-align: top;
+    text-align: center;
+    border-top: 1px solid var(--border);
+}
+
+.product-table td > a.btn{
+    padding: .3em 1em;
+    font-size: 1.1em;
+    margin: 0 .2em;
+}
+
+.product-table .thead-dark th{
+    color: #fff;
+    background-color: var(--dark) ;
+    border-color: #32383e;
+}
 .product-tab-list3 {
     display: flex;
     justify-content: center;
