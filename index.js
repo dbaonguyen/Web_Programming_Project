@@ -2,18 +2,17 @@ const express = require("express");
 const cors = require('cors');
 const path = require('path');
 const bcrypt = require('bcrypt');
-// const expressLayoutes = require('express-ejs-layouts');
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const err = require('./middleware/errors');
 const morgan = require("morgan")
-// const productRoute = require('./routes/product');
 const session = require("express-session");
 const passport = require("passport");
 const Customer = require('./model/Customer');
 const productRoute = require("./routes/product");
 const LocalStrategy = require("passport-local");
+const methodOverride = require('method-override');
 const flash = require('express-flash');
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -62,22 +61,29 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(methodOverride("_method"))
 
+app.get("/", checkAuthenticated,(req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("index",{name}) 
+});
 
-
-app.get('/login', (req,res) => {
+app.get('/login', checkNotAuthenticated, (req,res) => {
   res.render("login")
 })
 
-app.get("/", (req, res) => {
-  res.render("index")
-});
-
-app.get("/register", (req,res) =>{
+app.get("/register", checkNotAuthenticated, (req,res) =>{
   res.render('register')
 })
 
-app.post("/register", async (req, res) => {
+app.delete("/logout", (req,res)=>{
+    req.logout(req.user, err =>{
+      if (err) return next()
+      res.redirect("/")
+    })
+})
+
+app.post("/register", checkNotAuthenticated, async (req, res) => {
   try {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
@@ -98,33 +104,25 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.post("/login",passport.authenticate("local",{
+app.post("/login",checkNotAuthenticated,passport.authenticate("local",{
   successRedirect:"/",
   failureRedirect:"/login",
   failureFlash:true
 }));
 
+function checkAuthenticated(req,res,next){
+  if (req.isAuthenticated()){
+    return next()
+  }
+  res.redirect("/login")
+}
 
-// app.post("/login", async (req, res) => {
-//   try {
-//     const check = await Customer.findOne({ username: req.body.username });
-
-//     if (check) {
-//       const passwordMatch = await bcrypt.compare(req.body.password, check.password);
-//       if (passwordMatch) {
-//         res.render('index');
-//       } else {
-//         res.send("Wrong password");
-//       }
-//     } else {
-//       res.send("User not found");
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send("Internal Server Error");
-//   }
-// });
-
+function checkNotAuthenticated(req,res,next){
+  if (req.isAuthenticated()){
+    return res.redirect("/")
+  }
+  next()
+}
 
 
 app.get("/cart", (req, res) => {
