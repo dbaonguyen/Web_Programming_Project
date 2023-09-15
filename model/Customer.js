@@ -18,6 +18,9 @@ const customerSchema = new Schema({
     },
     phone : {
         type : String
+    },
+    pfp: {
+        type: String 
     }
 }); ({timestamps : true})
 

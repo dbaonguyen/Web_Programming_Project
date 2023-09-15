@@ -6561,6 +6561,26 @@ p.checkout-coupon input[type="submit"] {
     border: 1px solid #050035;
     color: #fff;
 }
+.add-product-button input {
+    background: #464646 none repeat scroll 0 0;
+    border: medium none;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    height: 50px;
+    margin: 20px 0 0;
+    padding: 0;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+    width: 100%;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+.add-product-button input:hover {
+    background: #050035;
+    border: 1px solid #050035;
+    color: #fff;
+}
 .coupon-info p.form-row input[type="submit"] {
     background: #252525 none repeat scroll 0 0;
     border: medium none;
