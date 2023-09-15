@@ -2833,6 +2833,12 @@ a.banner-book-style-btn:hover {
 }
 
 /* 4.5 Product style of electronics */
+.text-dark{
+    color: var(--dark);
+}
+.text-light{
+    color: red;
+}
 .#site-main{
     margin-top: 6em;
     font-family: 'Barlow', sans-serif;
@@ -2891,6 +2897,7 @@ a.banner-book-style-btn:hover {
     background-color: var(--dark) ;
     border-color: #32383e;
 }
+
 .product-tab-list3 {
     display: flex;
     justify-content: center;

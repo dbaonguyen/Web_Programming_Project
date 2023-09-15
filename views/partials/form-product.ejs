@@ -1,0 +1,20 @@
+<form action="/api/products" method="post" id="add-product">
+    <div class="col-md-12">
+        <div class="checkout-form-list">
+            <label for="name">Product Name <span class="required">*</span></label>
+            <input type="hidden" name="id" value="">										
+            <input type="text" id="name" name="name" placeholder="Please enter the product names" />
+        </div>
+        <div class="checkout-form-list">
+            <label for="description">Product Description <span class="required">*</span></label>										
+            <input type="text" id="description"  name="description" placeholder="Please enter the product description" />
+        </div>   
+        <div class="checkout-form-list">
+            <label for="price">Price <span class="required">*</span></label>										
+            <input type="text" id="price" name="price" placeholder="Please enter the product price" />
+        </div>                                                
+        <div class="add-product-button">
+                <input type="submit" value="Save Changes" />
+        </div>			
+    </div>
+</form>

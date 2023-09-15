@@ -1,37 +1,28 @@
 <%- include('partials/header') %>  
         <!-- header end -->
-        <!-- login-area start -->
+        <main id="site-main">
+            <div class="container">
+                <div class="box-nav d-flex justify-between">
+                    <a href="/vendor" class="border-shadow">
+                        <span class="text-gradient"><i class="ti-angle-double-left"></i> All Products</span>
+                    </a>
+                </div>            
+                <!-- form handling -->       
+            </div>
+        </main>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 col-12 col-lg-6 col-xl-6 ml-auto mr-auto">
                             <div class="login-form-container">
                                 <div class="login-form">
-                                    <h3>Add Product</h3>
-                                    <form action="/product" method="post">
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label for="name">Product Name <span class="required">*</span></label>										
-                                                <input type="text" id="name" name="name" placeholder="Please enter the product names" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label for="price">Price <span class="required">*</span></label>										
-                                                <input type="text" id="price" name="price" placeholder="Please enter the product price" />
-                                            </div>
-                                            <div class="checkout-form-list">
-                                                <label for="description">Product Description <span class="required">*</span></label>										
-                                                <input type="text" id="description"  name="description" placeholder="Please enter the product description" />
-                                            </div>                                                   
-                                            <div class="add-product-button">
-                                                    <input type="submit" value="Proceed To Add Product" />
-                                            </div>			
-                                        </div>
-                                </form>
+                                    <h3 class="text-center mb-50">Add Product</h3>
+                                    <%- include('partials/form-product') %>
+                                </div>
                             </div>
-                        </div>
+                    </div>
                 </div>
             </div>
+
         <!-- login-area end -->
         <%- include('partials/footer') %>
 		

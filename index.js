@@ -36,7 +36,7 @@ mongoose
   .connect(
     "mongodb+srv://baond39:bao123@cluster0.jeatohh.mongodb.net/?retryWrites=true&w=majority"
   ,{ useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("Connected to mongo"))
+  .then(() => console.log("Connected to mongoDB"))
   .catch((error) => console.log(error.message));
 
 
@@ -183,10 +183,20 @@ app.get("/shipper", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("shipper-page",{name});
 });
-app.get("/vendor", (req, res) => {
+/*  app.get("/vendor", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("vendor-page",{name});
 });
+app.get('/add-product',(req,res) =>{
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render('add-product',{name})
+});
+app.get('/update-product',(req,res) =>{
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render('update-product',{name})
+}); */
+app.use('/',require('./routes/product'))
+
 app.get("/women", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("women-sweaters",{name});
