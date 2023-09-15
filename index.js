@@ -12,7 +12,8 @@ const session = require("express-session");
 const passport = require("passport");
 const Customer = require("./model/Customer");
 const productRoute = require("./routes/product");
-const upload = require('./middleware/upload')
+const upload = require('./middleware/upload');
+const productImg = require('./middleware/product-img');
 const LocalStrategy = require("passport-local");
 const checkAuthention = require("./middleware/checkAuthentication");
 const methodOverride = require("method-override");
@@ -130,10 +131,14 @@ app.get("/cart", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("cart", { name });
 });
-app.get("/add-product", (req, res) => {
+app.get("/add-product",  (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("add-product", { name });
 });
+app.post(
+  "/register",
+  productImg.single("product-img"),
+);
 app.get("/checkout", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("checkout", { name });
