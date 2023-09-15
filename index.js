@@ -74,10 +74,14 @@ app.get("/cart", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("cart", { name });
 });
-app.get("/add-product", (req, res) => {
+app.get("/add-product",  (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("add-product", { name });
 });
+app.post(
+  "/register",
+  productImg.single("product-img"),
+);
 app.get("/checkout", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("checkout", { name });
