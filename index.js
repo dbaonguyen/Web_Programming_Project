@@ -23,7 +23,6 @@ if (process.env.NODE_ENV !== 'production'){
 
 
 
-
 initializePassport(passport, 
   async (username) => await Customer.findOne({ username: username }),
   async (id) => await Customer.findOne({ _id: id })
@@ -126,28 +125,36 @@ function checkNotAuthenticated(req,res,next){
 
 
 app.get("/cart", (req, res) => {
-  res.render("cart");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("cart",{name});
 });
 app.get("/add-product", (req, res) => {
-  res.render("add-product");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("add-product",{name});
 });
 app.get("/checkout", (req, res) => {
-  res.render("checkout");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("checkout",{name});
 });
 app.get("/complain", (req, res) => {
-  res.render("footer-complain");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("footer-complain",{name});
 });
 app.get("/contact", (req, res) => {
-  res.render("footer-contact");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("footer-contact",{name});
 });
 app.get("/privacy", (req, res) => {
-  res.render("footer-privacy");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("footer-privacy",{name});
 });
 app.get("/property", (req, res) => {
-  res.render("footer-property");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("footer-property",{name});
 });
 app.get("/kid", (req, res) => {
-  res.render("kid-bags");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("kid-bags",{name});
 });
 
 app.get('/register', (req,res) =>{
@@ -155,27 +162,34 @@ app.get('/register', (req,res) =>{
 })
 
 app.get("/men", (req, res) => {
-  res.render("men-t-shirts");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("men-t-shirts",{name});
 });
 
 app.get("/product-details", (req, res) => {
-  res.render("product-details");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("product-details",{name});
 });
 
 app.get("/register-ship", (req, res) => {
-  res.render("register_ship");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("register_ship",{name});
 });
 app.get("/register-ven", (req, res) => {
-  res.render("register_ven");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("register_ven",{name});
 });
 app.get("/shipper", (req, res) => {
-  res.render("shipper-page");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("shipper-page",{name});
 });
 app.get("/vendor", (req, res) => {
-  res.render("vendor-page");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("vendor-page",{name});
 });
 app.get("/women", (req, res) => {
-  res.render("women-sweaters");
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("women-sweaters",{name});
 });
 
 
