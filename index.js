@@ -13,10 +13,13 @@ const passport = require("passport");
 const Customer = require("./model/Customer");
 const productRoute = require("./routes/product");
 const upload = require('./middleware/upload')
+const authController = require('./controllers/authController');
 const LocalStrategy = require("passport-local");
 const checkAuthention = require("./middleware/checkAuthentication");
 const methodOverride = require("method-override");
 const flash = require("express-flash");
+const authRoutes = require("./routes/auth");
+
 const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
@@ -65,66 +68,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
 
-app.get("/", checkAuthention.checkAuthenticated, (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("index", { name });
-});
-
-app.get("/login", checkAuthention.checkNotAuthenticated, (req, res) => {
-  res.render("login");
-});
-
-app.get("/register", checkAuthention.checkNotAuthenticated, (req, res) => {
-  res.render("register");
-});
-
-app.delete("/logout", (req, res) => {
-  req.logout(req.user, (err) => {
-    if (err) return next();
-    res.redirect("/");
-  });
-});
-
-app.post(
-  "/register",
-  upload.single("pfp"),
-  checkAuthention.checkNotAuthenticated,
-  async (req, res) => {
-    try {
-      const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
-
-      const data = {
-        username: req.body.username,
-        email: req.body.email,
-        address: req.body.address,
-        phone: req.body.phone,
-        password: hashedPassword,
-      };
-      if (req.file){
-        data.pfp = req.file.path
-      }
-      // Create a new Customer instance with the data
-      const newCustomer = new Customer(data);
-      // Save the customer data to the database
-      await newCustomer.save();
-      res.redirect("/login");
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Internal Server Error");
-    }
-  }
-);
-
-app.post(
-  "/login",
-  checkAuthention.checkNotAuthenticated,
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-    failureFlash: true,
-  })
-);
+app.use(authRoutes);
 
 app.get("/cart", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
@@ -157,10 +101,6 @@ app.get("/property", (req, res) => {
 app.get("/kid", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("kid-bags", { name });
-});
-
-app.get("/register", (req, res) => {
-  res.render("register");
 });
 
 app.get("/men", (req, res) => {
