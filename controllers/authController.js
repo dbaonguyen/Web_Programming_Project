@@ -171,7 +171,7 @@ const authController = {
 
   // Handle user login
   login: (req, res, next) => {
-    passport.authenticate("local",{}, (err, user, info) => {
+    passport.authenticate("local", (err, user, info) => {
       if (err) {
         return next(err);
       }
@@ -180,21 +180,23 @@ const authController = {
       }
   
       // Determine the redirect URL based on the user's role
-      let redirectURL = "/";
+      let redirectURL = "/vendor";
       console.log('here')
-      if (user.role === "vendor") {
-        redirectURL = "/vendor"; // Redirect vendor to their home page
-        console.log('ven here')
+      if (user.role === "customer") {
+        redirectURL = "/"; // Redirect vendor to their home page
+        console.log('cus here')
       } else if (user.role === "shipper") {
         redirectURL = "/shipper"; // Redirect shipper to their home page
         console.log('ship here')
+      } else if (user.role === "vendor"){
+        redirectURL = "/vendor"
+        console.log('vendor here')
       }
   
       req.logIn(user, (err) => {
         if (err) {
           return next(err);
         }
-        console.log('customer here')
         return res.redirect(redirectURL);
       });
     })(req, res, next);

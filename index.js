@@ -51,7 +51,7 @@ initializePassport(
   }
 );
 
-// app.use(axios());
+
 app.use(express.static(path.join(__dirname + "../public")));
 
 mongoose
