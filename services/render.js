@@ -5,7 +5,7 @@ exports.vendor = (req,res) => {
     let name = req.isAuthenticated() ? req.user.username : undefined;
     axios.get('http://localhost:3000/api/products')
         .then(function(respone){
-            res.render("vendor-page", {products: respone.data}, {name})
+            res.render("vendor-page", {products: respone.data, name})
         })
         .catch(err =>{
             res.send(err);
