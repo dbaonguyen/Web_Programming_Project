@@ -18,6 +18,7 @@ const LocalStrategy = require("passport-local");
 const checkAuthention = require("./middleware/checkAuthentication");
 const methodOverride = require("method-override");
 const flash = require("express-flash");
+const productImg = require("./middleware/product-img");
 const authRoutes = require("./routes/auth");
 
 const PORT = process.env.PORT || 3000;
