@@ -24,8 +24,9 @@ function initialize(passport) {
       }
 
       const isPasswordValid = await bcrypt.compare(password, user.password);
-
+      console.log("here")
       if (isPasswordValid) {
+        console.log("valid")
         return done(null, user);
       } else {
         console.log("Password Incorrect");

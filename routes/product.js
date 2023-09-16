@@ -5,7 +5,7 @@ const services = require('../services/render');
 const controller = require('../controllers/ProductController')
 const checkAuthentication = require("../middleware/checkAuthentication");
 
-route.get("/vendor",checkAuthentication.checkAuthenticated, services.vendor);
+route.get("/vendor", services.vendor);
 
 route.get('/add-product', services.add_product);
 

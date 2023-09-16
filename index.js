@@ -12,7 +12,9 @@ const productRoute = require("./routes/product");
 const methodOverride = require("method-override");
 const flash = require("express-flash");
 const productImg = require("./middleware/product-img");
+const authenticateUser = require('./middleware/checkAuthentication')
 const authRoutes = require("./routes/auth");
+const axios = require('axios');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -49,6 +51,7 @@ initializePassport(
   }
 );
 
+// app.use(axios());
 app.use(express.static(path.join(__dirname + "../public")));
 
 mongoose
@@ -130,7 +133,7 @@ app.get("/product-details", (req, res) => {
   res.render("product-details", { name });
 });
 
-app.get("/shipper", (req, res) => {
+app.get("/shipper",authenticateUser.checkAuthenticated, (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("shipper-page", { name });
 });

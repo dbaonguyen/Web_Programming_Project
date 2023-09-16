@@ -26,7 +26,7 @@ const authController = {
     });
   },
   getLogin: (req, res) => {
-    res.render("login");
+    res.render("login", { messages: ""});
   },
 
   register: async (req, res) => {
@@ -170,32 +170,36 @@ const authController = {
   },
 
   // Handle user login
-  // Handle user login
   login: (req, res, next) => {
-    passport.authenticate("local", (err, user, info) => {
+    passport.authenticate("local",{}, (err, user, info) => {
       if (err) {
         return next(err);
       }
       if (!user) {
-        return res.redirect("/login"); // Redirect to login page on authentication failure
+        return res.render("login", {messages:"Wrong username or password"}); // Redirect to login page on authentication failure
       }
-
+  
       // Determine the redirect URL based on the user's role
       let redirectURL = "/";
-      if (user instanceof Vendor) {
+      console.log('here')
+      if (user.role === "vendor") {
         redirectURL = "/vendor"; // Redirect vendor to their home page
-      } else if (user instanceof Shipper) {
+        console.log('ven here')
+      } else if (user.role === "shipper") {
         redirectURL = "/shipper"; // Redirect shipper to their home page
+        console.log('ship here')
       }
-
+  
       req.logIn(user, (err) => {
         if (err) {
           return next(err);
         }
+        console.log('customer here')
         return res.redirect(redirectURL);
       });
     })(req, res, next);
   },
+  
 
   // Handle user logout
   logout: (req, res) => {
