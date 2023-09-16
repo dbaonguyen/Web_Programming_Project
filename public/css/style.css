@@ -2867,6 +2867,7 @@ a.banner-book-style-btn:hover {
 .border-shadow{
     border: 1px solid var(--border-btn);
     box-shadow: 1px 3px 10px #e9ecef;
+    margin-top: 30px;
 }
 .text-gradient{
     background: linear-gradient(to right, #8e2de2, #4a00e0);
