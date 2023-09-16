@@ -153,4 +153,15 @@ app.get("/women", (req, res) => {
   res.render("women-sweaters", { name });
 });
 
+app.get("/customer-profile", (req,res) => {
+  let photo = '1.png';
+  res.render("my-profile-cus", {photo : photo})
+})
+
+app.get("/shipper-profile", (req,res) => {
+  let name = "Unga Bunga1";
+  let photolink = '1.png';
+  let photo = `/img/icon-img/${photolink}`;
+  res.render("my-profile-ship", {photo : photo, name:name})
+})
 app.listen(PORT, console.log("Server start for port: " + PORT));

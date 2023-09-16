@@ -1,5 +1,5 @@
 // controllers/authController.js
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const Customer = require("../model/Customer");
 const Vendor = require("../model/Vendor");
