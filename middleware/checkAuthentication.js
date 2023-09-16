@@ -6,10 +6,10 @@ const checkAuthention = {
     res.redirect("/login");
   },
   checkNotAuthenticated: (req, res, next) => {
-    if (!req.isAuthenticated()) {
-      return next(); // Allow unauthenticated users to proceed
+    if (req.isAuthenticated()) {
+      return res.redirect("/"); // Allow unauthenticated users to proceed
     }
-    res.redirect("/"); // Redirect authenticated users to the home page
+    next(); // Redirect authenticated users to the home page
   },
   roleRedirect: (role, redirectUrl) => {
     return (req, res, next) => {
@@ -18,7 +18,8 @@ const checkAuthention = {
       }
       next();
     };
-  }
+  },
+ 
 };
 
 module.exports = checkAuthention;

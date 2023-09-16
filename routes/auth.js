@@ -8,7 +8,21 @@ const upload = require("../middleware/upload");
 // Homepage route (unchanged)
 router.get("/", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("index", { name });
+
+  try {
+    if (req.user.role === "customer") {
+      res.render("index", { name });
+    } else if (req.user.role === "shipper") {
+      res.render("shipper-page", { name });
+    } else if (req.user.role === "vendor") {
+      res.render("vendor-page", { name });
+    } else {
+      console.log("something went wrong!");
+    }
+  } catch (error) {
+    console.log(error)
+    res.render("index", {name: undefined})
+  }
 });
 
 // Login route
