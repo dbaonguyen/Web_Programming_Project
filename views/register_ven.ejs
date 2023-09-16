@@ -19,13 +19,13 @@
                         <div class="login-form-container">
                             <div class="login-form">
                                 <div class="col-4 role-choice choosen">
-                                    <a href="/register">Customer</a>
+                                    <button class="btn btn-primary"><a href="/register">Customer</a></button>
                                 </div>
                                 <div class="col-4 role-choice">
-                                    <a href="/register-ven">Vendor</a>
+                                    <button class="btn btn-primary"><a href="/register-ven">Vendor</a></button>
                                 </div>
                                 <div class="col-4 role-choice">
-                                    <a href="/register-ship">Shipper</a>
+                                    <button class="btn btn-primary"><a href="/register-ship">Shipper</a></button>
                                 </div>
                             </div>
                             
@@ -33,32 +33,25 @@
                         <div class="login">
                             <div class="login-form-container">
                                 <div class="login-form">
-                                    <form action="#" method="post">
-                                        <p>Seller type:</p>
-                                        <div class="row">
-                                            <input class="col-1" type="radio" id="individual" name="seller_type" value="individual" checked>
-                                            <label class="col-11" for="individual">Individual</label>
+                                    <% if (errorMessages && errorMessages.length > 0) { %>
+                                        <div class="error-messages">
+                                          <ul>
+                                            <% errorMessages.forEach(function(message) { %>
+                                              <li class="alert alert-danger"><strong><%= message %></strong></li>
+                                            <% }); %>
+                                          </ul>
                                         </div>
-                                        <div class="row">
-                                            <input class="col-1" type="radio" id="bussiness" name="seller_type" value="bussiness">
-                                            <label class="col-11" for="bussiness">Registered bussiness</label>
-                                        </div>
-                                        <input type="text" name="user-name" placeholder="User name*" required>
-                                        <input type="text" name="shop-name" placeholder="Shop name*" required>
-                                        <input type="password" name="user-password" placeholder="Password*" required>
-                                        <input type="text" name="user-address" placeholder="Address*" required>
-                                        <input type="tel" name="user-phone" placeholder="Phone*" required>
-                                        <input name="user-email" placeholder="Email*" type="email" required>
-                                        <p>Shipping channel(s):</p>
-                                        <input type="checkbox" id="channel1" name="channel1" value="standard">
-                                        <label for="channel1"> Standard delivery</label><br>
-                                        <input type="checkbox" id="channel2" name="channel2" value="heavy">
-                                        <label for="channel2"> Bulky & heavy delivery</label><br>
-                                        <input type="checkbox" id="channel3" name="channel3" value="economy">
-                                        <label for="channel3"> Economy delivery</label><br><br>
-                                        <p>Choose your shop's avatar*:</p>
+                                      <% } %>
+                                    <form action="/register" method="post">
+                                    
+                                        <input type="text" name="username" placeholder="Username*" required>
+                                        <input type="password" name="password" placeholder="Password*" required>
+                                        <input type="text" name="businessName" placeholder="Business Name*" required>
+                                        <input type="text" name="businessAddress" placeholder="Business Address*" required>
+                                        <p>Choose your avatar*:</p>
                                         <input type="file" id="myFile" name="filename" accept="image/*" required>
                                         <div class="button-box">
+                                            <input type="hidden" name="registrationType" value="vendor">
                                             <button type="submit" class="default-btn floatright">Register</button>
                                         </div>
                                     </form>

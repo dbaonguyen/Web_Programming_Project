@@ -19,51 +19,42 @@
                         <div class="login-form-container">
                             <div class="furniture-bottom-wrapper">
                                 <div class="col-4 role-choice choosen">
-                                    <a href="/register">Customer</a>
+                                    <button class="btn btn-primary"><a href="/register">Customer</a></button>
                                 </div>
                                 <div class="col-4 role-choice">
-                                    <a href="/register-ven">Vendor</a>
+                                    <button class="btn btn-primary"><a href="/register-ven">Vendor</a></button>
                                 </div>
                                 <div class="col-4 role-choice">
-                                    <a href="/register-ship">Shipper</a>
+                                    <button class="btn btn-primary"><a href="/register-ship">Shipper</a></button>
                                 </div>
                             </div>
                             
                         </div>
                         <div class="login">
                             <div class="login-form-container">
+                                <% if (errorMessages && errorMessages.length > 0) { %>
+                                    <div class="error-messages">
+                                      <ul>
+                                        <% errorMessages.forEach(function(message) { %>
+                                          <li class="alert alert-danger"><strong><%= message %></strong></li>
+                                        <% }); %>
+                                      </ul>
+                                    </div>
+                                  <% } %>
                                 <div class="login-form">
-                                    <form action="#" method="post">
-                                        <input type="text" name="user-name" placeholder="Username*" required>
-                                        <label for="birthday">Birthday:</label>
-                                        <input type="date" id="birthday" name="birthday">
-                                        <input type="password" name="user-password" placeholder="Password*" required>
-                                        <input type="text" name="user-address" placeholder="Address*" required>
-                                        <input type="tel" name="user-phone" placeholder="Phone*" required>
-                                        <input name="user-email" placeholder="Email" type="email">
+                                    <form action="/register" method="post">
+                                        <input type="text" name="username" placeholder="Username*" required>
+                                        <input type="password" name="password" placeholder="Password*" required>
                                         <p>Choose your avatar(optional):</p>
                                         <input type="file" id="myFile" name="filename" accept="image/*">
-                                        <p>Do you have any experience?</p>
-                                        <div class="row">
-                                            <input class="col-1" type="radio" id="none" name="experience" value="none" checked>
-                                            <label class="col-11" for="none">None</label>
-                                        </div>
-                                        <div class="row">
-                                            <input class="col-1" type="radio" id="less-6" name="experience" value="less-6">
-                                            <label class="col-11" for="less-6">Less than 6 months</label>
-                                        </div>
-                                        <div class="row">
-                                            <input class="col-1" type="radio" id="more-6" name="experience" value="more-6">
-                                            <label class="col-11" for="more-6">More than 6 months</label>
-                                        </div>
-                                        
-                                        <label for="hubs">Choose a hub you like to work with:</label>
-                                        <select name="hubs" id="hubs">
+                                        <label for="distributionHub">Choose a hub you like to work with:</label>
+                                        <select name="distributionHub" id="distributionHub">  
                                             <option value="hcm">Ho Chi Minh</option>
                                             <option value="dn">Da Nang</option>
                                             <option value="hn">Ha Noi</option>
                                         </select>
                                         <div class="button-box">
+                                            <input type="hidden" name="registrationType" value="shipper">
                                             <button type="submit" class="default-btn floatright">Register</button>
                                         </div>
                                     </form>

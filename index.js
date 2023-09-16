@@ -1,21 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const multer = require("multer");
-const err = require("./middleware/errors");
 const morgan = require("morgan");
 const session = require("express-session");
 const passport = require("passport");
 const Customer = require("./model/Customer");
 const productRoute = require("./routes/product");
-const upload = require('./middleware/upload')
-const authController = require('./controllers/authController');
-const LocalStrategy = require("passport-local");
-const checkAuthention = require("./middleware/checkAuthentication");
 const methodOverride = require("method-override");
 const flash = require("express-flash");
 const productImg = require("./middleware/product-img");
@@ -32,8 +25,28 @@ if (process.env.NODE_ENV !== "production") {
 
 initializePassport(
   passport,
-  async (username) => await Customer.findOne({ username: username }),
-  async (id) => await Customer.findOne({ _id: id })
+  async (username, userType) => {
+    if (userType === 'customer') {
+      return await Customer.findOne({ username: username });
+    } else if (userType === 'vendor') {
+      return await Vendor.findOne({ username: username });
+    } else if (userType === 'shipper') {
+      return await Shipper.findOne({ username: username });
+    } else {
+      return null; // Handle unrecognized roles appropriately
+    }
+  },
+  async (id, userType) => {
+    if (userType === 'customer') {
+      return await Customer.findOne({ _id: id });
+    } else if (userType === 'vendor') {
+      return await Vendor.findOne({ _id: id });
+    } else if (userType === 'shipper') {
+      return await Shipper.findOne({ _id: id });
+    } else {
+      return null; // Handle unrecognized roles appropriately
+    }
+  }
 );
 
 app.use(express.static(path.join(__dirname + "../public")));
@@ -47,7 +60,6 @@ mongoose
 
 dotenv.config();
 
-// app.use(expressLayoutes);
 app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
@@ -67,6 +79,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
+app.use('/',require('./routes/product'));
 
 app.use(authRoutes);
 
@@ -78,10 +91,10 @@ app.get("/add-product",  (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("add-product", { name });
 });
-app.post(
-  "/register",
-  productImg.single("product-img"),
-);
+// app.post(
+//   "/register",
+//   productImg.single("product-img"),
+// );
 app.get("/checkout", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("checkout", { name });
@@ -117,14 +130,6 @@ app.get("/product-details", (req, res) => {
   res.render("product-details", { name });
 });
 
-app.get("/register-ship", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("register_ship", { name });
-});
-app.get("/register-ven", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("register_ven", { name });
-});
 app.get("/shipper", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("shipper-page", { name });
@@ -141,7 +146,7 @@ app.get('/update-product',(req,res) =>{
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render('update-product',{name})
 }); */
-app.use('/',require('./routes/product'))
+
 
 app.get("/women", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;

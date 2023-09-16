@@ -6,17 +6,36 @@ const checkAuthentication = require("../middleware/checkAuthentication");
 const upload = require("../middleware/upload");
 
 // Homepage route (unchanged)
-router.get("/", checkAuthentication.checkAuthenticated, (req, res) => {
+router.get("/", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("index", { name });
 });
 
 // Login route
-router.get("/login", checkAuthentication.checkNotAuthenticated, authController.getLogin);
+router.get(
+  "/login",
+  checkAuthentication.checkNotAuthenticated,
+  authController.getLogin
+);
 
 // Register route
-router.get("/register", checkAuthentication.checkNotAuthenticated, authController.getRegister);
-
+router.get(
+  "/register",
+  checkAuthentication.checkNotAuthenticated,
+  authController.getRegister
+);
+router.get(
+  "/register-ship",
+  checkAuthentication.checkNotAuthenticated,
+  checkAuthentication.roleRedirect("shipper", "/"),
+  authController.getRegisterShipper
+);
+router.get(
+  "/register-ven",
+  checkAuthentication.checkNotAuthenticated,
+  checkAuthentication.roleRedirect("vendor", "/"),
+  authController.getRegisterVendor
+);
 // Logout route
 router.delete("/logout", authController.logout);
 
