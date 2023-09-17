@@ -1,10 +1,14 @@
-<%- include('partials/header') %>
+<%- include('../partials/header') %>
         <!-- header end -->
 		<div class="breadcrumb-area pt-205 pb-210 theme-bg-2" >
             <div class="container">
                 <div class="breadcrumb-content text-center">
                     <h2>My profile</h2>
-                    <img src =<%= photo %> alt="user avatar" width = 200 height = 200 >
+                    <% console.log('Original Photo:', photo); %>
+                    <% const imagePath=photo.replace(/\\/g, '/' ).replace('public/', '' ); %>
+                        <img src="<%= imagePath %>" alt="user avatar" width="300" height="300">
+                        <% console.log('Replaced Photo:', imagePath); %>
+            </div>
                 </div>
             </div>
         </div>
@@ -24,24 +28,11 @@
                                 <div class="col-md-12 causes-res">
                                     <div class="choose-wrapper">
                                         <h4>Name:</h4>
-                                        <p>Unga Bunga</p>
-                                    </div>
-
-                                    <div class="choose-wrapper">
-                                        <h4>Phone number:</h4>
-                                        <p>0123456789</p>
-                                    </div>
-                                    <div class="choose-wrapper">
-                                        <h4>Email:</h4>
-                                        <p>something@gmail.com </p>
-                                    </div>
-                                    <div class="choose-wrapper">
-                                        <h4>Addres:</h4>
-                                        <p>Berlin</p>
+                                        <p><%= name %></p>
                                     </div>
                                     <div class="choose-wrapper">
                                         <h4>Shipping hub:</h4>
-                                        <p>Ha Noi</p>
+                                        <p><%= distributionHub %></p>
                                     </div>
                                 </div>
                                 
@@ -56,4 +47,4 @@
         </div>
         
         
-		<%- include ('partials/footer') %>
+		<%- include ('../partials/footer') %>

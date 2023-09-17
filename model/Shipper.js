@@ -17,6 +17,7 @@ const shipperSchema = new Schema(
     },
     distributionHub: {
       type: String,
+      enum: ["Ho Chi Minh","Da Nang", "Ha Noi"]
       // Add validation rules as needed
     },
     pfp: {

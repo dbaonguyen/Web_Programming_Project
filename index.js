@@ -12,14 +12,14 @@ const productRoute = require("./routes/product");
 const methodOverride = require("method-override");
 const flash = require("express-flash");
 const productImg = require("./middleware/product-img");
-const authenticateUser = require('./middleware/checkAuthentication')
+const authenticateUser = require("./middleware/checkAuthentication");
 const authRoutes = require("./routes/auth");
-const axios = require('axios');
+const axios = require("axios");
+
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
-
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -28,22 +28,22 @@ if (process.env.NODE_ENV !== "production") {
 initializePassport(
   passport,
   async (username, userType) => {
-    if (userType === 'customer') {
+    if (userType === "customer") {
       return await Customer.findOne({ username: username });
-    } else if (userType === 'vendor') {
+    } else if (userType === "vendor") {
       return await Vendor.findOne({ username: username });
-    } else if (userType === 'shipper') {
+    } else if (userType === "shipper") {
       return await Shipper.findOne({ username: username });
     } else {
       return null; // Handle unrecognized roles appropriately
     }
   },
   async (id, userType) => {
-    if (userType === 'customer') {
+    if (userType === "customer") {
       return await Customer.findOne({ _id: id });
-    } else if (userType === 'vendor') {
+    } else if (userType === "vendor") {
       return await Vendor.findOne({ _id: id });
-    } else if (userType === 'shipper') {
+    } else if (userType === "shipper") {
       return await Shipper.findOne({ _id: id });
     } else {
       return null; // Handle unrecognized roles appropriately
@@ -51,13 +51,15 @@ initializePassport(
   }
 );
 
+app.use(express.static(path.join(__dirname, "../public")));
 
-app.use(express.static(path.join(__dirname + "../public")));
+
 
 mongoose
   .connect(
-    "mongodb+srv://baond39:bao123@cluster0.jeatohh.mongodb.net/?retryWrites=true&w=majority"
-  ,{ useNewUrlParser: true, useUnifiedTopology: true })
+    "mongodb+srv://baond39:bao123@cluster0.jeatohh.mongodb.net/?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
   .then(() => console.log("Connected to mongo"))
   .catch((error) => console.log(error.message));
 
@@ -82,7 +84,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
-app.use('/',require('./routes/product'));
+app.use("/", require("./routes/product"));
 
 app.use(authRoutes);
 
@@ -90,7 +92,7 @@ app.get("/cart", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("cart", { name });
 });
-app.get("/add-product",  (req, res) => {
+app.get("/add-product", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("add-product", { name });
 });
@@ -133,7 +135,7 @@ app.get("/product-details", (req, res) => {
   res.render("product-details", { name });
 });
 
-app.get("/shipper",authenticateUser.checkAuthenticated, (req, res) => {
+app.get("/shipper", authenticateUser.checkAuthenticated, (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("shipper-page", { name });
 });
@@ -150,21 +152,48 @@ app.get('/update-product',(req,res) =>{
   res.render('update-product',{name})
 }); */
 
-
 app.get("/women", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("women-sweaters", { name });
 });
 
-app.get("/customer-profile", (req,res) => {
-  let photo = '1.png';
-  res.render("my-profile-cus", {photo : photo})
-})
+app.get("/profile", (req, res) => {
+  if (!req.isAuthenticated()) {
+    // Handle the case where the user is not authenticated (not logged in)
+    res.redirect("/login"); // Redirect to the login page or handle as needed
+    return;
+  }
 
-app.get("/shipper-profile", (req,res) => {
-  let name = "Unga Bunga1";
-  let photolink = '1.png';
-  let photo = `/img/icon-img/${photolink}`;
-  res.render("my-profile-ship", {photo : photo, name:name})
-})
+  const { role } = req.user;
+
+  let name = req.user.username;
+  let phone = req.user.phone;
+  let address = req.user.address;
+  let email = req.user.email;
+  let businessName = req.user.businessName;
+  let businessAddress = req.user.businessAddress;
+  let photo = req.user.pfp;
+  let distributionHub = req.user.distributionHub;
+  let profileTemplate;
+
+  switch (role) {
+    case "customer":
+      profileTemplate = "my-profile-cus";
+      break;
+    case "shipper":
+      profileTemplate = "my-profile-ship";
+      break;
+    case "vendor":
+      profileTemplate = "my-profile-ven";
+      break;
+    default:
+      // Handle other roles if needed
+      res.status(403).send("Unauthorized");
+      return;
+  }
+
+  console.log("Image Path:", photo);
+  res.render(`./profiles/${profileTemplate}`, { photo: photo, name: name, phone:phone, address:address,email:email, distributionHub:distributionHub, businessName:businessName, businessAddress:businessAddress });
+});
+
 app.listen(PORT, console.log("Server start for port: " + PORT));

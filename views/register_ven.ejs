@@ -1,4 +1,4 @@
-<%- include('partials/header') %> 
+<%- include('./partials/header') %> 
         <!-- header end -->
 		<div class="breadcrumb-area pt-205 pb-210" style="background-image: url(img/bg/breadcrumb.jpg)">
             <div class="container">
@@ -42,14 +42,14 @@
                                           </ul>
                                         </div>
                                       <% } %>
-                                    <form action="/register" method="post">
+                                    <form action="/register" method="post" enctype="multipart/form-data">
                                     
                                         <input type="text" name="username" placeholder="Username*" required>
                                         <input type="password" name="password" placeholder="Password*" required>
                                         <input type="text" name="businessName" placeholder="Business Name*" required>
                                         <input type="text" name="businessAddress" placeholder="Business Address*" required>
                                         <p>Choose your avatar*:</p>
-                                        <input type="file" id="myFile" name="filename" accept="image/*" required>
+                                        <input type="file" name="pfp" accept="image/*" required>
                                         <div class="button-box">
                                             <input type="hidden" name="registrationType" value="vendor">
                                             <button type="submit" class="default-btn floatright">Register</button>
