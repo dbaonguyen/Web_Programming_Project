@@ -183,7 +183,7 @@ app.get("/shipper-profile", (req,res) => {
   
 })*/
 async function getProduct(arg){
-  const item = await Product.find({name: {$regex: arg}});
+  const item = await Product.find({name: {$regex: arg, $options: 'i'}});
   return item;
 }
 
