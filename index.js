@@ -8,6 +8,7 @@ const morgan = require("morgan");
 const session = require("express-session");
 const passport = require("passport");
 const Customer = require("./model/Customer");
+const Product = require("./model/Product");
 const productRoute = require("./routes/product");
 const methodOverride = require("method-override");
 const flash = require("express-flash");
@@ -65,6 +66,7 @@ dotenv.config();
 
 app.set("view engine", "ejs");
 
+app.use (bodyParser.urlencoded ( { extended: true }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json({ limit: "50mb" }));
@@ -137,7 +139,7 @@ app.get("/shipper",authenticateUser.checkAuthenticated, (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("shipper-page", { name });
 });
-/*  app.get("/vendor", (req, res) => {
+  app.get("/vendor", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("vendor-page", { name });
 });
@@ -148,7 +150,7 @@ app.get('/add-product',(req,res) =>{
 app.get('/update-product',(req,res) =>{
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render('update-product',{name})
-}); */
+}); 
 
 
 app.get("/women", (req, res) => {
@@ -166,5 +168,39 @@ app.get("/shipper-profile", (req,res) => {
   let photolink = '1.png';
   let photo = `/img/icon-img/${photolink}`;
   res.render("my-profile-ship", {photo : photo, name:name})
+})
+
+/*app.get("/search", (req,res) => {
+  //let searchTerm = req.body.searchTerm;
+  //matchedProducts = 
+  Product.find({}, function(error, products){
+    res.render('found', { products: products }))}
+  
+  //.then(products => res.render('found', { products: products }))
+  //.catch(error => res.send(error));
+  //productArray = matchedProducts.toArray();
+  //res.redirect("/found");
+  
+})*/
+async function getProduct(arg){
+  const item = await Product.find({name: arg});
+  return item;
+}
+
+app.get('/products', (req, res) => {
+    getProduct().then(function(foundStuff) {
+      res.render('found', { products : foundStuff })
+    })
+  
+  /*Product.find({})
+      .then(products => res.render('view-products', { products }))
+      .catch(error => res.send(error));*/
+  });
+app.get("/search", (req, res) => {
+  let searchThis = req.body.searchTerm;
+  console.log(req.body.searchTerm);
+  getProduct(searchThis).then(function(foundStuff) {
+    res.render('found', { products : foundStuff })
+  })
 })
 app.listen(PORT, console.log("Server start for port: " + PORT));
