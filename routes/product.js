@@ -13,7 +13,7 @@ route.get('/add-product', services.add_product);
 
 route.get('/update-product', services.update_product);
 
-// route.get ("/api/women", async (req, res) => {
+// route.get ("/api/products", async (req, res) => {
 //     try {
 //         const page = parseInt(req.query.page) - 1 || 0;
 // 		const limit = parseInt(req.query.limit) || 2;
@@ -21,12 +21,12 @@ route.get('/update-product', services.update_product);
 //         let sort = req.query.sort || "Best Match";
 //         let size = req.query.size || "All";
 //         const sizeOptions = [
-//             "",
-// 			"",
-// 			"",
-// 			"",
-// 			"",
-// 			"",
+//             "XL",
+// 			"L",
+// 			"XM",
+// 			"M",
+// 			"XS",
+// 			"S",
 //         ];
 //         size === "All"
 // 			? (size = [...sizeOptions])
