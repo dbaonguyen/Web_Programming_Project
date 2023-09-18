@@ -11,7 +11,9 @@ exports.create = (req,res) => {
     const product = new Product({
         name: req.body.name,
         description: req.body.description,
-        price: req.body.price
+        price: req.body.price,
+        category: req.body.category,
+        size: req.body.size
     })
     //save product in db
     product

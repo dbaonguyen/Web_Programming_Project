@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,8 +19,9 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
     <script src="/js/vendor/modernizr-3.11.7.min.js"></script>
-   
+
 </head>
+
 <body>
     <header class="res-header-sm">
         <div class="header-top-wrapper theme-bg-2">
@@ -30,15 +32,24 @@
                     </div>
                     <div class="book-login-register">
                         <ul>
-                            <% if (typeof name !== 'undefined') { %>
-                                <li class="text-white"><a href="shipper-profile"><i class="ti-user"></i><%= name %></a></li>
+                            <% if (typeof name !=='undefined' ) { %>
+                                <li class="text-white">
+                                    <a href="/profile">
+                                        <i class="ti-user"></i>
+                                        <%= name %>
+                                    </a>
+                                </li>
                                 <form action="/logout?_method=DELETE" method="post">
-                                    <li class="text-white ml-5"><i class="ti-lock"></i> <button class="text-white header-bg" type="submit">Log out</button></li>
+                                    <li class="text-white ml-5">
+                                        <i class="ti-lock"></i>
+                                        <button class="text-white header-bg" type="submit">Log out</button>
+                                    </li>
                                 </form>
-                              <% } else { %>
-                                <li><a href="/login"><i class="ti-user"></i>login</a></li>
-                                <li><a href="/register"><i class="ti-settings"></i>register</a></li>
-                              <% } %>
+                                <% } else { %>
+                                    <li><a href="/login"><i class="ti-user"></i> Login</a></li>
+                                    <li><a href="/register"><i class="ti-settings"></i> Register</a></li>
+                                    <% } %>
+
                         </ul>
                     </div>
                 </div>
@@ -216,7 +227,7 @@
                                             <li><a href="/kid">Hats & Caps</a></li>
                                         </ul>
                                     </li>
-                                    
+
                                 </ul>
                             </nav>
                         </div>

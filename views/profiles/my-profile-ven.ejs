@@ -1,10 +1,13 @@
-<%- include('partials/header') %>
+<%- include('../partials/header') %>
         <!-- header end -->
 		<div class="breadcrumb-area pt-205 pb-210 theme-bg-2" >
             <div class="container">
                 <div class="breadcrumb-content text-center">
                     <h2>My profile</h2>
-                    <img src ="./public/img/icon-img/<%= photo %>" alt="user avatar" width = 200 height = 200 >
+                    <% console.log('Original Photo:', photo); %>
+                    <% const imagePath=photo.replace(/\\/g, '/' ).replace('public/', '' ); %>
+                        <img src="<%= imagePath %>" alt="user avatar" width="300" height="300">
+                        <% console.log('Replaced Photo:', imagePath); %>
                 </div>
             </div>
         </div>
@@ -27,17 +30,14 @@
                                         <p><%= name %></p>
                                     </div>
                                     <div class="choose-wrapper">
-                                        <h4>Phone number:</h4>
-                                        <p><%= phone %></p>
+                                        <h4>Business name:</h4>
+                                        <p><%= businessName %></p>
                                     </div>
                                     <div class="choose-wrapper">
-                                        <h4>Email:</h4>
-                                        <p><%= email %> </p>
+                                        <h4>Bussiness Address:</h4>
+                                        <p><%= businessAddress %></p>
                                     </div>
-                                    <div class="choose-wrapper">
-                                        <h4>Addres:</h4>
-                                        <p><%= address %></p>
-                                    </div>
+                                    
                                 </div>
                                 
                             </div>
@@ -51,4 +51,4 @@
         </div>
         
         
-		<%- include ('partials/footer') %>
+		<%- include ('../partials/footer') %>

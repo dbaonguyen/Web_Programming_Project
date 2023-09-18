@@ -4,6 +4,7 @@ const passport = require("passport");
 const Customer = require("../model/Customer");
 const Vendor = require("../model/Vendor");
 const Shipper = require("../model/Shipper");
+const DistributionHub = require("../model/DistributionHub");
 
 const authController = {
   // Register a new user
@@ -26,7 +27,7 @@ const authController = {
     });
   },
   getLogin: (req, res) => {
-    res.render("login", { messages: ""});
+    res.render("login", { messages: "" });
   },
 
   register: async (req, res) => {
@@ -67,7 +68,7 @@ const authController = {
       }
 
       const hashedPassword = await bcrypt.hash(password, saltRounds);
-
+      
       let newUser;
       if (registrationType === "vendor") {
         newUser = new Vendor({
@@ -85,10 +86,15 @@ const authController = {
           phone: req.body.phone,
         });
       } else if (registrationType === "shipper") {
+        const distributionHubName = req.body.distributionHub;
+        // Find the 'DistributionHub' document that matches the provided name
+        const distributionHub = await DistributionHub.findOne({
+          name: distributionHubName,
+        });
         newUser = new Shipper({
           username: req.body.username,
           password: hashedPassword,
-          distributionHub: req.body.distributionHub,
+          distributionHub: distributionHub._id,
         });
       }
 
@@ -171,35 +177,36 @@ const authController = {
 
   // Handle user login
   login: (req, res, next) => {
-    passport.authenticate("local",{}, (err, user, info) => {
+    passport.authenticate("local", (err, user, info) => {
       if (err) {
         return next(err);
       }
       if (!user) {
-        return res.render("login", {messages:"Wrong username or password"}); // Redirect to login page on authentication failure
+        return res.render("login", { messages: "Wrong username or password" }); // Redirect to login page on authentication failure
       }
-  
+
       // Determine the redirect URL based on the user's role
-      let redirectURL = "/";
-      console.log('here')
-      if (user.role === "vendor") {
-        redirectURL = "/vendor"; // Redirect vendor to their home page
-        console.log('ven here')
+      let redirectURL = "/vendor";
+      console.log("here");
+      if (user.role === "customer") {
+        redirectURL = "/"; // Redirect vendor to their home page
+        console.log("cus here");
       } else if (user.role === "shipper") {
         redirectURL = "/shipper"; // Redirect shipper to their home page
-        console.log('ship here')
+        console.log("ship here");
+      } else if (user.role === "vendor") {
+        redirectURL = "/vendor";
+        console.log("vendor here");
       }
-  
+
       req.logIn(user, (err) => {
         if (err) {
           return next(err);
         }
-        console.log('customer here')
         return res.redirect(redirectURL);
       });
     })(req, res, next);
   },
-  
 
   // Handle user logout
   logout: (req, res) => {
