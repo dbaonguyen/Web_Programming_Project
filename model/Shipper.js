@@ -16,9 +16,8 @@ const shipperSchema = new Schema(
       required: [true, "Password is required"],
     },
     distributionHub: {
-      type: String,
-      enum: ["Ho Chi Minh","Da Nang", "Ha Noi"]
-      // Add validation rules as needed
+      type: Schema.Types.ObjectId,
+      ref: 'DistributionHub'
     },
     pfp: {
       type: String,
@@ -31,6 +30,9 @@ const shipperSchema = new Schema(
   },
   { timestamps: true }
 );
+
+
+
 
 const Shipper = mongoose.model("Shipper", shipperSchema);
 module.exports = Shipper;

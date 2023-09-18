@@ -8,18 +8,21 @@ const morgan = require("morgan");
 const session = require("express-session");
 const passport = require("passport");
 const Customer = require("./model/Customer");
+const Vendor = require("./model/Vendor");
+const Shipper = require("./model/Shipper");
 const productRoute = require("./routes/product");
 const methodOverride = require("method-override");
 const flash = require("express-flash");
-const productImg = require("./middleware/product-img");
 const authenticateUser = require("./middleware/checkAuthentication");
 const authRoutes = require("./routes/auth");
-const axios = require("axios");
+
+
 
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
+const checkAuthention = require("./middleware/checkAuthentication");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -88,6 +91,7 @@ app.use("/", require("./routes/product"));
 
 app.use(authRoutes);
 
+
 app.get("/cart", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("cart", { name });
@@ -96,10 +100,6 @@ app.get("/add-product", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("add-product", { name });
 });
-// app.post(
-//   "/register",
-//   productImg.single("product-img"),
-// );
 app.get("/checkout", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("checkout", { name });
@@ -139,61 +139,12 @@ app.get("/shipper", authenticateUser.checkAuthenticated, (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("shipper-page", { name });
 });
-/*  app.get("/vendor", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("vendor-page", { name });
-});
-app.get('/add-product',(req,res) =>{
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render('add-product',{name})
-});
-app.get('/update-product',(req,res) =>{
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render('update-product',{name})
-}); */
 
 app.get("/women", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("women-sweaters", { name });
 });
 
-app.get("/profile", (req, res) => {
-  if (!req.isAuthenticated()) {
-    // Handle the case where the user is not authenticated (not logged in)
-    res.redirect("/login"); // Redirect to the login page or handle as needed
-    return;
-  }
-
-  const { role } = req.user;
-
-  let name = req.user.username;
-  let phone = req.user.phone;
-  let address = req.user.address;
-  let email = req.user.email;
-  let businessName = req.user.businessName;
-  let businessAddress = req.user.businessAddress;
-  let photo = req.user.pfp;
-  let distributionHub = req.user.distributionHub;
-  let profileTemplate;
-
-  switch (role) {
-    case "customer":
-      profileTemplate = "my-profile-cus";
-      break;
-    case "shipper":
-      profileTemplate = "my-profile-ship";
-      break;
-    case "vendor":
-      profileTemplate = "my-profile-ven";
-      break;
-    default:
-      // Handle other roles if needed
-      res.status(403).send("Unauthorized");
-      return;
-  }
-
-  console.log("Image Path:", photo);
-  res.render(`./profiles/${profileTemplate}`, { photo: photo, name: name, phone:phone, address:address,email:email, distributionHub:distributionHub, businessName:businessName, businessAddress:businessAddress });
-});
+app.get("/profile", checkAuthention.profileRedirect);
 
 app.listen(PORT, console.log("Server start for port: " + PORT));
