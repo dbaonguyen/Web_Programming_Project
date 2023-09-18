@@ -182,9 +182,8 @@ app.get("/shipper-profile", (req,res) => {
   //res.redirect("/found");
   
 })*/
-async function getProduct(){
-  const item = await Product.find({});
-  console.log("found one");
+async function getProduct(arg){
+  const item = await Product.find({name: arg});
   return item;
 }
 
@@ -197,9 +196,10 @@ app.get('/products', (req, res) => {
       .then(products => res.render('view-products', { products }))
       .catch(error => res.send(error));*/
   });
-app.get("/search", (req, res) => {
+app.post("/search", (req, res) => {
   let searchThis = req.body.searchTerm;
-  getProduct().then(function(foundStuff) {
+  console.log(searchThis);
+  getProduct(searchThis).then(function(foundStuff) {
     res.render('found', { products : foundStuff })
   })
 })
