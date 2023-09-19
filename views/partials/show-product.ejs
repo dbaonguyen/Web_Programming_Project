@@ -1,25 +1,36 @@
-<% if (products && Array.isArray(products) && products.length > 0) { %>
-    <% for (var i = 0; i < products.length; i++) { %>
-      <tr>
-        <td><%= products[i].name %></td>
-        <td><%= products[i].description %></td>
-       
-        <td><%= products[i].price %></td>
-        <td><%= products[i].category %></td>
-        <td><%= products[i].size %></td>
-        <td>
-          <a href="/update-product?id=<%= products[i]._id %>" class="btn border-shadow update">
-            <span class="text-gradient"><i class="ti-pencil"></i></span>
-          </a>
-          <a class="btn border-shadow delete" data-id="<%= products[i]._id %>">
-            <span class="text-gradient"><i class="ti-close"></i></span>
-          </a>
-        </td>
-      </tr>
-    <% } %>
-  <% } else { %>
+<% if (products && Array.isArray(products) && products.length> 0) { %>
+  <% for (var i=0; i < products.length; i++) { %>
     <tr>
-      <td colspan="6">No products available.</td>
+      <td>
+        <%= products[i].name %>
+      </td>
+      <td>
+        <%= products[i].description %>
+      </td>
+        <td>
+          <img src="<%= products[i].image %>" alt="">
+        </td>
+          <td>
+            <%= products[i].price %>
+          </td>
+          <td>
+            <%= products[i].category %>
+          </td>
+          <td>
+            <%= products[i].size %>
+          </td>
+          <td>
+            <a href="/update-product?id=<%= products[i]._id %>" class="btn border-shadow update">
+              <span class="text-gradient"><i class="ti-pencil"></i></span>
+            </a>
+            <a class="btn border-shadow delete" data-id="<%= products[i]._id %>">
+              <span class="text-gradient"><i class="ti-close"></i></span>
+            </a>
+          </td>
     </tr>
-  <% } %>
-  
+    <% } %>
+      <% } else { %>
+        <tr>
+          <td colspan="6">No products available.</td>
+        </tr>
+        <% } %>

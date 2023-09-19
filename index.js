@@ -22,6 +22,8 @@ const authRoutes = require("./routes/auth");
 const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
+const authController = require("./controllers/authController");
+const checkAuthention = require("./middleware/checkAuthentication");
 
 
 if (process.env.NODE_ENV !== "production") {
@@ -158,18 +160,18 @@ app.get("/women", (req, res) => {
   res.render("women-sweaters", { name });
 });
 
-app.get("/customer-profile", (req,res) => {
-  let photo = '1.png';
-  res.render("my-profile-cus", {photo : photo})
-})
+// app.get("/customer-profile", (req,res) => {
+//   let photo = '1.png';
+//   res.render("my-profile-cus", {photo : photo})
+// })
 
-app.get("/shipper-profile", (req,res) => {
-  let name = "Unga Bunga1";
-  let photolink = '1.png';
-  let photo = `/img/icon-img/${photolink}`;
-  res.render("my-profile-ship", {photo : photo, name:name})
-})
-
+// app.get("/shipper-profile", (req,res) => {
+//   let name = "Unga Bunga1";
+//   let photolink = '1.png';
+//   let photo = `/img/icon-img/${photolink}`;
+//   res.render("my-profile-ship", {photo : photo, name:name})
+// })
+app.get('/profile', checkAuthention.profileRedirect);
 /*app.get("/search", (req,res) => {
   //let searchTerm = req.body.searchTerm;
   //matchedProducts = 

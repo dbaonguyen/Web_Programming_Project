@@ -1,54 +1,60 @@
 <%- include('../partials/header') %>
-        <!-- header end -->
-		<div class="breadcrumb-area pt-205 pb-210 theme-bg-2" >
-            <div class="container">
-                <div class="breadcrumb-content text-center">
-                    <h2>My profile</h2>
-                    <% console.log('Original Photo:', photo); %>
-                    <% const imagePath=photo.replace(/\\/g, '/' ).replace('public/', '' ); %>
-                        <img src="<%= imagePath %>" alt="user avatar" width="300" height="300">
-                        <% console.log('Replaced Photo:', imagePath); %>
-                </div>
+    <!-- header end -->
+    <div class="breadcrumb-area pt-205 pb-210 theme-bg-2">
+        <div class="container">
+            <div class="breadcrumb-content text-center">
+                <h2>My profile</h2>
+
+
+                <img src="<%= photo %>" alt="user avatar" width="300" height="300">
+
             </div>
         </div>
-        
-        
-        
-        <div class="choose-area pb-100">
-            <div class="container">
-                
-                <div class="row">
-                    <div class="col-lg-2 col-md-12 theme-bg-1">
-                        
-                    </div>
-                    <div class="col-lg-8 col-md-12">
-                        <div class="all-causes">
-                            <div class="row">
-                                <div class="col-md-12 causes-res">
-                                    <div class="choose-wrapper">
-                                        <h4>Name:</h4>
-                                        <p><%= name %></p>
-                                    </div>
-                                    <div class="choose-wrapper">
-                                        <h4>Business name:</h4>
-                                        <p><%= businessName %></p>
-                                    </div>
-                                    <div class="choose-wrapper">
-                                        <h4>Bussiness Address:</h4>
-                                        <p><%= businessAddress %></p>
-                                    </div>
-                                    
+    </div>
+
+
+
+    <div class="choose-area pb-100">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-2 col-md-12 theme-bg-1">
+
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="all-causes">
+                        <div class="row">
+                            <div class="col-md-12 causes-res">
+                                <div class="choose-wrapper">
+                                    <h4>Name:</h4>
+                                    <p>
+                                        <%= name %>
+                                    </p>
                                 </div>
-                                
+                                <div class="choose-wrapper">
+                                    <h4>Business name:</h4>
+                                    <p>
+                                        <%= businessName %>
+                                    </p>
+                                </div>
+                                <div class="choose-wrapper">
+                                    <h4>Bussiness Address:</h4>
+                                    <p>
+                                        <%= businessAddress %>
+                                    </p>
+                                </div>
+
                             </div>
+
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-12 theme-bg-1">
-                        
-                    </div>
+                </div>
+                <div class="col-lg-2 col-md-12 theme-bg-1">
+
                 </div>
             </div>
         </div>
-        
-        
-		<%- include ('../partials/footer') %>
+    </div>
+
+
+    <%- include ('../partials/footer') %>

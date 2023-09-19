@@ -1,16 +1,12 @@
-const path = require("path");
+const fs = require('fs')
 const multer = require("multer");
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./public/img/uploads"); // Use a relative path without a leading /
+  destination: function(req,file,cb){
+    cb(null, '../uploads');
   },
-  filename: (req, file, cb) => {
-    console.log(file);
-    const filename = Date.now() + path.extname(file.originalname);
-    // Store the image path in a variable
-    req.imagePath = filename;
-    cb(null, filename);
-  },
+  filename: function(req,file,cb) {
+    cb(null, file.fieldname+"_"+Date.now()+"_"+file.originalname)
+  }
 });
 
 const upload = multer({ storage: storage });
