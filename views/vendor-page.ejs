@@ -19,24 +19,40 @@
         </div>
 
         <!-- form handling -->
-        <form action="/vendor" method="POST">
             <table class="product-table">
                 <thead class="thead-dark">
                     <tr>
                         <th>Product Name</th>
                         <th>Product Description</th>
                         <th>Price</th>
+                        <th>Product Image</th>
                         <th>Category</th>
                         <th>Size</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <%- include('partials/show-product' , { products: products })%>
-                    
+                    <% products.forEach((products) => {%>
+                        <tr>
+                            <th><%= products.name %></th>
+                            <th><%= products.description %></th>
+                            <th><%= products.price %></th>
+                            <th><img src="<%= products.image %>" width="50" class="img-thumbnail"></th>
+                            <th><%= products.category %></th>
+                            <th><%= products.size %></th>
+                            <th>
+                                <a href="/update-product/<%= products._id %>" class="btn border-shadow update">
+                                    <span class="text-gradient"><i class="ti-pencil"></i></span>
+                                </a>
+                                <a href="/delete-product/<%= products._id %>" class="btn border-shadow delete" >
+                                    <span class="text-gradient"><i class="ti-close"></i></span>
+                                </a>
+                            </th>
+                        </tr> 
+                    <%} ) %>           
                 </tbody>
             </table>
-        </form>
+
     </div>
 </main>
         <!-- <div class="container-fluid">

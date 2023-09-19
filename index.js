@@ -70,14 +70,15 @@ app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(cors());
-app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.json({ }));
 app.use(express.static("public"));
 app.use(morgan("common"));
 app.use("/product", productRoute);
 app.use(flash());
+app.use(express.json());
 app.use(
   session({
-    secret: process.env.SESSION_SECRET,
+    secret: "my secret key",
     resave: false,
     saveUninitialized: false,
   })
@@ -85,7 +86,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
-app.use('/',require('./routes/product'));
+app.use("",require('./routes/product'));
+app.use(express.static('uploads'));
 
 app.use(authRoutes);
 
@@ -180,6 +182,7 @@ app.get("/shipper-profile", (req,res) => {
   //res.redirect("/found");
   
 })*/
+
 async function getProduct(arg){
   const item = await Product.find({name: {$regex: arg, $options: 'i'}});
   return item;

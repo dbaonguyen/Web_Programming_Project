@@ -5,7 +5,7 @@ const productSchema = new Schema({
     name: {
         type: String,
         required: true,
-        minLength: [10,"Product name can't be shorter than 10 characters"],
+        minLength: [5,"Product name can't be shorter than 10 characters"],
         maxlength: [20,"Product name can't be longer than 20 characters"]
     },
     description: {
@@ -24,10 +24,11 @@ const productSchema = new Schema({
         required: true
     },
     category: {
-        type: Schema.Types.ObjectId,
-        ref: 'Category'
+        type: String,
+        enum: ["Dresses","Skirts","Sweaters","Jeans","Hoodies","T-shirts","Jacket","Short","Shoes","Sun Glasses","Bags","Hats and Caps"],
+        required: true
     },
-    product_image:{
+    image:{
         type: String
     }
     

@@ -10,67 +10,69 @@
                 <!-- form handling -->       
             </div>
         </main>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12 col-12 col-lg-6 col-xl-6 ml-auto mr-auto">
-                            <div class="login-form-container">
-                                <div class="login-form">
-                                    <h3 class="text-center mb-50">Update Product</h3>
-                                    <form method="post" id="update-product">
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label for="name">Product Name <span class="required">*</span></label>
-                                                <input type="hidden" name="id" value="<%= product._id %>">										
-                                                <input type="text" id="name" name="name" value="<%= product.name %>" placeholder="Please enter the product names" />
-                                            </div>
-                                            <div class="checkout-form-list">
-                                                <label for="description">Product Description <span class="required">*</span></label>										
-                                                <input type="text" id="description"  name="description" value="<%= product.description %>" placeholder="Please enter the product description" />
-                                            </div>   
-                                            <div class="checkout-form-list">
-                                                <label for="price">Price <span class="required">*</span></label>										
-                                                <input type="text" id="price" name="price" value="<%= product.price %>" placeholder="Please enter the product price" />
-                                            </div>      
-                                            <div class="checkout-form-list">
-                                                <label for="category">Category <span class="required">*</span></label>		
-                                                <select class="form-control" id="category" name="category" >
-                                                    <option value="<%= product.category %>"></option>
-                                                    <option>Dresses</option>
-                                                    <option>Skirts</option>
-                                                    <option>Sweaters</option>
-                                                    <option>Jeans</option>
-                                                    <option>Hoodies</option>
-                                                    <option>T-shirts</option>
-                                                    <option>Jacket</option>
-                                                    <option>Short</option>
-                                                    <option>Shoes</option>
-                                                    <option>Sun Glasses</option>
-                                                    <option>Bags</option>
-                                                    <option>Hats and Caps</option>
-                                                </select>								
-                                            </div>      
-                                            <div class="checkout-form-list">
-                                                <label for="category">Size <span class="required">*</span></label>		
-                                                <select class="form-control" id="category" name="size">
-                                                    <option value="<%= product.category %>"></option>
-                                                    <option>XL</option>
-                                                    <option>L</option>
-                                                    <option>XM</option>
-                                                    <option>M</option>
-                                                    <option>XS</option>
-                                                    <option>S</option>
-                                                </select>								
-                                            </div>                                                                      
-                                            <div class="add-product-button">
-                                                    <input type="submit" value="Save Changes" />
-                                            </div>			
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 col-12 col-lg-6 col-xl-6 ml-auto mr-auto">
+                        <div class="login-form-container">
+                            <div class="login-form">
+                                <h3 class="text-center mb-50">Update Product</h3>
+                                <form action="/update-product/<%= product._id %>" method="post" id="add-product" enctype="multipart/form-data">
+                                    <div class="col-md-12">
+                                        <div class="checkout-form-list">
+                                            <label for="name">Product Name <span class="required">*</span></label>									
+                                            <input type="text" id="name" name="name" value="<%= product.name%>" placeholder="Please enter the product names"/>
                                         </div>
-                                    </form>
-                                </div>
-                            </div>
-                    </div>
+                                        <div class="checkout-form-list">
+                                            <label for="description">Product Description <span class="required">*</span></label>										
+                                            <input type="text" id="description" name="description" value="<%= product.description%>" placeholder="Please enter the product description"  />
+                                        </div>   
+                                        <div class="checkout-form-list">
+                                            <label for="price">Price <span class="required">*</span></label>										
+                                            <input type="text" id="price" name="price" value="<%= product.price%>" placeholder="Please enter the product price" />
+                                        </div>
+                                        <div class="checkout-form-list">
+                                            <label for="image">Product Image</label>										
+                                            <input type="file" id="image" name="image"/>
+                                            <img src="/<%= product.image%>" width="100" class="img-thumbnail mt-1">
+                                        </div> 
+                                        <input type="hidden" name="old_image" value="<%= product.image%>">
+                                        <div class="checkout-form-list">
+                                            <label for="category">Category <span class="required">*</span></label>		
+                                            <select class="form-control" id="category" name="category" value="<%= product.category%>" >
+                                                <option value="Dresses">Dresses</option>
+                                                <option value="Skirts">Skirts</option>
+                                                <option value="Sweaters">Sweaters</option>
+                                                <option value="Jeans">Jeans</option>
+                                                <option value="Hoodies">Hoodies</option>
+                                                <option value="T-shirts">T-shirts</option>
+                                                <option value="Jacket">Jacket</option>
+                                                <option value="Short">Short</option>
+                                                <option value="Shoes">Shoes</option>
+                                                <option value="Sun Glasses">Sun Glasses</option>
+                                                <option value="Bags">Bags</option>
+                                                <option value="Hats and Caps">Hats and Caps</option>
+                                            </select>								
+                                        </div>      
+                                        <div class="checkout-form-list">
+                                            <label for="size">Size <span class="required">*</span></label>		
+                                            <select class="form-control" name="size" value="<%= product.size%>" >
+                                                <option value="XL">XL</option>
+                                                <option value="L">L</option>
+                                                <option value="XM">XM</option>
+                                                <option value="M">M</option>
+                                                <option value="XS">XS</option>
+                                                <option value="S">S</option>
+                                            </select>								
+                                        </div>                                              
+                                        <div class="add-product-button">
+                                                <input type="submit" value="Save Changes" />
+                                        </div>			
+                                    </div>
+                                </form>
+                        </div>
                 </div>
             </div>
+        </div>
 
         <!-- login-area end -->
 <%- include('partials/footer') %>

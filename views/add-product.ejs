@@ -16,7 +16,57 @@
                             <div class="login-form-container">
                                 <div class="login-form">
                                     <h3 class="text-center mb-50">Add Product</h3>
-                                    <%- include('partials/form-product') %>
+                                    <form action="/add-product" method="post" id="add-product" enctype="multipart/form-data">
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label for="name">Product Name <span class="required">*</span></label>									
+                                                <input type="text" id="name" name="name" placeholder="Please enter the product names" required/>
+                                            </div>
+                                            <div class="checkout-form-list">
+                                                <label for="description">Product Description <span class="required">*</span></label>										
+                                                <input type="text" id="description" name="description" placeholder="Please enter the product description" required />
+                                            </div>   
+                                            <div class="checkout-form-list">
+                                                <label for="price">Price <span class="required">*</span></label>										
+                                                <input type="text" id="price" name="price" placeholder="Please enter the product price" required/>
+                                            </div>
+                                            <div class="checkout-form-list">
+                                                <label for="image">Product Image</label>										
+                                                <input type="file" id="image" name="image"/>
+                                            </div> 
+                                            <div class="checkout-form-list">
+                                                <label for="category">Category <span class="required">*</span></label>		
+                                                <select class="form-control" id="category" name="category" required>
+                                                    <option value="Dresses">Dresses</option>
+                                                    <option value="Skirts">Skirts</option>
+                                                    <option value="Sweaters">Sweaters</option>
+                                                    <option value="Jeans">Jeans</option>
+                                                    <option value="Hoodies">Hoodies</option>
+                                                    <option value="T-shirts">T-shirts</option>
+                                                    <option value="Jacket">Jacket</option>
+                                                    <option value="Short">Short</option>
+                                                    <option value="Shoes">Shoes</option>
+                                                    <option value="Sun Glasses">Sun Glasses</option>
+                                                    <option value="Bags">Bags</option>
+                                                    <option value="Hats and Caps">Hats and Caps</option>
+                                                </select>								
+                                            </div>      
+                                            <div class="checkout-form-list">
+                                                <label for="size">Size <span class="required">*</span></label>		
+                                                <select class="form-control" name="size" required>
+                                                    <option value="XL">XL</option>
+                                                    <option value="L">L</option>
+                                                    <option value="XM">XM</option>
+                                                    <option value="M">M</option>
+                                                    <option value="XS">XS</option>
+                                                    <option value="S">S</option>
+                                                </select>								
+                                            </div>                                              
+                                            <div class="add-product-button">
+                                                    <input type="submit" value="Save Changes" />
+                                            </div>			
+                                        </div>
+                                    </form>
                             </div>
                     </div>
                 </div>
