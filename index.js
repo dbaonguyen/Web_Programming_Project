@@ -57,7 +57,7 @@ initializePassport(
 
 
 app.use(express.static(path.join(__dirname + "../public")));
-
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 mongoose
   .connect(
     "mongodb+srv://baond39:bao123@cluster0.jeatohh.mongodb.net/?retryWrites=true&w=majority"
