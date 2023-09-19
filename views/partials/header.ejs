@@ -242,8 +242,8 @@
 
                     </div>
                     <div class="furniture-search">
-                        <form action="#">
-                            <input placeholder="I am Searching for . . ." type="text">
+                        <form method="post" action="/search" enctype="application/x-www-form-urlencoded">
+                            <input placeholder="I am Searching for . . ." type="text" name="searchTerm">
                             <button>
                                 <i class="ti-search"></i>
                             </button>

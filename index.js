@@ -8,17 +8,21 @@ const morgan = require("morgan");
 const session = require("express-session");
 const passport = require("passport");
 const Customer = require("./model/Customer");
-const Vendor = require("./model/Vendor");
-const Shipper = require("./model/Shipper");
+const Product = require("./model/Product");
 const productRoute = require("./routes/product");
 const methodOverride = require("method-override");
 const flash = require("express-flash");
-const authenticateUser = require("./middleware/checkAuthentication");
+const productImg = require("./middleware/product-img");
+const authenticateUser = require('./middleware/checkAuthentication')
 const authRoutes = require("./routes/auth");
+
+
+
+
 const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
-const checkAuthention = require("./middleware/checkAuthentication");
+
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -27,22 +31,22 @@ if (process.env.NODE_ENV !== "production") {
 initializePassport(
   passport,
   async (username, userType) => {
-    if (userType === "customer") {
+    if (userType === 'customer') {
       return await Customer.findOne({ username: username });
-    } else if (userType === "vendor") {
+    } else if (userType === 'vendor') {
       return await Vendor.findOne({ username: username });
-    } else if (userType === "shipper") {
+    } else if (userType === 'shipper') {
       return await Shipper.findOne({ username: username });
     } else {
       return null; // Handle unrecognized roles appropriately
     }
   },
   async (id, userType) => {
-    if (userType === "customer") {
+    if (userType === 'customer') {
       return await Customer.findOne({ _id: id });
-    } else if (userType === "vendor") {
+    } else if (userType === 'vendor') {
       return await Vendor.findOne({ _id: id });
-    } else if (userType === "shipper") {
+    } else if (userType === 'shipper') {
       return await Shipper.findOne({ _id: id });
     } else {
       return null; // Handle unrecognized roles appropriately
@@ -50,15 +54,13 @@ initializePassport(
   }
 );
 
-app.use(express.static(path.join(__dirname, "../public")));
-
-
+// app.use(axios());
+app.use(express.static(path.join(__dirname + "../public")));
 
 mongoose
   .connect(
-    "mongodb+srv://baond39:bao123@cluster0.jeatohh.mongodb.net/?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+    "mongodb+srv://baond39:bao123@cluster0.jeatohh.mongodb.net/?retryWrites=true&w=majority"
+  ,{ useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to mongo"))
   .catch((error) => console.log(error.message));
 
@@ -66,7 +68,7 @@ dotenv.config();
 
 app.set("view engine", "ejs");
 
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.static("public"));
@@ -83,17 +85,19 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride("_method"));
-app.use("/", require("./routes/product"));
+app.use('/',require('./routes/product'));
 
 app.use(authRoutes);
-
 
 
 app.get("/cart", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("cart", { name });
 });
-
+app.get("/add-product", (req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("add-product", { name });
+});
 app.get("/checkout", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("checkout", { name });
@@ -129,16 +133,72 @@ app.get("/men", (req, res) => {
 //   res.render("product-details", { name });
 // });
 
-app.get("/shipper", authenticateUser.checkAuthenticated, (req, res) => {
+app.get("/shipper",authenticateUser.checkAuthenticated, (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("shipper-page", { name });
 });
+  app.get("/vendor", (req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("vendor-page", { name });
+});
+app.get('/add-product',(req,res) =>{
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render('add-product',{name})
+});
+app.get('/update-product',(req,res) =>{
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render('update-product',{name})
+}); 
+
 
 app.get("/women", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("women-sweaters", { name });
 });
 
-app.get("/profile", checkAuthention.profileRedirect);
+app.get("/customer-profile", (req,res) => {
+  let photo = '1.png';
+  res.render("my-profile-cus", {photo : photo})
+})
 
+app.get("/shipper-profile", (req,res) => {
+  let name = "Unga Bunga1";
+  let photolink = '1.png';
+  let photo = `/img/icon-img/${photolink}`;
+  res.render("my-profile-ship", {photo : photo, name:name})
+})
+
+/*app.get("/search", (req,res) => {
+  //let searchTerm = req.body.searchTerm;
+  //matchedProducts = 
+  Product.find({}, function(error, products){
+    res.render('found', { products: products }))}
+  
+  //.then(products => res.render('found', { products: products }))
+  //.catch(error => res.send(error));
+  //productArray = matchedProducts.toArray();
+  //res.redirect("/found");
+  
+})*/
+async function getProduct(arg){
+  const item = await Product.find({name: {$regex: arg, $options: 'i'}});
+  return item;
+}
+
+app.get('/products', (req, res) => {
+    getProduct().then(function(foundStuff) {
+      res.render('found', { products : foundStuff })
+    })
+  
+  /*Product.find({})
+      .then(products => res.render('view-products', { products }))
+      .catch(error => res.send(error));*/
+  });
+app.post("/search", (req, res) => {
+  let searchThis = req.body.searchTerm;
+  console.log(searchThis);
+  getProduct(searchThis).then(function(foundStuff) {
+    res.render('found', { products : foundStuff })
+  })
+})
 app.listen(PORT, console.log("Server start for port: " + PORT));

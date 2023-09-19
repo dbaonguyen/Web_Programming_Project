@@ -10,12 +10,23 @@ route.get('/add-product',checkAuthentication.checkAuthenticated, services.add_pr
 
 route.get('/update-product', services.update_product);
 
-
 //api
 route.post("/api/products",upload.single('product_image'),checkAuthentication.checkNotAuthenticated, controller.create);
 route.get("/api/products", controller.find);
+route.get('/api/products', async (req, res) => {
+    try {
+      const { size, price } = req.query;
+      const filter = {};
+      if (size) filter.size = size;
+      if (price) filter.price = price;
+      const products = await Product.find(filter);
+      res.status(200).json(products);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: true, message: 'Internal Server Error' });
+    }
+  });
 route.put("/api/products/:id", controller.update);
 route.delete("/api/products/:id", controller.delete);
 
 module.exports = route;
-  
