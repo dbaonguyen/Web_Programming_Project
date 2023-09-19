@@ -78,7 +78,7 @@ app.use(flash());
 app.use(express.json());
 app.use(
   session({
-    secret: "my secret key",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
   })
