@@ -8,30 +8,30 @@ const upload = require("../middleware/upload");
 const Vendor = require("../model/Vendor");
 
 // Homepage route (unchanged)
-router.get("/", checkAuthentication.checkAuthenticated, (req, res) => {
+router.get("/", async (req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+
   try {
-    let name = req.isAuthenticated() ? req.user.username : undefined;
-    req.session.name = name;
     if (req.user.role === "customer") {
       res.render("index", { name });
     } else if (req.user.role === "vendor") {
       try {
-        const loggedInVendor = Vendor.findById(req.user._id)
-          .populate("products")
-          .exec();
-        const products = loggedInVendor.products;
-        res.render("vendor-page", { products });
-      } catch (error) {
-        res.json({ message: error.message });
+        let name = req.isAuthenticated() ? req.user.username : undefined;
+        const vendor = await Vendor.findById(req.user._id).populate("products");
+        // Extract the vendor's products
+        const products = vendor.products;
+        res.render("vendor-page", { products, name });
+      } catch (err) {
+        res.json({ message: err.message });
       }
     } else if (req.user.role === "shipper") {
-      res.render("shipper-page");
+      res.render("shipper-page", { name });
     } else {
       console.log("something went wrong!");
     }
   } catch (error) {
     console.log(error);
-    res.render("index");
+    res.render("index", { name: undefined });
   }
 });
 

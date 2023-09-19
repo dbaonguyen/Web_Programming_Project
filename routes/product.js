@@ -29,7 +29,6 @@ router.post(
   async (req, res) => {
     const name = req.isAuthenticated() ? req.user.username : undefined;
 
-    
     req.session.name = name;
     try {
       const product = new Product({
@@ -48,7 +47,7 @@ router.post(
 
       // Push the newly created product's ID into the vendor's products array
       vendor.products.push(product._id);
-  
+
       // Save the vendor with the updated products array
       await vendor.save();
       res.redirect("/vendor");
@@ -60,7 +59,6 @@ router.post(
 
 //Get all products
 router.get("/vendor", async (req, res) => {
-  
   try {
     let name = req.isAuthenticated() ? req.user.username : undefined;
     const vendor = await Vendor.findById(req.user._id).populate("products");
@@ -82,18 +80,19 @@ router.get(
   "/update-product/:id",
   checkAuthention.checkAuthenticated,
   async (req, res) => {
-    let name = req.isAuthenticated() ? req.user.username : undefined;
     try {
+      let name = req.isAuthenticated() ? req.user.username : undefined;
+      req.session.name = name;
       const id = req.params.id;
       const product = await Product.findById(id).exec();
 
       if (product === null) {
-        res.redirect("/vendor", { name });
+        res.redirect("/vendor");
       } else {
-        res.render("update-product", { product, name });
+        res.render("update-product", { product });
       }
     } catch (err) {
-      res.redirect("/vendor", { name });
+      res.redirect("/vendor");
     }
   }
 );
