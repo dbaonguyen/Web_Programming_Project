@@ -31,7 +31,13 @@ const vendorSchema = new Schema(
       type: String,
       enum: ["vendor"],
       default: "vendor",
-    }
+    },
+    products: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
   },
   { timestamps: true }
 );

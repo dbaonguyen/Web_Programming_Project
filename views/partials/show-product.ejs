@@ -7,30 +7,30 @@
       <td>
         <%= products[i].description %>
       </td>
-        <td>
-          <img src="<%= products[i].image %>" alt="">
-        </td>
-          <td>
-            <%= products[i].price %>
-          </td>
-          <td>
-            <%= products[i].category %>
-          </td>
-          <td>
-            <%= products[i].size %>
-          </td>
-          <td>
-            <a href="/update-product?id=<%= products[i]._id %>" class="btn border-shadow update">
-              <span class="text-gradient"><i class="ti-pencil"></i></span>
-            </a>
-            <a class="btn border-shadow delete" data-id="<%= products[i]._id %>">
-              <span class="text-gradient"><i class="ti-close"></i></span>
-            </a>
-          </td>
+      <td>
+        <img src="<%= products[i].image %>" alt="">
+      </td>
+      <td>
+        <%= products[i].price %>
+      </td>
+      <td>
+        <%= products[i].category.name %> <!-- Assuming 'category' has a 'name' field -->
+      </td>
+      <td>
+        <%= products[i].size %>
+      </td>
+      <td>
+        <a href="/update-product/<%= products[i]._id %>" class="btn border-shadow update">
+          <span class="text-gradient"><i class="ti-pencil"></i></span>
+        </a>
+        <a class="btn border-shadow delete" data-id="<%= products[i]._id %>">
+          <span class="text-gradient"><i class="ti-close"></i></span>
+        </a>
+      </td>
     </tr>
     <% } %>
       <% } else { %>
         <tr>
-          <td colspan="6">No products available.</td>
+          <td colspan="7">No products available.</td>
         </tr>
         <% } %>

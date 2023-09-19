@@ -1,27 +1,37 @@
 // routes/authRoutes.js
 const express = require("express");
 const router = express.Router();
+const session = require("express-session");
 const authController = require("../controllers/authController");
 const checkAuthentication = require("../middleware/checkAuthentication");
 const upload = require("../middleware/upload");
+const Vendor = require("../model/Vendor");
 
 // Homepage route (unchanged)
-router.get("/", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-
+router.get("/", checkAuthentication.checkAuthenticated, (req, res) => {
   try {
+    let name = req.isAuthenticated() ? req.user.username : undefined;
+    req.session.name = name;
     if (req.user.role === "customer") {
       res.render("index", { name });
-    } else if (req.user.role === "shipper") {
-      res.render("shipper-page", { name });
     } else if (req.user.role === "vendor") {
-      res.render("vendor-page", { name });
+      try {
+        const loggedInVendor = Vendor.findById(req.user._id)
+          .populate("products")
+          .exec();
+        const products = loggedInVendor.products;
+        res.render("vendor-page", { products });
+      } catch (error) {
+        res.json({ message: error.message });
+      }
+    } else if (req.user.role === "shipper") {
+      res.render("shipper-page");
     } else {
       console.log("something went wrong!");
     }
   } catch (error) {
-    console.log(error)
-    res.render("index", {name: undefined})
+    console.log(error);
+    res.render("index");
   }
 });
 

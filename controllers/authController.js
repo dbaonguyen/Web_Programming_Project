@@ -35,49 +35,72 @@ const authController = {
       const saltRounds = 10;
       const password = req.body.password;
       const passwordErrors = [];
-
+  
       const registrationType = req.body.registrationType;
       if (password.length < 8 || password.length > 20) {
-        passwordErrors.push(
-          "Password length must be between 8 and 20 characters"
-        );
+        passwordErrors.push("Password length must be between 8 and 20 characters");
       }
       if (!/^(?=.*[A-Z])/.test(password)) {
-        passwordErrors.push(
-          "Password must contain at least one uppercase letter"
-        );
+        passwordErrors.push("Password must contain at least one uppercase letter");
       }
       if (!/^(?=.*[a-z])/.test(password)) {
-        passwordErrors.push(
-          "Password must contain at least one lowercase letter"
-        );
+        passwordErrors.push("Password must contain at least one lowercase letter");
       }
       if (!/^(?=.*[0-9])/.test(password)) {
         passwordErrors.push("Password must contain at least one digit");
       }
       if (!/^(?=.*[!@#$%^&*])/.test(password)) {
-        passwordErrors.push(
-          "Password must contain at least one special character from !@#$%^&*"
-        );
+        passwordErrors.push("Password must contain at least one special character from !@#$%^&*");
       }
-
+  
       if (passwordErrors.length > 0) {
         return res.render("register", {
           errorMessages: passwordErrors,
         });
       }
-
+  
       const hashedPassword = await bcrypt.hash(password, saltRounds);
-      
       let newUser;
+  
       if (registrationType === "vendor") {
+        // Create a new Vendor instance with the data
         newUser = new Vendor({
           username: req.body.username,
           password: hashedPassword,
           businessName: req.body.businessName,
           businessAddress: req.body.businessAddress,
+          products: [], // Initialize the products array
         });
+  
+        // Validate the user input
+        const validationError = newUser.validateSync();
+        if (validationError) {
+          const errorMessages = Object.values(validationError.errors).map((error) => error.message);
+          return res.render("register-ven", {
+            errorMessages,
+          });
+        }
+  
+        await newUser.save();
+        const vendorId = newUser._id;
+  
+        // Check if req.body.products is an array before attempting to map it
+        if (Array.isArray(req.body.products)) {
+          const vendorProducts = req.body.products.map((productData) => ({
+            ...productData,
+            vendor: vendorId,
+          }));
+  
+          const createdProducts = await Product.create(vendorProducts);
+  
+          // Update the vendor's products array with the created product IDs
+          newUser.products = createdProducts.map((product) => product._id);
+          await newUser.save();
+        }
+  
+        res.redirect("/login");
       } else if (registrationType === "customer") {
+        // Create a new Customer instance with the data
         newUser = new Customer({
           username: req.body.username,
           password: hashedPassword,
@@ -85,85 +108,46 @@ const authController = {
           address: req.body.address,
           phone: req.body.phone,
         });
+  
+        // Validate the user input
+        const validationError = newUser.validateSync();
+        if (validationError) {
+          const errorMessages = Object.values(validationError.errors).map((error) => error.message);
+          return res.render("register", {
+            errorMessages,
+          });
+        }
+  
+        await newUser.save();
+        res.redirect("/login");
       } else if (registrationType === "shipper") {
         const distributionHubName = req.body.distributionHub;
         // Find the 'DistributionHub' document that matches the provided name
         const distributionHub = await DistributionHub.findOne({
           name: distributionHubName,
         });
+  
+        // Create a new Shipper instance with the data
         newUser = new Shipper({
           username: req.body.username,
           password: hashedPassword,
           distributionHub: distributionHub._id,
         });
-      }
-
-      if (req.file) {
-        newUser.pfp = req.file.path;
-      }
-
-      if (registrationType === "customer") {
-        // Create a new Customer instance with the data
-        const newCustomer = new Customer(newUser);
-
+  
         // Validate the user input
-        const validationError = newCustomer.validateSync();
+        const validationError = newUser.validateSync();
         if (validationError) {
-          // Extract the error messages from the validation error
-          const errorMessages = Object.values(validationError.errors).map(
-            (error) => error.message
-          );
-
-          return res.render("register", {
-            errorMessages,
-          });
-        }
-        // Save the customer data to the database
-        await newCustomer.save();
-        res.redirect("/login");
-      } else if (registrationType === "vendor") {
-        // Create a new Customer instance with the data
-        const newVendor = new Vendor(newUser);
-
-        // Validate the user input
-        const validationError = newVendor.validateSync();
-        if (validationError) {
-          // Extract the error messages from the validation error
-          const errorMessages = Object.values(validationError.errors).map(
-            (error) => error.message
-          );
-
-          return res.render("register-ven", {
-            errorMessages,
-          });
-        }
-        await newVendor.save();
-        res.redirect("/login");
-      } else {
-        // Create a new Customer instance with the data
-        const newShipper = new Shipper(newUser);
-
-        // Validate the user input
-        const validationError = newShipper.validateSync();
-        if (validationError) {
-          // Extract the error messages from the validation error
-          const errorMessages = Object.values(validationError.errors).map(
-            (error) => error.message
-          );
-
+          const errorMessages = Object.values(validationError.errors).map((error) => error.message);
           return res.render("register-ship", {
             errorMessages,
           });
         }
-        await newShipper.save();
+  
+        await newUser.save();
         res.redirect("/login");
       }
     } catch (error) {
-      if (
-        error.code === 11000 &&
-        error.keyPattern &&
-        error.keyPattern.username
-      ) {
+      if (error.code === 11000 && error.keyPattern && error.keyPattern.username) {
         // Duplicate username error
         return res.render("register", {
           errorMessages: ["Username has already been used"],
@@ -174,6 +158,7 @@ const authController = {
       }
     }
   },
+  
 
   // Handle user login
   login: (req, res, next) => {

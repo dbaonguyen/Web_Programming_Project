@@ -1,8 +1,9 @@
 const { Product } = require("../model/Product");
 const Category = require("../model/Category");
+const Vendor = require("../model/Vendor");
 
 //create and save new product
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   console.log("Create product route called");
 
   // Check if the request body contains the necessary data
@@ -11,65 +12,67 @@ exports.create = (req, res) => {
     res.status(400).send({ message: "Content can not be empty" });
     return;
   }
-  const categoryName = req.body.category;
-  console.log(categoryName);
-  // Extract data from the request body
-  const category = Category.findOne({
-    name: categoryName,
-  });
-  let product;
-  // Create a new Product instance
-   product = new Product({
-    name : req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    category: category._id,
-    size: req.body.size,
-  });
-  
 
-  // Check if a file was uploaded and set the product_image property
-  if (req.file) {
-    product.product_image = req.file.path;
-  }
-  
+  try {
+    const categoryName = req.body.category;
+    console.log(categoryName);
 
-  // Validate the product
-  const validationError = product.validateSync();
-  if (validationError) {
-    console.error("Validation error:", validationError);
+    // Extract data from the request body
+    const category = await Category.findOne({ name: categoryName });
+    const vendorId = req.user._id; // Get the vendor ID from the authenticated user
 
-    // Extract the error messages from the validation error
-    const errorMessages = Object.values(validationError.errors).map(
-      (error) => error.message
-    );
-
-    // Render the add-product page with error messages
-    return res.render("add-product", {
-      errorMessages,
+    // Create a new Product instance
+    const product = new Product({
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      category: category._id,
+      size: req.body.size,
+      vendor: vendorId, // Assign the vendor ID
     });
-  }
 
-  // Save the product in the database
-  console.log("Saving product...");
-  product
-    .save()
-    .then((savedProduct) => {
-      console.log("Product saved:", savedProduct);
+    // Check if a file was uploaded and set the product_image property
+    if (req.file) {
+      product.product_image = req.file.path;
+    }
 
-      // Redirect to the vendor page or send a success response
-      
-    })
-    .catch((err) => {
-      console.error("Error saving product:", err);
+    // Validate the product
+    const validationError = product.validateSync();
+    if (validationError) {
+      console.error("Validation error:", validationError);
 
-      // Handle the error, e.g., sending an error response
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating a create operation",
+      // Extract the error messages from the validation error
+      const errorMessages = Object.values(validationError.errors).map(
+        (error) => error.message
+      );
+
+      // Render the add-product page with error messages
+      return res.render("add-product", {
+        errorMessages,
       });
-    });
+    }
+
+    // Save the product in the database
+    console.log("Saving product...");
+    const savedProduct = await product.save();
+    console.log("Product saved:", savedProduct);
+
+    // Find and update the vendor's products array
+    const loggedInVendor = await Vendor.findById(vendorId);
+    loggedInVendor.products.push(savedProduct._id); // Add the product's ID to the vendor's products array
+    await loggedInVendor.save();
+
+    // Redirect to the vendor page or send a success response
     res.redirect("/vendor");
+  } catch (err) {
+    console.error("Error creating product:", err);
+
+    // Handle the error, e.g., sending an error response
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while creating a create operation",
+    });
+  }
 };
 
 
@@ -97,12 +100,10 @@ exports.find = (req, res) => {
         res.send(product);
       })
       .catch((err) => {
-        res
-          .status(500)
-          .send({
-            message:
-              err.message || "Error occurred while getting product information",
-          });
+        res.status(500).send({
+          message:
+            err.message || "Error occurred while getting product information",
+        });
       });
   }
 };

@@ -4,10 +4,9 @@
             <div class="container">
                 <div class="breadcrumb-content text-center">
                     <h2>My profile</h2>
-                    <% console.log('Original Photo:', photo); %>
-                    <% const imagePath=photo.replace(/\\/g, '/' ).replace('public/', '' ); %>
-                        <img src="<%= imagePath %>" alt="user avatar" width="300" height="300">
-                        <% console.log('Replaced Photo:', imagePath); %>
+                   
+                        <img src="<%= photo %>" alt="user avatar" width="300" height="300">
+                     
             </div>
                 </div>
             </div>
