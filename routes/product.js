@@ -51,7 +51,7 @@ router.get("/add-product", (req,res) => {
   res.render('add-product')
 });
 
-//Update a product
+//Update a product by finding id
 router.get('/update-product/:id', async (req, res) => {
   try {
     const id = req.params.id;
