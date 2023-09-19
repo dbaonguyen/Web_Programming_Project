@@ -15,10 +15,6 @@ const methodOverride = require("method-override");
 const flash = require("express-flash");
 const authenticateUser = require("./middleware/checkAuthentication");
 const authRoutes = require("./routes/auth");
-
-
-
-
 const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
@@ -70,7 +66,7 @@ dotenv.config();
 
 app.set("view engine", "ejs");
 
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.static("public"));
@@ -92,14 +88,12 @@ app.use("/", require("./routes/product"));
 app.use(authRoutes);
 
 
+
 app.get("/cart", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("cart", { name });
 });
-app.get("/add-product", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("add-product", { name });
-});
+
 app.get("/checkout", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("checkout", { name });
@@ -130,10 +124,10 @@ app.get("/men", (req, res) => {
   res.render("men-t-shirts", { name });
 });
 
-app.get("/product-details", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("product-details", { name });
-});
+// app.get("/product-details", (req, res) => {
+//   let name = req.isAuthenticated() ? req.user.username : undefined;
+//   res.render("product-details", { name });
+// });
 
 app.get("/shipper", authenticateUser.checkAuthenticated, (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;

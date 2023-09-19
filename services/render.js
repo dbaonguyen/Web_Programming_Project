@@ -1,28 +1,34 @@
-const axios = require('axios');
+const axios = require("axios");
 
-exports.vendor = (req,res) => {
-    //make a get reques to api/products
-    let name = req.isAuthenticated() ? req.user.username : undefined;
-    axios.get('http://localhost:3000/api/products')
-        .then(function(respone){
-            res.render("vendor-page", {products: respone.data, name})
-        })
-        .catch(err =>{
-            res.send(err);
-        })
-}
+exports.vendor = (req, res) => {
+  // Make a GET request to the API endpoint to retrieve product data
+  axios
+    .get("http://localhost:3000/api/products")
+    .then((response) => {
+      const name = req.isAuthenticated() ? req.user.username : undefined;
+      const products = response.data;
+      console.log(products)
+      // Render the vendor page and pass the products data
+      res.render("vendor-page", { products, name });
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+};
+exports.add_product = (req, res) => {
+    const name = req.isAuthenticated() ? req.user.username : undefined;
 
-exports.add_product = (req,res) =>{
-    res.render("add-product")
-}
+    // Render the "add product" page and pass the username
+    res.render("add-product", { name });
+};
 
-exports.update_product = (req,res) =>{
-    axios.get('http://localhost:3000/api/products', {params : {id: req.query.id}})
-        .then(function(productData){
-            res.render("update-product", {product: productData.data})
-        })
-    //res.render("update-product")
-        .catch(err => {
-            res.send(err);
-        })
-}
+exports.update_product = (req, res) => {
+  axios
+    .get("http://localhost:3000/api/products", { params: { id: req.query.id } })
+    .then(function (productData) {
+      res.render("update-product", { product: productData.data });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
