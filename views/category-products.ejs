@@ -1,13 +1,13 @@
 <%- include ('partials/header') %>
         <div class="container-fluid">
             <div class="breadcrumb-content text-center">
-                <h2>Bags</h2>
+                <h2>Sweaters</h2>
                 <ul>
-                    <li><a href="index.html">home</a></li>
+                    <li><a href="/">home</a></li>
                     <li> >> </li>
-                    <li><a href="kid-fashions.html">Kid's Fashion</a></li>
+                    <li><a href="men-fashions.html">Women's Fashion</a></li>
                     <li> >> </li>
-                    <li>Bags</li>
+                    <li>Sweaters</li>
                 </ul>
             </div>
         </div>
@@ -155,7 +155,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="shop-product-content tab-content">
+                                <!-- <div class="shop-product-content tab-content">
                                     <div id="grid-sidebar3" class="tab-pane fade active show">
                                         <div class="row">
                                             <div class="col-md-6 col-xl-4">
@@ -165,7 +165,6 @@
                                                             <img src="img/product/Lightweight-jacket1.jpg" alt="">
                                                         </a>
                                                         <div class="product-action">
-                                                                <i class="pe-7s-like"></i>
                                                             </a>
                                                             <a class="animate-top" title="Add To Cart" href="#">
                                                                 <i class="pe-7s-cart"></i>
@@ -188,7 +187,6 @@
                                                             <img src="img/product/T-shirt1.jpg" alt="">
                                                         </a>
                                                         <div class="product-action">
-                                                                <i class="pe-7s-like"></i>
                                                             </a>
                                                             <a class="animate-top" title="Add To Cart" href="#">
                                                                 <i class="pe-7s-cart"></i>
@@ -211,7 +209,6 @@
                                                             <img src="img/product/Shorts1.jpg" alt="">
                                                         </a>
                                                         <div class="product-action">
-                                                                <i class="pe-7s-like"></i>
                                                             </a>
                                                             <a class="animate-top" title="Add To Cart" href="#">
                                                                 <i class="pe-7s-cart"></i>
@@ -234,7 +231,6 @@
                                                             <img src="img/product/Lightweight-womenjacket1.jpg" alt="" height="405px">
                                                         </a>
                                                         <div class="product-action">
-                                                                <i class="pe-7s-like"></i>
                                                             </a>
                                                             <a class="animate-top" title="Add To Cart" href="#">
                                                                 <i class="pe-7s-cart"></i>
@@ -257,7 +253,6 @@
                                                             <img src="img/product/T-shirt-women1.jpg" alt="">
                                                         </a>
                                                         <div class="product-action">
-                                                                <i class="pe-7s-like"></i>
                                                             </a>
                                                             <a class="animate-top" title="Add To Cart" href="#">
                                                                 <i class="pe-7s-cart"></i>
@@ -280,7 +275,6 @@
                                                             <img src="img/product/T-shirt-men1.jpg" alt="">
                                                         </a>
                                                         <div class="product-action">
-                                                                <i class="pe-7s-like"></i>
                                                             </a>
                                                             <a class="animate-top" title="Add To Cart" href="#">
                                                                 <i class="pe-7s-cart"></i>
@@ -322,6 +316,8 @@
                                                                 <a class="btn-hover list-btn-style" href="#">add to cart</a>
                                                             </div>
                                                             <div class="product-list-wishlist">
+                                                                <a class="btn-hover list-btn-wishlist" href="#">
+
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -350,6 +346,8 @@
                                                                 <a class="btn-hover list-btn-style" href="#">add to cart</a>
                                                             </div>
                                                             <div class="product-list-wishlist">
+                                                                <a class="btn-hover list-btn-wishlist" href="#">
+
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -378,6 +376,8 @@
                                                                 <a class="btn-hover list-btn-style" href="#">add to cart</a>
                                                             </div>
                                                             <div class="product-list-wishlist">
+                                                                <a class="btn-hover list-btn-wishlist" href="#">
+
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -406,6 +406,8 @@
                                                                 <a class="btn-hover list-btn-style" href="#">add to cart</a>
                                                             </div>
                                                             <div class="product-list-wishlist">
+                                                                <a class="btn-hover list-btn-wishlist" href="#">
+
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -434,6 +436,8 @@
                                                                 <a class="btn-hover list-btn-style" href="#">add to cart</a>
                                                             </div>
                                                             <div class="product-list-wishlist">
+                                                                <a class="btn-hover list-btn-wishlist" href="#">
+
                                                                 </a>
                                                             </div>
                                                         </div>
@@ -462,12 +466,45 @@
                                                                 <a class="btn-hover list-btn-style" href="#">add to cart</a>
                                                             </div>
                                                             <div class="product-list-wishlist">
+                                                                <a class="btn-hover list-btn-wishlist" href="#">
+
                                                                 </a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="shop-product-content tab-content">
+                                    <div id="grid-sidebar3" class="tab-pane fade active show">
+                                        <div class="row">
+                                            <% for (var i = 0; i < products.length; i++) { %>
+                                                <% if (products[i].category === categoryName) { %>
+                                                    <div class="col-md-6 col-xl-4">
+                                                        <div class="product-wrapper mb-30">
+                                                            <div class="product-img">
+                                                                <a href="#">
+                                                                    <img src="<%= products[i].image %>" alt="<%= products[i].name %>">
+                                                                </a>
+                                                                <div class="product-action">
+                                                                    <a class="animate-top" title="Add To Cart" href="#">
+                                                                        <i class="pe-7s-cart"></i>
+                                                                    </a>
+                                                                    <a class="animate-right" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                                                                        <i class="pe-7s-look"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-content">
+                                                                <h4><a href="#"><%= products[i].name %></a></h4>
+                                                                <span>$<%= products[i].price %></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <% } %>
+                                            <% } %>
                                         </div>
                                     </div>
                                 </div>
