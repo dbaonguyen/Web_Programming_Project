@@ -13,7 +13,14 @@ router.get("/", async (req, res) => {
 
   try {
     if (req.user.role === "customer") {
-      res.render("index", { name });
+      try {
+        const vendor = await Vendor.findById(req.user._id).populate("products");
+        // Extract the vendor's products
+        const products = vendor.products;
+        res.render("index", { name, products });
+      } catch {
+        
+      }
     } else if (req.user.role === "vendor") {
       try {
         let name = req.isAuthenticated() ? req.user.username : undefined;

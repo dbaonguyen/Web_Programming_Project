@@ -83,7 +83,7 @@
                                                         <div class="product-img">
                                                             <a href="/product-details/<%= products[i]._id %>">
                                                                 <img src="/uploads/<%= products[i].image %>"
-                                                                    alt="<%= products[i].name %>" width="300px" height="450px">
+                                                                    alt="<%= products[i].name %>" width="370px" height="370px">
                                                             </a>
                                                             <div class="product-action">
                                                                 <a class="animate-top" title="Add To Cart" href="#">
@@ -91,7 +91,7 @@
                                                                 </a>
                                                                 <a class="animate-right" title="Quick View"
                                                                     data-toggle="modal" data-target="#exampleModal"
-                                                                    href="#">
+                                                                    href="/product-details/<%= products[i]._id %>">
                                                                     <i class="pe-7s-look"></i>
                                                                 </a>
                                                             </div>
