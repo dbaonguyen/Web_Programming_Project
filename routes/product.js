@@ -37,7 +37,6 @@ router.post(
         price: req.body.price,
         image: req.file.filename,
         category: req.body.category,
-        size: req.body.size,
         vendor: req.user._id,
       });
 
@@ -126,7 +125,6 @@ router.post(
         price: req.body.price,
         image: new_image,
         category: req.body.category,
-        size: req.body.size,
       }).exec();
 
       if (!updatedProduct) {

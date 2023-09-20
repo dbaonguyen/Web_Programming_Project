@@ -18,11 +18,7 @@ const productSchema = new Schema({
     required: true,
     min: [0, "Product price can't be below 0!"],
   },
-  size: {
-    type: String,
-    enum: ["S", "XS", "M", "XM", "L", "XL"],
-    required: true,
-  },
+  
   category: {
     type: String,
     enum: [
