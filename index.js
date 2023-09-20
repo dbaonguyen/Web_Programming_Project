@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const session = require("express-session");
 const passport = require("passport");
+const url = require("url");
 const Customer = require("./model/Customer");
 const Product = require("./model/Product");
 const productRoute = require("./routes/product");
@@ -20,6 +21,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
 const checkAuthention = require("./middleware/checkAuthentication");
+const { none } = require("./middleware/upload");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -157,6 +159,11 @@ async function getProduct(arg) {
   return item;
 }
 
+async function getCategoryProduct(arg1, arg2) {
+  const item = await Product.find({ name: { $regex: arg1, $options: "i" }, category: arg2 });
+  return item;
+}
+
 app.get("/products", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   getProduct().then(function (foundStuff) {
@@ -174,5 +181,30 @@ app.post("/search", (req, res) => {
   getProduct(searchThis).then(function (foundStuff) {
     res.render("found", { products: foundStuff,name });
   });
+});
+
+app.post("/categorySearch", (req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  let searchThis = req.body.categorySearch;
+  let category = req.params.categoryName;
+  console.log("That is" +category);
+    res.redirect(url.format({
+      pathname:"/category/:category/search_result",
+      query: {
+         searchThis: searchThis,
+         category : category,
+       }
+    }));
+});
+
+app.get("/category/:category/search_result", async (req,res) => {
+  const sortByPrice = req.query.sortByPrice || 'none';
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  let searchThis = req.query.searchThis;
+  let category = req.query.category;
+  console.log("This is" +category);
+  getCategoryProduct(searchThis, category).then(function (foundStuff) {
+    res.render("category-products", {products: foundStuff,name, categoryName : category, req, sortByPrice})
+  })
 });
 app.listen(PORT, console.log("Server start for port: " + PORT));

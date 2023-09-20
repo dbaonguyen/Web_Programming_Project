@@ -20,8 +20,8 @@
                         <div class="sidebar-widget mb-50">
                             <h3 class="sidebar-title">Search Products</h3>
                             <div class="sidebar-search">
-                                <form action="#">
-                                    <input placeholder="Search Products..." type="text">
+                                <form method="post" action="/categorySearch" enctype="application/x-www-form-urlencoded">
+                                    <input placeholder="Search Products..." type="text" name="categorySearch" required>
                                     <button><i class="ti-search"></i></button>
                                 </form>
                             </div>
