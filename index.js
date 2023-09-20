@@ -14,7 +14,7 @@ const methodOverride = require("method-override");
 const flash = require("express-flash");
 const authRoutes = require("./routes/auth");
 const categoryRouter = require('./routes/category');
-
+const detailRouter = require('./routes/detail');
 
 
 
@@ -22,10 +22,6 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
 const checkAuthention = require("./middleware/checkAuthentication");
-
-
-const PORT = process.env.PORT || 3000;
-
 
 
 if (process.env.NODE_ENV !== "production") {
