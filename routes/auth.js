@@ -61,7 +61,7 @@ router.get("/", async (req, res) => {
     console.log(error);
   }
   try {
-    const products = await Product.find(); // Fetch all products from the main product schema
+    const products = await Product.find().limit(10); // Fetch all products from the main product schema
 
     const womenCategories = ["Dresses", "Skirts", "Sweaters", "Jeans"];
     const menCategories = ["Hoodies", "T-Shirts", "Jacket", "Short"];
