@@ -6,19 +6,46 @@ router.get("/:categoryName", async (req, res) => {
   try {
     let name = req.isAuthenticated() ? req.user.username : undefined;
     const categoryName = req.params.categoryName;
-    const size = req.query.size; // Get the size from the query parameter
+    console.log(categoryName);
 
-    // Build the query object
-    const query = { category: categoryName };
-    if (size && size !== "all") {
-      query.size = size;
+    // Get minimum and maximum prices from query parameters
+    const minPrice = req.query.minPrice ? parseFloat(req.query.minPrice) : undefined;
+    const maxPrice = req.query.maxPrice ? parseFloat(req.query.maxPrice) : undefined; 
+
+    // Get the selected sorting option from the request
+    const sortByPrice = req.query.sortByPrice || 'asc'; // Default to 'asc' if not provided
+
+    // Define a filter object based on query parameters
+    const filter = {
+      category: categoryName,
+    };
+
+    if (minPrice !== undefined && !isNaN(minPrice)) {
+      filter.price = { $gte: minPrice };
     }
 
-    // Query the database to find products based on category and size
-    const products = await Product.find(query).exec();
+    if (maxPrice !== undefined && !isNaN(maxPrice)) {
+      if (!filter.price) filter.price = {};
+      filter.price.$lte = maxPrice;
+    }
 
-    // Render the EJS template with the products, selected size, and category name
-    res.render("category-products", { categoryName, products, name, selectedSize: size });
+      // Define a sort object based on the selected sorting option
+      const sort = {};
+
+      if (sortByPrice === 'asc' || sortByPrice === 'desc') {
+        sort.price = sortByPrice === 'asc' ? 1 : -1;
+      } else {
+      // Default to ascending order if sortByPrice is not 'asc' or 'desc'
+      sort.price = 1;
+    }
+    
+    // Query the database to find products that match the filter, sorted as per the selected option
+    const products = await Product.find(filter)
+      .sort(sort)
+      .exec();
+    
+    // Render an EJS template with the products and req object
+    res.render("category-products", { categoryName, products, name, req, sortByPrice });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

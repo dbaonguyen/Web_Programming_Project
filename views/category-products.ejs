@@ -27,31 +27,17 @@
                         </div>
                         <div class="sidebar-widget mb-40">
                             <h3 class="sidebar-title">Filter by Price</h3>
-                            <div class="price_filter">
-                                <div id="slider-range"></div>
+                            <form action="<%= req.originalUrl %>" method="GET">
                                 <div class="price_slider_amount">
-                                    <div class="label-input">
-                                        <label>price : </label>
-                                        <input type="text" id="amount" name="price" placeholder="Add Your Price" />
-                                    </div>
-                                    <button type="button">Filter</button>
+                                  <div class="label-input">
+                                    <label>Price Range:</label>
+                                    <input type="number" name="minPrice" placeholder="Min Price" />
+                                    <input type="number" name="maxPrice" placeholder="Max Price" />
+                                  </div>
+                                  <button type="submit">Filter</button>
                                 </div>
-                            </div>
+                              </form>                              
                         </div>
-                        <div class="sidebar-widget mb-40">
-                            <h3 class="sidebar-title">Size</h3>
-                            <div class="product-size">
-                                <ul>
-                                    <li><a href="/category/<%= categoryName %>?size=XL">XL</a></li>
-                                    <li><a href="/category/<%= categoryName %>?size=L">L</a></li>
-                                    <li><a href="/category/<%= categoryName %>?size=XM">XM</a></li>
-                                    <li><a href="/category/<%= categoryName %>?size=M">M</a></li>
-                                    <li><a href="/category/<%= categoryName %>?size=XS">XS</a></li>
-                                    <li><a href="/category/<%= categoryName %>?size=S">S</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -62,17 +48,22 @@
                                     <div class="shop-found">
                                         <p><span><%= products.length %></span> Product Founded</p>
                                     </div>
+                                    <form action="<%= req.originalUrl %>" method="GET">
                                     <div class="shop-selector">
-                                        <label>Sort By : </label>
-                                        <select name="select">
-                                            <option value="">Best Match</option>
-                                            <option value="">Price low to high</option>
-                                            <option value="">Price high to low</option>
+                                        <label>Sort By: </label>
+                                        <select name="sortByPrice" id="sortByPrice">
+                                            <option value="asc" <% if (sortByPrice === 'asc') { %>selected<% } %>>Price low to high</option>
+                                            <option value="desc" <% if (sortByPrice === 'desc') { %>selected<% } %>>Price high to low</option>
                                         </select>
                                     </div>
+                                    <script>
+                                        document.getElementById('sortByPrice').addEventListener('change', function () {
+                                            this.form.submit();
+                                        });
+                                    </script>
+                                </form>                                                                
                                 </div>
                             </div>
-
                             <div class="shop-product-content tab-content">
                                 <div id="grid-sidebar3" class="tab-pane fade active show">
                                     <div class="row">
