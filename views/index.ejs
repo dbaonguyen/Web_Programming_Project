@@ -86,8 +86,10 @@
                                                     <img src="/uploads/<%= product.image %>" alt="<%= product.name %>" height="320px" width="350px">
                                                 </a>
                                                 <div class="product-action-2">
-                                                    <a class="animate-left add-style-2" title="Add To Cart" href="#">Add
-                                                        to Cart <i class="ti-shopping-cart"></i></a>
+                                                    <!-- Modify this line -->
+                                                    <a class="animate-left add-style-2" title="Add To Cart" href="#" onclick="addToCart(event)" data-id="<%= product._id %>">Add
+                                                        to Cart <i class="ti-shopping-cart"></i>
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="product-content-2 text-center">

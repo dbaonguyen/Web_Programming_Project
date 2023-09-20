@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
     <script src="/js/vendor/modernizr-3.11.7.min.js"></script>
-
+    <script src="js/cart.js"></script>
 </head>
 
 <body>
@@ -134,65 +134,32 @@
                             </ul>
                         </nav>
                     </div>
-                    <div class="header-cart-2">
+                    <div class="header-cart-2" onmouseover="showCart()" onmouseout="hideCart()">
                         <a class="icon-cart" href="/cart">
                             <i class="ti-shopping-cart"></i>
-                            <span class="shop-count book-count">02</span>
+                            <span class="shop-count book-count">0</span>
                         </a>
-                        <ul class="cart-dropdown">
-                            <li class="single-product-cart">
-                                <div class="cart-img">
-                                    <a href="#"><img src="/img/cart/1.jpg" alt=""></a>
-                                </div>
-                                <div class="cart-title">
-                                    <h5><a href="#"> Bits Headphone</a></h5>
-                                    <h6><a href="#">Black</a></h6>
-                                    <span>$80.00 x 1</span>
-                                </div>
-                                <div class="cart-delete">
-                                    <a href="#"><i class="ti-trash"></i></a>
-                                </div>
-                            </li>
-                            <li class="single-product-cart">
-                                <div class="cart-img">
-                                    <a href="#"><img src="/img/cart/2.jpg" alt=""></a>
-                                </div>
-                                <div class="cart-title">
-                                    <h5><a href="#"> Bits Headphone</a></h5>
-                                    <h6><a href="#">Black</a></h6>
-                                    <span>$80.00 x 1</span>
-                                </div>
-                                <div class="cart-delete">
-                                    <a href="#"><i class="ti-trash"></i></a>
-                                </div>
-                            </li>
-                            <li class="single-product-cart">
-                                <div class="cart-img">
-                                    <a href="#"><img src="/img/cart/3.jpg" alt=""></a>
-                                </div>
-                                <div class="cart-title">
-                                    <h5><a href="#"> Bits Headphone</a></h5>
-                                    <h6><a href="#">Black</a></h6>
-                                    <span>$80.00 x 1</span>
-                                </div>
-                                <div class="cart-delete">
-                                    <a href="#"><i class="ti-trash"></i></a>
-                                </div>
-                            </li>
-                            <li class="cart-space">
-                                <div class="cart-sub">
-                                    <h4>Subtotal</h4>
-                                </div>
-                                <div class="cart-price">
-                                    <h4>$240.00</h4>
-                                </div>
-                            </li>
-                            <li class="cart-btn-wrapper">
-                                <a class="cart-btn btn-hover" href="#">view cart</a>
-                                <a class="cart-btn btn-hover" href="#">checkout</a>
-                            </li>
-                        </ul>
                     </div>
+                    <div class="showcart" onmouseover="showCart()" onmouseout="hideCart()">
+                        <button class="clear-cart">Remove all</button>
+                        <table>
+                            <tbody>
+                                <tr class="cart-item-template" style="display: none;">
+                                    <td class="product-thumbnail">
+                                        <a href="#"><img src="" alt=""></a>
+                                    </td>
+                                    <td class="product-name"><a href="#"></a></td>
+                                    <td class="product-price-cart"><span class="amount"></span></td>
+                                    <td class="product-remove">
+                                        <button class="remove-product">x</button>
+                                    </td>
+                                </tr>
+                                <tr class="empty-cart-message" style="display: none;">
+                                    <td colspan="4" style="text-align: center;">No product here!</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>                
                 </div>
                 <div class="row">
                     <div class="mobile-menu-area d-md-block col-md-12 col-lg-12 col-12 d-lg-none d-xl-none">

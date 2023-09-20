@@ -1,4 +1,4 @@
-<%- include ('partials/header') %>
+<%- include('partials/header') %>
     <div class="container-fluid">
         <div class="breadcrumb-area pt-100">
             <div class="container">
@@ -79,9 +79,10 @@
                                                                     alt="<%= products[i].name %>" width="370px" height="370px">
                                                             </a>
                                                             <div class="product-action">
-                                                                <a class="animate-top" title="Add To Cart" href="#">
+                                                                <!-- Added data-id attribute to identify product -->
+                                                                <a class="animate-top" title="Add To Cart" href="#" onclick="addToCart(event)" data-id="<%= products[i]._id %>">
                                                                     <i class="pe-7s-cart"></i>
-                                                                </a>
+                                                                </a>                                                                
                                                                 <a class="animate-right" title="Quick View"
                                                                     data-toggle="modal" data-target="#exampleModal"
                                                                     href="/product-details/<%= products[i]._id %>">
@@ -89,7 +90,7 @@
                                                                 </a>
                                                             </div>
                                                         </div>
-
+                                        
                                                         <div class="product-content">
                                                             <h4><a href="/product-details/<%= products[i]._id %>">
                                                                     <%= products[i].name %>
@@ -98,8 +99,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <% } %>
-                                                    <% } %>
+                                            <% } %>
+                                        <% } %>                                                 
                                     </div>
                                 </div>
                             </div>

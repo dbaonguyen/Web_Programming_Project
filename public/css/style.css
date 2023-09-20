@@ -1394,7 +1394,7 @@
     display: inline-block;
     font-size: 16px;
     font-weight: bold;
-    padding: 50px 0 51px;
+    padding: 14px 0 51px;
     text-transform: capitalize;
 }
 .shop-count.book-count {
@@ -8784,4 +8784,113 @@ a:focus, a:hover {
 a, button {
     color: #fff;
     outline: medium none
+}
+/* ============CART=================== */
+.showcart .product-name a {
+    color: black; /* Đổi màu font chữ thành màu đen */
+}
+
+
+.header-cart-2 {
+    position: relative;
+}
+
+.icon-cart {
+    cursor: pointer;
+}
+
+.showcart {
+    display: none;
+    position: absolute;
+    top: 22%;
+    left: 73%; /* Đặt giá trị này cho hợp lý */
+    z-index: 1000;
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.showcart tr {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.showcart td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+.showcart .product-thumbnail img {
+    max-width: 60px;
+    height: auto;
+}
+
+.showcart .product-remove {
+    text-align: right; /* Căn icon close về bên phải */
+}
+
+
+
+.menu-style-2 nav > ul > li > a {
+    padding-bottom: 15px; /* Giảm khoảng cách ở dưới liên kết */
+}
+
+.single-dropdown {
+    margin-top: 0; /* Đảm bảo không có margin phía trên */
+    border-top: none; /* Đảm bảo không có viền phía trên nếu có */
+}
+
+/* Nút xóa tất cả sản phẩm */
+.clear-cart {
+    background-color: white; /* màu nền đỏ */
+    color: #f44336; /* màu chữ trắng */
+    border: none; /* không có viền */
+    padding: 10px 20px; /* padding cho nút */
+    margin-bottom: 10px; /* margin ở dưới nút */
+    cursor: pointer; /* con trỏ chuột sẽ trở thành biểu tượng tay khi di chuyển qua nút */
+    border-radius: 5px; /* bo góc cho nút */
+}
+
+.clear-cart:hover {
+    background-color:  #f44336;
+    color: white; /* màu nền đỏ đậm hơn một chút khi hover */
+    font-weight: bold; 
+}
+
+/* Nút xóa từng sản phẩm */
+.remove-product {
+    background-color: white; /* màu nền đỏ */
+    color: #f44336;
+    border: none;
+    padding: 5px 10px; /* padding nhỏ hơn một chút so với nút xóa tất cả */
+    cursor: pointer;
+    border-radius: 50%; /* làm nút tròn *//* font đậm */
+    transition: background-color 0.3s;
+}
+
+.remove-product:hover {
+    background-color:  #f44336;
+    color: white; 
+    font-weight: bold; 
+}
+
+/* Styles for the Notification */
+#notification {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    border-radius: 5px;
+    z-index: 1000; /* To make sure it appears on top */
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
 }

@@ -1,9 +1,5 @@
 <%- include('partials/header') %>
     <body>
-        <!--[if lt IE 8]>
-        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <!-- header start -->
         <div id="header"></div>
         <!-- header end -->
 		<div class="breadcrumb-area pt-100">
@@ -24,20 +20,7 @@
                     <div class="col-md-12 col-lg-7 col-12">
                         <div class="product-details-img-content">
                             <div class="product-details-tab mr-35 product-details-tab2">
-                                <!-- <div class="product-details-small nav mr-10 product-details-2" role=tablist>
-                                    <a class="active mb-10" href="#pro-details1" data-toggle="tab" role="tab" aria-selected="true">
-                                        <img src="img/product-details/s5.jpg" alt="">
-                                    </a>
-                                    <a class="mb-10" href="#pro-details2" data-toggle="tab" role="tab" aria-selected="true">
-                                        <img src="img/product-details/s6.jpg" alt="">
-                                    </a>
-                                    <a class="mb-10" href="#pro-details3" data-toggle="tab" role="tab" aria-selected="true">
-                                        <img src="img/product-details/s7.jpg" alt="">
-                                    </a>
-                                    <a class="mb-10" href="#pro-details4" data-toggle="tab" role="tab" aria-selected="true">
-                                        <img src="img/product-details/s8.jpg" alt="">
-                                    </a>
-                                </div> -->
+
                                 <div class="product-details-large tab-content">
                                     <div class="tab-pane active show fade" id="pro-details1" role="tabpanel">
                                         <div class="easyzoom easyzoom--overlay  is-ready">
@@ -46,27 +29,6 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <!-- <div class="tab-pane fade" id="pro-details2" role="tabpanel">
-                                        <div class="easyzoom easyzoom--overlay  is-ready">
-                                            <a href="img/product-details/bl2.jpg">
-                                                <img src="img/product-details/l6-details-2.jpg" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="pro-details3" role="tabpanel">
-                                        <div class="easyzoom easyzoom--overlay  is-ready">
-                                            <a href="img/product-details/bl3.jpg">
-                                                <img src="img/product-details/l7-details-2.jpg" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="pro-details4" role="tabpanel">
-                                        <div class="easyzoom easyzoom--overlay  is-ready">
-                                            <a href="img/product-details/bl4.jpg">
-                                                <img src="img/product-details/l8-details-2.jpg" alt="">
-                                            </a>
-                                        </div>
-                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -84,8 +46,9 @@
                                     <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">
                                 </div>
                                 <div class="quickview-btn-cart">
-                                    <a class="btn-hover-black" href="#">add to cart</a>
+                                    <a class="btn-hover-black" href="#" onclick="addToCart(event)">add to cart</a>
                                 </div>
+                                
                                 
                             </div>
                             
