@@ -42,7 +42,7 @@
                                     <div class="tab-pane active show fade" id="pro-details1" role="tabpanel">
                                         <div class="easyzoom easyzoom--overlay  is-ready">
                                             <a href="/uploads/<%= product.image %>">
-                                                <img src="/uploads/<%= product.image %>" alt="<%= product.name %>" width="1000" height="800">
+                                                <img src="/uploads/<%= product.image %>" alt="<%= product.name %>" width="1000" height="700">
                                             </a>
                                         </div>
                                     </div>
@@ -78,24 +78,7 @@
                                 <span><%= product.price %></span>
                             </div>
                             <p><%= product.description %></p>
-                            <div class="quick-view-select">
-                                <div class="select-option-part">
-                                    <label>Size*</label>
-                                    <select class="select">
-                                        <option value="">- Please Select -</option>
-                                        <option value=""><%= product.size %></option>
-                                    </select>
-                                </div>
-                                <!-- <div class="select-option-part">
-                                    <label>Color*</label>
-                                    <select class="select">
-                                        <option value="">- Please Select -</option>
-                                        <option value="">orange</option>
-                                        <option value="">pink</option>
-                                        <option value="">yellow</option>
-                                    </select>
-                                </div> -->
-                            </div>
+                            
                             <div class="quickview-plus-minus">
                                 <div class="cart-plus-minus">
                                     <input type="text" value="02" name="qtybutton" class="cart-plus-minus-box">

@@ -27,7 +27,6 @@
                         <th>Price</th>
                         <th>Product Image</th>
                         <th>Category</th>
-                        <th>Size</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -40,7 +39,6 @@
                             <th><img src="<%= products.image %>" width="100px" height="100px" class="img-thumbnail"></th>
                             <% console.log("Img path: " + products.image) %>
                             <th><%= products.category %></th>
-                            <th><%= products.size %></th>
                             <th>
                                 <a href="/update-product/<%= products._id %>" class="btn border-shadow update">
                                     <span class="text-gradient"><i class="ti-pencil"></i></span>

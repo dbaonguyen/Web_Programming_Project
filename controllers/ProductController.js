@@ -27,7 +27,6 @@ exports.create = async (req, res) => {
       description: req.body.description,
       price: req.body.price,
       category: category._id,
-      size: req.body.size,
       vendor: vendorId, // Assign the vendor ID
     });
 

@@ -5,8 +5,8 @@ const productSchema = new Schema({
   name: {
     type: String,
     required: true,
-    minLength: [5, "Product name can't be shorter than 10 characters"],
-    maxlength: [20, "Product name can't be longer than 20 characters"],
+    minLength: [10, "Product name can't be shorter than 10 characters"],
+    maxlength: [40, "Product name can't be longer than 40 characters"],
   },
   description: {
     type: String,
@@ -18,11 +18,7 @@ const productSchema = new Schema({
     required: true,
     min: [0, "Product price can't be below 0!"],
   },
-  size: {
-    type: String,
-    enum: ["S", "XS", "M", "XM", "L", "XL"],
-    required: true,
-  },
+  
   category: {
     type: String,
     enum: [
