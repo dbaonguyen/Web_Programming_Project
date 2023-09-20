@@ -23,7 +23,7 @@
                     <div class="col-md-12 col-lg-7 col-12">
                         <div class="product-details-img-content">
                             <div class="product-details-tab mr-35 product-details-tab2">
-                                <div class="product-details-small nav mr-10 product-details-2" role=tablist>
+                                <!-- <div class="product-details-small nav mr-10 product-details-2" role=tablist>
                                     <a class="active mb-10" href="#pro-details1" data-toggle="tab" role="tab" aria-selected="true">
                                         <img src="img/product-details/s5.jpg" alt="">
                                     </a>
@@ -36,16 +36,16 @@
                                     <a class="mb-10" href="#pro-details4" data-toggle="tab" role="tab" aria-selected="true">
                                         <img src="img/product-details/s8.jpg" alt="">
                                     </a>
-                                </div>
+                                </div> -->
                                 <div class="product-details-large tab-content">
                                     <div class="tab-pane active show fade" id="pro-details1" role="tabpanel">
                                         <div class="easyzoom easyzoom--overlay  is-ready">
-                                            <a href="img/product-details/bl1.jpg">
-                                                <img src="img/product-details/l5-details-2.jpg" alt="">
+                                            <a href="/uploads/<%= product.image %>">
+                                                <img src="/uploads/<%= product.image %>" alt="">
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="pro-details2" role="tabpanel">
+                                    <!-- <div class="tab-pane fade" id="pro-details2" role="tabpanel">
                                         <div class="easyzoom easyzoom--overlay  is-ready">
                                             <a href="img/product-details/bl2.jpg">
                                                 <img src="img/product-details/l6-details-2.jpg" alt="">
@@ -65,30 +65,18 @@
                                                 <img src="img/product-details/l8-details-2.jpg" alt="">
                                             </a>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12 col-lg-5 col-12">
                         <div class="product-details-content">
-                            <h3>Handcrafted Supper Mug</h3>
-                            <div class="rating-number">
-                                <div class="quick-view-rating">
-                                    <i class="pe-7s-star red-star"></i>
-                                    <i class="pe-7s-star red-star"></i>
-                                    <i class="pe-7s-star"></i>
-                                    <i class="pe-7s-star"></i>
-                                    <i class="pe-7s-star"></i>
-                                </div>
-                                <div class="quick-view-number">
-                                    <span>2 Ratting (S)</span>
-                                </div>
-                            </div>
+                            <h3><%= product.name %></h3>
                             <div class="details-price">
-                                <span>$120.00</span>
+                                <span><%= product.price %></span>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmol tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim veni quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in</p>
+                            <p><%= product.description %></p>
                             <div class="quick-view-select">
                                 <div class="select-option-part">
                                     <label>Size*</label>
@@ -100,7 +88,7 @@
                                         <option value="">sl</option>
                                     </select>
                                 </div>
-                                <div class="select-option-part">
+                                <!-- <div class="select-option-part">
                                     <label>Color*</label>
                                     <select class="select">
                                         <option value="">- Please Select -</option>
@@ -108,7 +96,7 @@
                                         <option value="">pink</option>
                                         <option value="">yellow</option>
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="quickview-plus-minus">
                                 <div class="cart-plus-minus">

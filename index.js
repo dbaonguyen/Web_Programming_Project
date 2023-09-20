@@ -15,6 +15,7 @@ const flash = require("express-flash");
 const authenticateUser = require('./middleware/checkAuthentication')
 const authRoutes = require("./routes/auth");
 const categoryRouter = require('./routes/category');
+const detailRouter = require("./routes/detail");
 
 
 
@@ -91,12 +92,17 @@ app.use(methodOverride("_method"));
 app.use("",require('./routes/product'));
 app.use(express.static('uploads'));
 app.use('/category', categoryRouter);
+app.use('/', detailRouter);
 app.use(authRoutes);
 
 
 app.get("/cart", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("cart", { name });
+});
+app.get("/product-details", (req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("product-details", { name });
 });
 app.get("/add-product", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;

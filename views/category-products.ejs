@@ -164,7 +164,7 @@
                                                 <div class="col-md-6 col-xl-4">
                                                     <div class="product-wrapper mb-30">
                                                         <div class="product-img">
-                                                            <a href="#">
+                                                            <a href="/product-details/<%= products[i]._id %>">
                                                                 <img src="/uploads/<%= products[i].image %>"
                                                                     alt="<%= products[i].name %>" width="450px" height="450px">
                                                             </a>
@@ -181,7 +181,7 @@
                                                         </div>
 
                                                         <div class="product-content">
-                                                            <h4><a href="#">
+                                                            <h4><a href="/product-details/<%= products[i]._id %>">
                                                                     <%= products[i].name %>
                                                                 </a></h4>
                                                             <span>$<%= products[i].price %></span>
