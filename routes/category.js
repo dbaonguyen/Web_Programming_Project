@@ -13,7 +13,7 @@ router.get("/:categoryName", async (req, res) => {
     const maxPrice = req.query.maxPrice ? parseFloat(req.query.maxPrice) : undefined; 
 
     // Get the selected sorting option from the request
-    const sortByPrice = req.query.sortByPrice || 'asc'; // Default to 'asc' if not provided
+    const sortByPrice = req.query.sortByPrice || 'none';
 
     // Define a filter object based on query parameters
     const filter = {
@@ -32,18 +32,20 @@ router.get("/:categoryName", async (req, res) => {
       // Define a sort object based on the selected sorting option
       const sort = {};
 
-      if (sortByPrice === 'asc' || sortByPrice === 'desc') {
-        sort.price = sortByPrice === 'asc' ? 1 : -1;
-      } else {
-      // Default to ascending order if sortByPrice is not 'asc' or 'desc'
+    if (sortByPrice === 'asc' || sortByPrice === 'desc') {
+      sort.price = sortByPrice === 'asc' ? 1 : -1;
+    } else if (sortByPrice === 'none') {
+      // No sorting, keep the order as is
+    } else {
+      // Default to ascending order if sortByPrice is not 'asc', 'desc', or 'none'
       sort.price = 1;
     }
-    
+
     // Query the database to find products that match the filter, sorted as per the selected option
     const products = await Product.find(filter)
       .sort(sort)
       .exec();
-    
+
     // Render an EJS template with the products and req object
     res.render("category-products", { categoryName, products, name, req, sortByPrice });
   } catch (err) {

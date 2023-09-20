@@ -49,19 +49,20 @@
                                         <p><span><%= products.length %></span> Product Founded</p>
                                     </div>
                                     <form action="<%= req.originalUrl %>" method="GET">
-                                    <div class="shop-selector">
-                                        <label>Sort By: </label>
-                                        <select name="sortByPrice" id="sortByPrice">
-                                            <option value="asc" <% if (sortByPrice === 'asc') { %>selected<% } %>>Price low to high</option>
-                                            <option value="desc" <% if (sortByPrice === 'desc') { %>selected<% } %>>Price high to low</option>
-                                        </select>
-                                    </div>
-                                    <script>
-                                        document.getElementById('sortByPrice').addEventListener('change', function () {
-                                            this.form.submit();
-                                        });
-                                    </script>
-                                </form>                                                                
+                                        <div class="shop-selector">
+                                            <label>Sort By: </label>
+                                            <select name="sortByPrice" id="sortByPrice">
+                                                <option value="none" <% if (!sortByPrice || sortByPrice === 'none') { %>selected<% } %>>None</option>
+                                                <option value="asc" <% if (sortByPrice === 'asc') { %>selected<% } %>>Price low to high</option>
+                                                <option value="desc" <% if (sortByPrice === 'desc') { %>selected<% } %>>Price high to low</option>
+                                            </select>
+                                        </div>
+                                        <script>
+                                            document.getElementById('sortByPrice').addEventListener('change', function () {
+                                                this.form.submit();
+                                            });
+                                        </script>
+                                    </form>                                                                                        
                                 </div>
                             </div>
                             <div class="shop-product-content tab-content">
