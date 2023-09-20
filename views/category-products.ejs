@@ -51,91 +51,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="sidebar-widget mb-50">
-                            <h3 class="sidebar-title">Top rated products</h3>
-                            <div class="sidebar-top-rated-all">
-                                <div class="sidebar-top-rated mb-30">
-                                    <div class="single-top-rated">
-                                        <div class="top-rated-img">
-                                            <a href="#"><img src="img/product/Small-lightweight-jacket1.jpg" alt=""></a>
-                                        </div>
-                                        <div class="top-rated-text">
-                                            <h4><a href="#">Lightweight Jackets For Men</a></h4>
-                                            <div class="top-rated-rating">
-                                                <ul>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <span>$11.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sidebar-top-rated mb-30">
-                                    <div class="single-top-rated">
-                                        <div class="top-rated-img">
-                                            <a href="#"><img src="img/product/Small-T-shirt1.jpg" alt=""></a>
-                                        </div>
-                                        <div class="top-rated-text">
-                                            <h4><a href="#">Cotton T-shirt</a></h4>
-                                            <div class="top-rated-rating">
-                                                <ul>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <span>$6.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sidebar-top-rated mb-30">
-                                    <div class="single-top-rated">
-                                        <div class="top-rated-img">
-                                            <a href="#"><img src="img/product/Small-T-shirt-women1.jpg" alt=""></a>
-                                        </div>
-                                        <div class="top-rated-text">
-                                            <h4><a href="#">T-shirt For Women</a></h4>
-                                            <div class="top-rated-rating">
-                                                <ul>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <span>$15.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="sidebar-top-rated mb-30">
-                                    <div class="single-top-rated">
-                                        <div class="top-rated-img">
-                                            <a href="#"><img src="img/product/Small-T-shirt-men1.jpg" alt=""></a>
-                                        </div>
-                                        <div class="top-rated-text">
-                                            <h4><a href="#">T-shirt For Men</a></h4>
-                                            <div class="top-rated-rating">
-                                                <ul>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                    <li><i class="pe-7s-star"></i></li>
-                                                </ul>
-                                            </div>
-                                            <span>$12.99</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -144,7 +60,7 @@
                             <div class="shop-bar pb-60">
                                 <div class="shop-found-selector">
                                     <div class="shop-found">
-                                        <p><span>1</span> Product Found of <span>12</span></p>
+                                        <p><span><%= products.length %></span> Product Founded</p>
                                     </div>
                                     <div class="shop-selector">
                                         <label>Sort By : </label>
@@ -167,7 +83,7 @@
                                                         <div class="product-img">
                                                             <a href="#">
                                                                 <img src="/uploads/<%= products[i].image %>"
-                                                                    alt="<%= products[i].name %>" width="450px" height="450px">
+                                                                    alt="<%= products[i].name %>" width="300px" height="450px">
                                                             </a>
                                                             <div class="product-action">
                                                                 <a class="animate-top" title="Add To Cart" href="#">
