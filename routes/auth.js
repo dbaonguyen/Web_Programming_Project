@@ -6,6 +6,7 @@ const authController = require("../controllers/authController");
 const checkAuthentication = require("../middleware/checkAuthentication");
 const upload = require("../middleware/upload");
 const Vendor = require("../model/Vendor");
+const Product = require("../model/Product");
 
 // Homepage route (unchanged)
 router.get("/", async (req, res) => {
@@ -14,12 +15,32 @@ router.get("/", async (req, res) => {
   try {
     if (req.user.role === "customer") {
       try {
-        const vendor = await Vendor.findById(req.user._id).populate("products");
-        // Extract the vendor's products
-        const products = vendor.products;
-        res.render("index", { name, products });
-      } catch {
-        
+        const products = await Product.find(); // Fetch all products from the main product schema
+
+        const womenCategories = ["Dresses", "Skirts", "Sweaters", "Jeans"];
+        const menCategories = ["Hoodies", "T-Shirts", "Jacket", "Short"];
+        const kidsCategories = ["Shoes", "Sun Glasses", "Bags", "Hats & Caps"];
+
+        // Filter products into respective categories
+        const womenCategoriesProducts = products.filter((product) =>
+          womenCategories.includes(product.category)
+        );
+        const menCategoriesProducts = products.filter((product) =>
+          menCategories.includes(product.category)
+        );
+        const kidsCategoriesProducts = products.filter((product) =>
+          kidsCategories.includes(product.category)
+        );
+
+        res.render("index", {
+          products,
+          name,
+          womenCategoriesProducts,
+          menCategoriesProducts,
+          kidsCategoriesProducts,
+        });
+      } catch (err) {
+        res.json({ message: err.message });
       }
     } else if (req.user.role === "vendor") {
       try {
@@ -38,7 +59,34 @@ router.get("/", async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.render("index", { name: undefined });
+  }
+  try {
+    const products = await Product.find(); // Fetch all products from the main product schema
+
+    const womenCategories = ["Dresses", "Skirts", "Sweaters", "Jeans"];
+    const menCategories = ["Hoodies", "T-Shirts", "Jacket", "Short"];
+    const kidsCategories = ["Shoes", "Sun Glasses", "Bags", "Hats & Caps"];
+
+    // Filter products into respective categories
+    const womenCategoriesProducts = products.filter((product) =>
+      womenCategories.includes(product.category)
+    );
+    const menCategoriesProducts = products.filter((product) =>
+      menCategories.includes(product.category)
+    );
+    const kidsCategoriesProducts = products.filter((product) =>
+      kidsCategories.includes(product.category)
+    );
+
+    res.render("index", {
+      products,
+      name,
+      womenCategoriesProducts,
+      menCategoriesProducts,
+      kidsCategoriesProducts,
+    });
+  } catch (err) {
+    res.json({ message: err.message });
   }
 });
 
