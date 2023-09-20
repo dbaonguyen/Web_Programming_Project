@@ -129,7 +129,7 @@
 <script src="js/popper.js"></script>
 <script src="js/cart.js"></script>
 <script>
-    function addToCart(event) {
+function addToCart(event) {
     event.preventDefault();
 
     var productElement = event.target.closest('.product-wrapper');
@@ -188,7 +188,6 @@
     toggleRemoveAllButton();
 }
 
-  
   function saveCartToLocalStorage() {
   var cartItems = document.querySelectorAll('.cart-item:not(.cart-item-template)');
   var cartData = [];
