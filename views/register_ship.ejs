@@ -12,19 +12,16 @@
                 <div class="row">
                     <div class="col-md-12 col-12 col-lg-12 col-xl-6 ml-auto mr-auto">
                         <div class="login-form-container">
-                            <div class="furniture-bottom-wrapper">
-                                <div class="col-4 role-choice choosen">
-                                    <button class="btn btn-primary"><a href="/register">Customer</a></button>
-                                </div>
-                                <div class="col-4 role-choice">
-                                    <button class="btn btn-primary"><a href="/register-ven">Vendor</a></button>
-                                </div>
-                                <div class="col-4 role-choice">
-                                    <button class="btn btn-primary"><a href="/register-ship">Shipper</a></button>
-                                </div>
+                                    <div class="register-role">
+                                        <button><a href="/register">Customer</a></button>
+                                    </div>
+                                    <div class="register-role">
+                                        <button><a href="/register-ven">Vendor</a></button>
+                                    </div>
+                                    <div class="register-role">
+                                        <button><a href="/register-ship">Shipper</a></button>
+                                    </div>
                             </div>
-                            
-                        </div>
                         <div class="login">
                             <div class="login-form-container">
                                 <% if (errorMessages && errorMessages.length > 0) { %>

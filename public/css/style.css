@@ -1289,6 +1289,41 @@
 }
 /*----------- 3. Book page ---------*/
 /* 3.1 Header style of book */
+.register-role {
+    display: inline-block;
+    width: 30%; /* Adjust the width as needed */
+    margin-right: 2%; /* Add margin between buttons if desired */
+    text-align: center;
+}
+
+.register-role:last-child {
+    margin-right: 0; /* Remove margin for the last button */
+}
+
+.register-role button {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #F44344;
+    color: #ffffff;
+    text-decoration: none;
+    border: none;
+    text-align: center;
+}
+
+.register-role button:hover {
+    transition: all .3s ease-out 0s;
+}
+
+.register-role button a {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.register-role button a:hover {
+    text-decoration: underline;
+}
 .header-top {
     display: flex;
     justify-content: space-between;
