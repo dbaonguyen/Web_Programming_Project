@@ -33,7 +33,7 @@ const productSchema = new Schema({
       "Shoes",
       "Sun Glasses",
       "Bags",
-      "Hats and Caps",
+      "Hats & Caps",
     ],
     required: true,
   },
