@@ -6,15 +6,18 @@
         <!-- header start -->
         <div id="header"></div>
         <!-- header end -->
-		<div class="breadcrumb-area pt-205 pb-210" style="background-image: url(/img/bg/breadcrumb.jpg)">
+		<div class="breadcrumb-area pt-100">
             <div class="container">
                 <div class="breadcrumb-content text-center">
-                    <h2>Product Detail</h2>
+                    <h2><%= categoryName %></h2>
                     <ul>
-                        <li><a href="#">home</a></li>
-                        <li><%= product.name%></li>
+                        <li><a href="/">home</a></li>
+                        <li>>></li>
+                        <li><a href="/<%= categoryName %>"><%= categoryName %></a></li>
+                        <li>>></li>
+                        <li><%= product.name %></li>
                     </ul>
-                </div>
+                </div>                
             </div>
         </div>
         <div class="product-details ptb-100 pb-90">

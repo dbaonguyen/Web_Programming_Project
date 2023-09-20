@@ -5375,22 +5375,23 @@ a.icon-cart-furniture.white-cart span {
 
 /*------- 12. Breadcrumb style -------------*/
 .breadcrumb-content h2 {
-    color: #fff;
+    color: black;
     font-size: 40px;
     font-weight: bold;
     margin-bottom: 16px;
     text-transform: capitalize;
 }
 .breadcrumb-content li {
-    color: #fff;
+    color: black;
     display: inline-block;
     font-weight: 600;
     text-transform: uppercase;
+    padding-left: 10px;
 }
 .breadcrumb-content li a {
-    color: #fff;
+    color: black;
     position: relative;
-    padding-right: 18px;
+    padding-right: 7px;
 }
 .breadcrumb-content li a:hover {
     color: #ccc;
