@@ -12,10 +12,8 @@ const Product = require("./model/Product");
 const productRoute = require("./routes/product");
 const methodOverride = require("method-override");
 const flash = require("express-flash");
-const authenticateUser = require('./middleware/checkAuthentication')
 const authRoutes = require("./routes/auth");
 const categoryRouter = require('./routes/category');
-const detailRouter = require("./routes/detail");
 
 
 
@@ -24,6 +22,10 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
 const checkAuthention = require("./middleware/checkAuthentication");
+
+
+const PORT = process.env.PORT || 3000;
+
 
 
 if (process.env.NODE_ENV !== "production") {
@@ -112,40 +114,13 @@ app.get("/checkout", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("checkout", { name });
 });
-app.get("/complain", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("footer-complain", { name });
-});
-app.get("/contact", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("footer-contact", { name });
-});
-app.get("/privacy", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("footer-privacy", { name });
-});
-app.get("/property", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("footer-property", { name });
-});
-// app.get("/kid", (req, res) => {
-//   let name = req.isAuthenticated() ? req.user.username : undefined;
-//   res.render("kid-bags", { name });
-// });
 
-// app.get("/men", (req, res) => {
-//   let name = req.isAuthenticated() ? req.user.username : undefined;
-//   res.render("men-t-shirts", { name });
-// });
 
-// app.get("/shipper",authenticateUser.checkAuthenticated, (req, res) => {
-//   let name = req.isAuthenticated() ? req.user.username : undefined;
-//   res.render("shipper-page", { name });
-// });
-//   app.get("/vendor", (req, res) => {
-//   let name = req.isAuthenticated() ? req.user.username : undefined;
-//   res.render("vendor-page", { name });
-// });
+app.get("/product-details" ,(req,res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("product-details", { name });
+});
+
 app.get('/add-product',(req,res) =>{
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render('add-product',{name})
@@ -156,22 +131,6 @@ app.get('/update-product',(req,res) =>{
 }); 
 
 
-// app.get("/women", (req, res) => {
-//   let name = req.isAuthenticated() ? req.user.username : undefined;
-//   res.render("/women-sweaters", { name });
-// });
-
-// app.get("/customer-profile", (req,res) => {
-//   let photo = '1.png';
-//   res.render("my-profile-cus", {photo : photo})
-// })
-
-// app.get("/shipper-profile", (req,res) => {
-//   let name = "Unga Bunga1";
-//   let photolink = '1.png';
-//   let photo = `/img/icon-img/${photolink}`;
-//   res.render("my-profile-ship", {photo : photo, name:name})
-// })
 app.get('/profile', checkAuthention.profileRedirect);
 /*app.get("/search", (req,res) => {
   //let searchTerm = req.body.searchTerm;
@@ -185,6 +144,23 @@ app.get('/profile', checkAuthention.profileRedirect);
   //res.redirect("/found");
   
 })*/
+
+app.get("/complain", (req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("footers-info/footer-complain", { name });
+});
+app.get("/contact", (req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("footers-info/footer-contact", { name });
+});
+app.get("/privacy", (req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("footers-info/footer-privacy", { name });
+});
+app.get("/property", (req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("footers-info/footer-property", { name });
+});
 
 async function getProduct(arg){
   const item = await Product.find({name: {$regex: arg, $options: 'i'}});
