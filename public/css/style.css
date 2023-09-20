@@ -8666,6 +8666,13 @@ input.cart-plus-minus-box {
     line-height: 1
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
 .footer-area .info.error {
     color: #f44344
 }
