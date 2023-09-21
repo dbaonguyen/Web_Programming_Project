@@ -164,6 +164,12 @@ async function getCategoryProduct(arg1, arg2) {
   return item;
 }
 
+
+app.get("/shipper",checkAuthention.checkAuthenticated, (req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("shipper-page", { name });
+});
+
 app.get("/products", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   getProduct().then(function (foundStuff) {
