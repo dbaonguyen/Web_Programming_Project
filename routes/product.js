@@ -81,14 +81,13 @@ router.get(
   async (req, res) => {
     try {
       let name = req.isAuthenticated() ? req.user.username : undefined;
-      req.session.name = name;
       const id = req.params.id;
       const product = await Product.findById(id).exec();
 
       if (product === null) {
         res.redirect("/vendor");
       } else {
-        res.render("update-product", { product });
+        res.render("update-product", { product, name });
       }
     } catch (err) {
       res.redirect("/vendor");
