@@ -3,95 +3,113 @@
         <div class="breadcrumb-area pt-100">
             <div class="container">
                 <div class="breadcrumb-content text-center">
-                    <h2><%= categoryName%></h2>
+                    <h2>
+                        <%= categoryName%>
+                    </h2>
                     <ul>
                         <li><a href="/">home</a></li>
                         <li>>></li>
-                        <li> <%= categoryName%></li>
+                        <li>
+                            <%= categoryName%>
+                        </li>
                     </ul>
                 </div>
             </div>
-    </div>
-    <div class="shop-page-wrapper shop-page-padding ptb-100">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="shop-sidebar mr-50">
-                        <div class="sidebar-widget mb-40">
-                            <h3 class="sidebar-title">Filter by Price</h3>
-                            <form action="<%= req.originalUrl %>" method="GET">
-                                <div class="price_slider_amount">
-                                  <div class="label-input">
-                                    <label>Price Range:</label>
-                                    <input class="border border-dark" type="number" name="minPrice" placeholder="Min Price" />
-                                    <input class="border border-dark" type="number" name="maxPrice" placeholder="Max Price" />
-                                  </div>
-                                  <button type="submit">Filter</button>
-                                </div>
-                              </form>                              
+        </div>
+        <div class="shop-page-wrapper shop-page-padding ptb-100">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="shop-sidebar mr-50">
+                            <div class="sidebar-widget mb-40">
+                                <h3 class="sidebar-title">Filter by Price</h3>
+                                <form action="<%= req.originalUrl %>" method="GET">
+                                    <div class="price_slider_amount d-flex justify-content-between">
+                                        <div class="label-input d-flex">
+                                            <label>Price Range:</label>
+                                            <input class="border border-dark ml-3 mr-1" type="number" name="minPrice"
+                                                placeholder="Min Price" />
+                                            <input class="border border-dark" type="number" name="maxPrice"
+                                                placeholder="Max Price" />
+
+                                        </div>
+                                        <div class="ml-3 custom-mt">
+                                            <button type="submit">Filter</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="shop-product-wrapper res-xl">
-                        <div class="shop-bar-area">
-                            <div class="shop-bar pb-60">
-                                <div class="shop-found-selector">
-                                    <div class="shop-found">
-                                        <p><span><%= products.length %></span> Product Founded</p>
-                                    </div>
-                                    <form action="<%= req.originalUrl %>" method="GET">
-                                        <div class="shop-selector">
-                                            <label>Sort By: </label>
-                                            <select name="sortByPrice" id="sortByPrice">
-                                                <option value="none" <% if (!sortByPrice || sortByPrice === 'none') { %>selected<% } %>>None</option>
-                                                <option value="asc" <% if (sortByPrice === 'asc') { %>selected<% } %>>Price low to high</option>
-                                                <option value="desc" <% if (sortByPrice === 'desc') { %>selected<% } %>>Price high to low</option>
-                                            </select>
+                    <div class="col-lg-8">
+                        <div class="shop-product-wrapper res-xl">
+                            <div class="shop-bar-area">
+                                <div class="shop-bar pb-60">
+                                    <div class="shop-found-selector">
+                                        <div class="shop-found">
+                                            <p><span>
+                                                    <%= products.length %>
+                                                </span> Product Founded</p>
                                         </div>
-                                        <script>
-                                            document.getElementById('sortByPrice').addEventListener('change', function () {
-                                                this.form.submit();
-                                            });
-                                        </script>
-                                    </form>                                                                                        
+                                        <form action="<%= req.originalUrl %>" method="GET">
+                                            <div class="shop-selector">
+                                                <label>Sort By: </label>
+                                                <select name="sortByPrice" id="sortByPrice">
+                                                    <option value="none" <% if (!sortByPrice || sortByPrice==='none' ) {
+                                                        %>selected<% } %>>None</option>
+                                                    <option value="asc" <% if (sortByPrice==='asc' ) { %>selected<% } %>
+                                                            >Price low to high</option>
+                                                    <option value="desc" <% if (sortByPrice==='desc' ) { %>selected<% }
+                                                            %>>Price high to low</option>
+                                                </select>
+                                            </div>
+                                            <script>
+                                                document.getElementById('sortByPrice').addEventListener('change', function () {
+                                                    this.form.submit();
+                                                });
+                                            </script>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="shop-product-content tab-content">
-                                <div id="grid-sidebar3" class="tab-pane fade active show">
-                                    <div class="row">
-                                        <% for (var i=0; i < products.length; i++) { %>
-                                            <% if (products[i].category===categoryName) { %>
-                                                <div class="col-md-6 col-xl-4">
-                                                    <div class="product-wrapper mb-30">
-                                                        <div class="product-img">
-                                                            <a href="/product-details/<%= products[i]._id %>">
-                                                                <img src="/uploads/<%= products[i].image %>"
-                                                                    alt="<%= products[i].name %>" width="370px" height="370px">
-                                                            </a>
-                                                            <div class="product-action">
-                                                                <!-- Added data-id attribute to identify product -->
-                                                                <a class="animate-top" title="Add To Cart" href="#" onclick="addToCart(event)" data-id="<%= products[i]._id %>">
-                                                                    <i class="pe-7s-cart"></i>
-                                                                </a>                                                                
-                                                                <a class="animate-right" title="Quick View"
-                                                                    data-toggle="modal" data-target="#exampleModal"
-                                                                    href="/product-details/<%= products[i]._id %>">
-                                                                    <i class="pe-7s-look"></i>
+                                <div class="shop-product-content tab-content">
+                                    <div id="grid-sidebar3" class="tab-pane fade active show">
+                                        <div class="row">
+                                            <% for (var i=0; i < products.length; i++) { %>
+                                                <% if (products[i].category===categoryName) { %>
+                                                    <div class="col-md-6 col-xl-4">
+                                                        <div class="product-wrapper mb-30">
+                                                            <div class="product-img">
+                                                                <a href="/product-details/<%= products[i]._id %>">
+                                                                    <img src="/uploads/<%= products[i].image %>"
+                                                                        alt="<%= products[i].name %>" width="370px"
+                                                                        height="370px">
                                                                 </a>
+                                                                <div class="product-action">
+                                                                    <!-- Added data-id attribute to identify product -->
+                                                                    <a class="animate-top" title="Add To Cart" href="#"
+                                                                        onclick="addToCart(event)"
+                                                                        data-id="<%= products[i]._id %>">
+                                                                        <i class="pe-7s-cart"></i>
+                                                                    </a>
+                                                                    <a class="animate-right" title="Quick View"
+                                                                        data-toggle="modal" data-target="#exampleModal"
+                                                                        href="/product-details/<%= products[i]._id %>">
+                                                                        <i class="pe-7s-look"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="product-content">
+                                                                <h4><a href="/product-details/<%= products[i]._id %>">
+                                                                        <%= products[i].name %>
+                                                                    </a></h4>
+                                                                <span>$<%= products[i].price %></span>
                                                             </div>
                                                         </div>
-                                        
-                                                        <div class="product-content">
-                                                            <h4><a href="/product-details/<%= products[i]._id %>">
-                                                                    <%= products[i].name %>
-                                                                </a></h4>
-                                                            <span>$<%= products[i].price %></span>
-                                                        </div>
                                                     </div>
-                                                </div>
-                                            <% } %>
-                                        <% } %>                                                 
+                                                    <% } %>
+                                                        <% } %>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -100,5 +118,4 @@
                 </div>
             </div>
         </div>
-    </div>
-    <%- include ('partials/footer') %>
+        <%- include ('partials/footer') %>

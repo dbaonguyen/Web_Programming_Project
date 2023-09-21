@@ -6150,7 +6150,7 @@ h5.panel-title {
 }
 .label-input label {
     color: #575757;
-    display: inline-block;
+    display: inline;
     float: left;
     font-size: 14px;
     font-weight: 600;
@@ -6168,11 +6168,13 @@ h5.panel-title {
     padding-left: 5px;
     width: 99px;
 }
+
+
 .price_slider_amount button {
     background-color: transparent;
     border: medium none;
     color: black;
-    display: inline-block;
+    display: inline;
     float: right;
     font-weight: 600;
     line-height: 1;
