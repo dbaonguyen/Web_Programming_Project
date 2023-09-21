@@ -5,7 +5,13 @@ const distributionHubSchema = new Schema({
     name :{
       type:String,
       enum: ["Ho Chi Minh","Da Nang", "Ha Noi"]
-    }
+    },
+    orders: [
+      {
+          type: Schema.Types.ObjectId,
+          ref: "Order"
+      }
+  ]
 })
 
 

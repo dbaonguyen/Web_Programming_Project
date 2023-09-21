@@ -15,25 +15,25 @@ router.get("/", async (req, res) => {
   try {
     if (req.user.role === "customer") {
       try {
-        const products = await Product.find().limit(10); // Fetch all products from the main product schema
-
         const womenCategories = ["Dresses", "Skirts", "Sweaters", "Jeans"];
         const menCategories = ["Hoodies", "T-Shirts", "Jacket", "Short"];
         const kidsCategories = ["Shoes", "Sun Glasses", "Bags", "Hats & Caps"];
-
-        // Filter products into respective categories
-        const womenCategoriesProducts = products.filter((product) =>
-          womenCategories.includes(product.category)
-        );
-        const menCategoriesProducts = products.filter((product) =>
-          menCategories.includes(product.category)
-        );
-        const kidsCategoriesProducts = products.filter((product) =>
-          kidsCategories.includes(product.category)
-        );
-
+    
+        // Fetch limited products for each category
+        const womenCategoriesProducts = await Product.find({
+          category: { $in: womenCategories },
+        }).limit(10);
+    
+        const menCategoriesProducts = await Product.find({
+          category: { $in: menCategories },
+        }).limit(10);
+    
+        const kidsCategoriesProducts = await Product.find({
+          category: { $in: kidsCategories },
+        }).limit(10);
+    
         res.render("index", {
-          products,
+          products: [], // You can include all products here if needed.
           name,
           womenCategoriesProducts,
           menCategoriesProducts,
@@ -61,25 +61,25 @@ router.get("/", async (req, res) => {
     console.log(error);
   }
   try {
-    const products = await Product.find().limit(10); // Fetch all products from the main product schema
-
     const womenCategories = ["Dresses", "Skirts", "Sweaters", "Jeans"];
     const menCategories = ["Hoodies", "T-Shirts", "Jacket", "Short"];
     const kidsCategories = ["Shoes", "Sun Glasses", "Bags", "Hats & Caps"];
 
-    // Filter products into respective categories
-    const womenCategoriesProducts = products.filter((product) =>
-      womenCategories.includes(product.category)
-    );
-    const menCategoriesProducts = products.filter((product) =>
-      menCategories.includes(product.category)
-    );
-    const kidsCategoriesProducts = products.filter((product) =>
-      kidsCategories.includes(product.category)
-    );
+    // Fetch limited products for each category
+    const womenCategoriesProducts = await Product.find({
+      category: { $in: womenCategories },
+    }).limit(10);
+
+    const menCategoriesProducts = await Product.find({
+      category: { $in: menCategories },
+    }).limit(10);
+
+    const kidsCategoriesProducts = await Product.find({
+      category: { $in: kidsCategories },
+    }).limit(10);
 
     res.render("index", {
-      products,
+      products: [], // You can include all products here if needed.
       name,
       womenCategoriesProducts,
       menCategoriesProducts,
