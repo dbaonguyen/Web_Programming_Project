@@ -16,11 +16,13 @@ const flash = require("express-flash");
 const authRoutes = require("./routes/auth");
 const categoryRouter = require("./routes/category");
 const detailRouter = require("./routes/detail");
-const Shipper = require('./model/Shipper');
+const Shipper = require("./model/Shipper");
 const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
 const checkAuthention = require("./middleware/checkAuthentication");
+const Order = require("./model/Order");
+const DistributionHub = require("./model/DistributionHub");
 const { none } = require("./middleware/upload");
 
 if (process.env.NODE_ENV !== "production") {
@@ -104,23 +106,67 @@ app.get("/add-product", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("add-product", { name });
 });
-app.get("/checkout", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("checkout", { name });
-});
 
-app.get("/product-details", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("product-details", { name });
-});
+app.post("/checkout", async (req, res) => {
+  try {
+    // Retrieve the cart data from the request body
+    const { cartData } = req.body;
 
-app.get("/add-product", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("add-product", { name });
-});
-app.get("/update-product", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("update-product", { name });
+    // Parse the cart data (assuming it's in JSON format)
+    const parsedCartData = JSON.parse(cartData);
+
+    // Function to clean up the price values and convert them to numbers
+    function cleanAndParsePrice(priceString) {
+      // Remove non-numeric characters and convert to a number
+      return parseFloat(priceString.replace(/[^0-9.]/g, ""));
+    }
+
+    // Clean up the price values in the cart data
+    const cleanedCartData = parsedCartData.map((item) => ({
+      ...item,
+      price: cleanAndParsePrice(item.price),
+    }));
+
+    // Function to calculate the total price based on the cleaned cart data
+    function calculateTotalPrice(cart) {
+      return cart.reduce((total, item) => total + item.price, 0);
+    }
+
+    // Create a new order based on the cleaned cart data
+    const newOrder = new Order({
+      products: cleanedCartData,
+      totalPrice: calculateTotalPrice(cleanedCartData),
+      customer: req.user ? req.user._id : undefined,
+      status: "active", // Set the initial status as needed
+    });
+
+    const distributionHubs = ["Ho Chi Minh", "Da Nang", "Ha Noi"];
+    const selectedHub =
+      distributionHubs[Math.floor(Math.random() * distributionHubs.length)];
+
+    // Find the selected distribution hub and add the order to its orders array
+    const distributionHub = await DistributionHub.findOne({
+      name: selectedHub,
+    });
+    distributionHub.orders.push(newOrder);
+    await distributionHub.save();
+
+    // Capture the checkout date
+    const checkoutDate = new Date().getTime();
+
+    // Set the checkout date in the newOrder object
+    newOrder.checkoutDate = checkoutDate;
+
+    // Save the order to the database
+    const order = await newOrder.save();
+
+    // Respond with the created order
+    res.status(201).json(order);
+  } catch (error) {
+    // Handle errors and respond with an error message
+    console.error("Error creating order:", error);
+    res.status(500).json({ error: "Failed to create order" });
+  }
 });
 
 app.get("/profile", checkAuthention.profileRedirect);
@@ -147,22 +193,65 @@ async function getProduct(arg) {
   return item;
 }
 
-async function getCategoryProduct(arg1, arg2) {
-  const item = await Product.find({ name: { $regex: arg1, $options: "i" }, category: arg2 });
-  return item;
-}
+app.get(
+  "/view-order/:orderId",
+  checkAuthention.checkAuthenticated,
+  async (req, res) => {
+    try {
+      const name = req.isAuthenticated() ? req.user.username : undefined;
 
+      // Find the order by ID and populate the associated products and customer
+      const order = await Order.findById(req.params.orderId).populate({
+        path: "products.product", // Populate the "product" property within each product item
+      });
 
-app.get("/shipper",checkAuthention.checkAuthenticated, async (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  const shipper = await Shipper.findById(req.user._id).populate(
-    "distributionHub"
-  );
-  if (shipper && shipper.distributionHub) {
-    distributionHubName = shipper.distributionHub.name;
-    console.log(distributionHubName);
+      // Debugging: Output the order and productOrders to the console
+      console.log("Order:", order);
+      console.log("Product Orders:", order.products);
+
+      const productOrders = order.products;
+      console.log("here after");
+      console.log(productOrders)
+
+      // Render the order details template with the order data
+      res.render("view-order", { name, productOrders });
+    } catch (err) {
+      res.json({ message: err.message });
+    }
   }
-  res.render("./home/shipper-page", { name, distributionHub: distributionHubName });
+);
+
+app.get("/shipper", checkAuthention.checkAuthenticated, async (req, res) => {
+  try {
+    const name = req.isAuthenticated() ? req.user.username : undefined;
+
+    // Find the shipper by ID and populate the associated distributionHub
+    const shipper = await Shipper.findById(req.user._id).populate({
+      path: "distributionHub",
+      populate: {
+        path: "orders",
+        populate: [
+          { path: "customer", select: "username address" }, // Populate the customer's username and address
+          { path: "products.product" }, // Populate the products within orders
+        ],
+      },
+    });
+
+    // Extract the distribution hub and its associated orders
+    const distributionHub = shipper.distributionHub;
+    const distributionHubName = distributionHub
+      ? distributionHub.name
+      : undefined;
+    const orders = distributionHub ? distributionHub.orders : [];
+
+    res.render("./home/shipper-page", {
+      name,
+      distributionHub: distributionHubName,
+      orders,
+    });
+  } catch (err) {
+    res.json({ message: err.message });
+  }
 });
 
 app.get("/products", (req, res) => {
@@ -170,17 +259,13 @@ app.get("/products", (req, res) => {
   getProduct().then(function (foundStuff) {
     res.render("found", { products: foundStuff, name });
   });
-
-  /*Product.find({})
-      .then(products => res.render('view-products', { products }))
-      .catch(error => res.send(error));*/
 });
 app.post("/search", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   let searchThis = req.body.searchTerm;
   console.log(searchThis);
   getProduct(searchThis).then(function (foundStuff) {
-    res.render("found", { products: foundStuff,name });
+    res.render("found", { products: foundStuff, name });
   });
 });
 app.listen(PORT, console.log("Server start for port: " + PORT));

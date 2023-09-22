@@ -584,6 +584,35 @@
   addToCartButtons.forEach(function (button) {
     button.addEventListener("click", addToCart);
   });
+
+  // Add this code to your frontend JavaScript
+  function saveCartData() {
+    // Retrieve cart data from localStorage
+    var cartDataString = localStorage.getItem("cartData");
+
+    // Check if cart data exists
+    if (cartDataString) {
+      // Make a POST request to your server
+      fetch("/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cartData: cartDataString }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Handle the response from the server, e.g., display a success message
+          console.log("Order created:", data);
+          // You can perform any additional actions here as needed
+        })
+        .catch((error) => {
+          // Handle errors, e.g., display an error message
+          console.error("Error creating order:", error);
+        });
+    }
+  }
+
 </script>
 
 <script src="js/bootstrap.min.js"></script>

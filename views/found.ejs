@@ -1,5 +1,5 @@
 <%- include ('partials/header') %>
-    
+
     <div class="shop-page-wrapper shop-page-padding ptb-100">
         <div class="container-fluid">
             <div class="row">
@@ -28,7 +28,9 @@
                                                         </a>
                                                         <div class="product-action">
                                                             </a>
-                                                            <a class="animate-top" title="Add To Cart" href="#">
+                                                            <a class="animate-top" title="Add To Cart" href="#"
+                                                                onclick="addToCart(event)"
+                                                                data-id="<%= products[i]._id %>">
                                                                 <i class="pe-7s-cart"></i>
                                                             </a>
                                                             <a class="animate-right" title="Quick View"

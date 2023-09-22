@@ -1,170 +1,58 @@
-    <%- include ('../partials/header2') %>
-        <!-- header end -->
-		<div class="breadcrumb-area pt-205 pb-210" style="background-image: url(/img/banner/shipper.jpg)">
-            <div class="container">
-                <div class="breadcrumb-content text-center">
-                    <h2>Shipper Page</h2>
-                </div>
+<%- include ('../partials/header2') %>
+    <div class="breadcrumb-area pt-205 pb-210" style="background-image: url(/img/banner/shipper.jpg)">
+        <div class="container">
+            <div class="breadcrumb-content text-center">
+                <h2>
+                    <%= distributionHub %>
+                </h2>
             </div>
         </div>
-        <!-- shopping-cart-area start -->
-        <div class="cart-main-area pt-95 pb-100">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="coupon">
-                            <h1 class="cart-heading">Active orders</h1>
-                        </div>
-                        <div class="coupon2 cart-heading2">
-                            <form>
-                                <label for="staticEmail" class="col-form-label">Distribution Hub</label>
-                                <h5 class="font-weight-bold"><%= distributionHub %></h5>
-                            </form>                        
-                        </div>
-                        <form action="#">
-                            <div class="table-content table-responsive">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Order number</th>
-                                            <th>Date</th>
-                                            <th>Product name</th>
-                                            <th>Qty</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="product-price-cart">1</td>
-                                            <td class="product-price-cart">09/06-2023 9:46</td>
-                                            <td class="product-name"><a href="#">T-Shirts</a></td>
-                                            <td class="product-price-cart"><span class="amount">2</span></td>
-                                            <td class="product-status">
-                                                <select class="custom-select custom-select-sm">
-                                                    <option selected>Active</option>
-                                                    <option value="Delivered">Delivered</option>
-                                                    <option value="Canceled">Canceled</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#exampleModalCenter">View Details </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="product-price-cart">2</td>
-                                            <td class="product-price-cart">09/06-2023 9:48</td>
-                                            <td class="product-name"><a href="#">Dresses</a></td>
-                                            <td class="product-price-cart"><span class="amount">3</span></td>
-                                            <td>
-                                                <select class="custom-select custom-select-sm">
-                                                    <option selected>Active</option>
-                                                    <option value="Delivered">Delivered</option>
-                                                    <option value="Canceled">Canceled</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#exampleModalCenter">View Details </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="product-price-cart">3</td>
-                                            <td class="product-price-cart">09/06-2023 10:00</td>
-                                            <td class="product-name"><a href="#">Bags</a></td>
-                                            <td class="product-price-cart"><span class="amount">5</span></td>
-                                            <td class="product-status">
-                                                <select class="custom-select custom-select-sm">
-                                                    <option selected>Active</option>
-                                                    <option value="Delivered">Delivered</option>
-                                                    <option value="Canceled">Canceled</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm" >View Details </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="coupon-all">
-                                        <div class="coupon2">
-                                            <input class="button" name="update_cart" value="Update orders" type="submit">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+    </div>
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <a href="/add-product" class="border-shadow">
+                    <span class="text-gradient" hidden>New Product <i class="ti-back"></i></span>
+                </a>
             </div>
+
+            <!-- Display order details with customer's username and address -->
+            <table class="product-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Customer Address</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>View order detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% orders.forEach((order)=> { %>
+                        <tr>
+                            <td>
+                                <%= order.customer.username %>
+                            </td>
+                            <td>
+                                <%= order.customer.address %>
+                            </td>
+                            <td>
+                                <%= Math.round(order.totalPrice) %>
+                            </td>
+                            <td style="text-transform: capitalize;">
+                                <%= order.status %>
+                            </td>
+                            <td>
+                                <%= order.checkoutDate.toLocaleDateString(undefined, { year: 'numeric' , month: 'short'
+                                    , day: '2-digit' }) %>
+                            </td>
+                            <td><a href="/view-order/<%= order._id %>" class="btn border-shadow update"><span
+                                        class="text-gradient"><i class="ti-pencil"></i></span></a></td>
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
         </div>
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Product Information</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group row">
-                          <label for="Product" class="col-sm-3 col-form-label">Product</label>
-                          <div class="col-sm-9">
-                            <input type="text" readonly class="form-control-plaintext" id="Product" value="T-shirts">
-                          </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="Total-price" class="col-sm-3 col-form-label">Total price</label>
-                            <div class="col-sm-9">
-                              <input type="text" readonly class="form-control-plaintext" id="Total-price" value="$160">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="Cus-name" class="col-sm-3 col-form-label">Custumer Name</label>
-                            <div class="col-sm-9">
-                              <input type="text" readonly class="form-control-plaintext" id="Cus-name" value="AnhTu">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="Phone-num" class="col-sm-3 col-form-label">Phone Num</label>
-                            <div class="col-sm-9">
-                              <input type="text" readonly class="form-control-plaintext" id="Phone-num" value="0987654321">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="Ship-to" class="col-sm-3 col-form-label">Ship to</label>
-                            <div class="col-sm-9">
-                              <input type="text" readonly class="form-control-plaintext" id="Ship-to" value="Park7, Timescity, Hanoi">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="From" class="col-sm-3 col-form-label">From</label>
-                            <div class="col-sm-9">
-                              <input type="text" readonly class="form-control-plaintext" id="From" value="District7, HCM">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="Status" class="col-sm-3 col-form-label">Status Update</label>
-                            <div class="col-sm-9">
-                                <select class="custom-select custom-select-lg" id="Status">
-                                    <option selected>Active</option>
-                                    <option value="Delivered">Delivered</option>
-                                    <option value="Canceled">Canceled</option>
-                                </select>
-                            </div>
-                        </div>
-                      </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-              </div>
-            </div>
-        </div>          
-        <!-- shopping-cart-area end -->
-	<%- include ('../partials/footer') %>
+    </main>
+    <%- include ('../partials/footer') %>
