@@ -7,6 +7,7 @@ const checkAuthentication = require("../middleware/checkAuthentication");
 const upload = require("../middleware/upload");
 const Vendor = require("../model/Vendor");
 const Product = require("../model/Product");
+const Shipper = require('../model/Shipper');
 
 // Homepage route (unchanged)
 router.get("/", async (req, res) => {
@@ -55,7 +56,15 @@ router.get("/", async (req, res) => {
         res.json({ message: err.message });
       }
     } else if (req.user.role === "shipper") {
-      res.render("./home/shipper-page", { name });
+      let name = req.isAuthenticated() ? req.user.username : undefined;
+      const shipper = await Shipper.findById(req.user._id).populate(
+        "distributionHub"
+      );
+      if (shipper && shipper.distributionHub) {
+        distributionHubName = shipper.distributionHub.name;
+        console.log(distributionHubName);
+      }
+      res.render("./home/shipper-page", { name, distributionHub: distributionHubName });
     } else {
       console.log("something went wrong!");
     }
