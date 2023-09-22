@@ -1,4 +1,4 @@
-    <%- include ('./partials/header2') %>
+    <%- include ('../partials/header2') %>
         <!-- header end -->
 		<div class="breadcrumb-area pt-205 pb-210" style="background-image: url(/img/banner/shipper.jpg)">
             <div class="container">
@@ -18,11 +18,7 @@
                         <div class="coupon2 cart-heading2">
                             <form>
                                 <label for="staticEmail" class="col-form-label">Distribution Hub</label>
-                                <select class="custom-select custom-select-sm" id="staticEmail" disabled>
-                                    <option value="HCM">HCM</option>
-                                    <option value="Hanoi">Hanoi</option>
-                                    <option value="Da Nang">Da Nang</option>
-                                </select>
+                                <h5 class="font-weight-bold"><%= distributionHub %></h5>
                             </form>                        
                         </div>
                         <form action="#">
@@ -171,4 +167,4 @@
             </div>
         </div>          
         <!-- shopping-cart-area end -->
-	<%- include ('partials/footer') %>
+	<%- include ('../partials/footer') %>

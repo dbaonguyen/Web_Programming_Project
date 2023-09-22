@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
           category: { $in: kidsCategories },
         }).limit(10);
     
-        res.render("index", {
+        res.render("./home/index", {
           products: [], // You can include all products here if needed.
           name,
           womenCategoriesProducts,
@@ -48,12 +48,12 @@ router.get("/", async (req, res) => {
         const vendor = await Vendor.findById(req.user._id).populate("products");
         // Extract the vendor's products
         const products = vendor.products;
-        res.render("vendor-page", { products, name });
+        res.render("./home/vendor-page", { products, name });
       } catch (err) {
         res.json({ message: err.message });
       }
     } else if (req.user.role === "shipper") {
-      res.render("shipper-page", { name });
+      res.render("./home/shipper-page", { name });
     } else {
       console.log("something went wrong!");
     }
@@ -78,7 +78,7 @@ router.get("/", async (req, res) => {
       category: { $in: kidsCategories },
     }).limit(10);
 
-    res.render("index", {
+    res.render("./home/index", {
       products: [], // You can include all products here if needed.
       name,
       womenCategoriesProducts,

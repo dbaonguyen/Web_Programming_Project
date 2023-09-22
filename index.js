@@ -16,7 +16,7 @@ const flash = require("express-flash");
 const authRoutes = require("./routes/auth");
 const categoryRouter = require("./routes/category");
 const detailRouter = require("./routes/detail");
-
+const Shipper = require('./model/Shipper');
 const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
@@ -124,18 +124,6 @@ app.get("/update-product", (req, res) => {
 });
 
 app.get("/profile", checkAuthention.profileRedirect);
-/*app.get("/search", (req,res) => {
-  //let searchTerm = req.body.searchTerm;
-  //matchedProducts = 
-  Product.find({}, function(error, products){
-    res.render('found', { products: products }))}
-  
-  //.then(products => res.render('found', { products: products }))
-  //.catch(error => res.send(error));
-  //productArray = matchedProducts.toArray();
-  //res.redirect("/found");
-  
-})*/
 
 app.get("/complain", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
@@ -165,9 +153,16 @@ async function getCategoryProduct(arg1, arg2) {
 }
 
 
-app.get("/shipper",checkAuthention.checkAuthenticated, (req, res) => {
+app.get("/shipper",checkAuthention.checkAuthenticated, async (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("shipper-page", { name });
+  const shipper = await Shipper.findById(req.user._id).populate(
+    "distributionHub"
+  );
+  if (shipper && shipper.distributionHub) {
+    distributionHubName = shipper.distributionHub.name;
+    console.log(distributionHubName);
+  }
+  res.render("./home/shipper-page", { name, distributionHub: distributionHubName });
 });
 
 app.get("/products", (req, res) => {
