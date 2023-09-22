@@ -183,29 +183,4 @@ app.post("/search", (req, res) => {
     res.render("found", { products: foundStuff,name });
   });
 });
-
-app.post("/categorySearch", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  let searchThis = req.body.categorySearch;
-  let category = req.params.categoryName;
-  console.log("That is" +category);
-    res.redirect(url.format({
-      pathname:"/category/:category/search_result",
-      query: {
-         searchThis: searchThis,
-         category : category,
-       }
-    }));
-});
-
-app.get("/category/:category/search_result", async (req,res) => {
-  const sortByPrice = req.query.sortByPrice || 'none';
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  let searchThis = req.query.searchThis;
-  let category = req.query.category;
-  console.log("This is" +category);
-  getCategoryProduct(searchThis, category).then(function (foundStuff) {
-    res.render("category-products", {products: foundStuff,name, categoryName : category, req, sortByPrice})
-  })
-});
 app.listen(PORT, console.log("Server start for port: " + PORT));

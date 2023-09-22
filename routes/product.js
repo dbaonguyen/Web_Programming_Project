@@ -64,7 +64,7 @@ router.get("/vendor", async (req, res) => {
     const vendor = await Vendor.findById(req.user._id).populate("products");
     // Extract the vendor's products
     const products = vendor.products;
-    res.render("./home/vendor-page", { products, name });
+    res.render("./home/vendor-page", { products, name, shop });
   } catch (err) {
     res.json({ message: err.message });
   }

@@ -11,6 +11,7 @@ const Product = require("../model/Product");
 // Homepage route (unchanged)
 router.get("/", async (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
+  
 
   try {
     if (req.user.role === "customer") {
@@ -45,10 +46,11 @@ router.get("/", async (req, res) => {
     } else if (req.user.role === "vendor") {
       try {
         let name = req.isAuthenticated() ? req.user.username : undefined;
+        let shop = req.isAuthenticated() ? req.user.businessName : undefined;
         const vendor = await Vendor.findById(req.user._id).populate("products");
         // Extract the vendor's products
         const products = vendor.products;
-        res.render("./home/vendor-page", { products, name });
+        res.render("./home/vendor-page", { products, name, shop });
       } catch (err) {
         res.json({ message: err.message });
       }
