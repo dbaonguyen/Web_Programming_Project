@@ -60,6 +60,7 @@ router.post(
 router.get("/vendor", async (req, res) => {
   try {
     let name = req.isAuthenticated() ? req.user.username : undefined;
+    let shop = req.isAuthenticated() ? req.user.businessName : undefined;
     const vendor = await Vendor.findById(req.user._id).populate("products");
     // Extract the vendor's products
     const products = vendor.products;
