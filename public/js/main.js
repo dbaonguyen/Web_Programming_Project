@@ -82,76 +82,9 @@
     })
     
     
-    /* arrival active */
-    $('.arrival-active').owlCarousel({
-        loop: true,
-        autoplay: false,
-        autoplayTimeout: 5000,
-        nav: false,
-        margin: 40,
-        item: 5,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 2
-            },
-            1000: {
-                items: 3
-            },
-            1367: {
-                items: 5
-            }
-        }
-    })
+   
     
     
-    /* brand logo active */
-    $('.brand-logo-active').owlCarousel({
-        loop: true,
-        nav: false,
-        item: 6,
-        responsive: {
-            0: {
-                items: 2
-            },
-            480: {
-                items: 2
-            },
-            768: {
-                items: 3
-            },
-            1000: {
-                items: 4
-            },
-            1200: {
-                items: 6
-            }
-        }
-    })
-    
-    
-    /* brand logo active */
-    $('.brand-logo-active2').owlCarousel({
-        loop: true,
-        nav: false,
-        item: 7,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 3
-            },
-            1000: {
-                items: 4
-            },
-            1200: {
-                items: 7
-            }
-        }
-    })
     
     
     /* book list active */
@@ -178,177 +111,11 @@
     })
     
     
-    /* testimonials active */
-    $('.testimonials-active').owlCarousel({
-        loop: true,
-        nav: false,
-        autoplay: true,
-        autoplayTimeout: 5000,
-        item: 1,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 1
-            },
-            1000: {
-                items: 1
-            },
-            1200: {
-                items: 1
-            }
-        }
-    })
     
     
-    /* testimonials active */
-    $('.brand-logo-active3').owlCarousel({
-        loop: true,
-        nav: false,
-        autoplay: false,
-        autoplayTimeout: 5000,
-        item: 6,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 3
-            },
-            1000: {
-                items: 4
-            },
-            1200: {
-                items: 6
-            }
-        }
-    })
-    /* testimonials active */
-    $('.product-fruit-slider').owlCarousel({
-        loop: true,
-        nav: false,
-        autoplay: false,
-        autoplayTimeout: 5000,
-        margin: 30,
-        item: 5,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 2
-            },
-            1000: {
-                items: 3
-            },
-            1200: {
-                items: 4
-            },
-            1400: {
-                items: 5
-            }
-        }
-    })
-    
-    /* instafeed active */
-    $('.instafeed-active').owlCarousel({
-        loop: true,
-        nav: false,
-        autoplay: false,
-        autoplayTimeout: 5000,
-        item: 5,
-        margin: 17,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 3
-            },
-            1000: {
-                items: 4
-            },
-            1200: {
-                items: 5
-            }
-        }
-    })
     
     
-    /* testimonials active */
-    $('.special-food-active').owlCarousel({
-        loop: true,
-        nav: false,
-        autoplay: false,
-        autoplayTimeout: 5000,
-        item: 4,
-        margin: 30,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 2
-            },
-            1000: {
-                items: 3
-            },
-            1200: {
-                items: 4
-            }
-        }
-    })
-    
-    
-    /* testimonials active */
-    $('.smart-watch-product-active').owlCarousel({
-        loop: true,
-        nav: false,
-        autoplay: false,
-        autoplayTimeout: 5000,
-        item: 3,
-        margin: 75,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 2
-            },
-            1000: {
-                items: 3
-            },
-            1200: {
-                items: 3
-            }
-        }
-    })
-    
-    
-    /* testimonials active */
-    $('.related-product-active').owlCarousel({
-        loop: true,
-        nav: false,
-        autoplay: false,
-        autoplayTimeout: 5000,
-        item: 3,
-        margin: 30,
-        responsive: {
-            0: {
-                items: 1
-            },
-            768: {
-                items: 2
-            },
-            1000: {
-                items: 3
-            },
-            1200: {
-                items: 3
-            }
-        }
-    })
+   
     
     
     /* popular-product-active active */
@@ -491,72 +258,10 @@
     }
     
     
-    /* magnificPopup video popup */
-    $('.video-popup').magnificPopup({
-        type: 'iframe'
-    });
     
     
-    /*----------------------------
-        text-animation
-    ------------------------------ */
-    $('.tlt1').textillate({
-        loop: true,
-        in: {
-            effect: 'fadeInDown',
-        },
-        out: {
-            effect: 'flip',
-        },
-    });
     
-    /*--
-    Menu Stick
-    -----------------------------------*/
-    $(window).on('scroll', function() {
-        var scroll = $(window).scrollTop();
-        if (scroll < 1) {
-            $('.sticker').removeClass('stick');
-        } else {
-            $('.sticker').addClass('stick');
-        }
-    });
     
-    /* hover 3d init for tilt */
-    if ($('.tilter').length > 0) {
-        $('.tilter').tilt({
-            maxTilt: 40,
-            perspective: 800,
-            easing: "cubic-bezier(.03,.98,.52,.99)",
-            scale: 1,
-            speed: 800,
-            transition: true,
-        });
-    }
-    
-    /* hover 3d init for tilt */
-    if ($('.tilter-2').length > 0) {
-        $('.tilter-2').tilt({
-            maxTilt: 20,
-            perspective: 700,
-            easing: "cubic-bezier(.03,.98,.52,.99)",
-            scale: 1,
-            speed: 500,
-            transition: true,
-        });
-    }
-    
-    /* hover 3d init for tilt */
-    if ($('.tilter-3').length > 0) {
-        $('.tilter-3').tilt({
-            maxTilt: 20,
-            perspective: 800,
-            easing: "cubic-bezier(.03,.2,.5,.4)",
-            scale: 1,
-            speed: 500,
-            transition: true,
-        });
-    }
     
     
     /*--- showlogin toggle function ----*/
@@ -574,8 +279,7 @@
         $('#ship-box-info').slideToggle(1000);
     });
     
-    // Instantiate EasyZoom instances
-    var $easyzoom = $('.easyzoom').easyZoom();
+   
     
     
     /*---------------------
