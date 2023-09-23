@@ -32,7 +32,7 @@ const customerSchema = new Schema({
   },
   pfp: {
     type: String,
-    default: "default_user.jpg",
+    default: "default_user.png",
   },
   role: {
     type: String,
