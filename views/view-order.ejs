@@ -22,31 +22,42 @@
                         <th>Image</th>
                         <th>Price</th>
                         <th>Quantity</th>
+
                     </tr>
                 </thead>
                 <tbody>
                     <% productOrders.forEach((product)=> { %>
                         <tr>
                             <td>
-                                <%= product.name || 'N/A' %>
+                                <%= product.name %>
                             </td>
                             <td>
-                                <% if (product.image) { %>
-                                    <img src="<%= product.image %>" alt="<%= product.name || 'Product Image' %>">
-                                    <% } else { %>
-                                        <img src="placeholder_image_url" alt="Product Image">
-                                        <% } %>
+                                <img src="<%= product.image %>" alt="<%= product.name %>" width="100px" height="100px">
                             </td>
                             <td>
-                                <%= product.price || 'N/A' %>
+                                $<%= product.price.toFixed(2) %> <!-- Display price with two decimal places -->
                             </td>
                             <td>
-                                <%= product.quantity || 'N/A' %>
+                                <%= product.quantity %>
                             </td>
+
                         </tr>
                         <% }) %>
                 </tbody>
             </table>
+            <div class="box-nav d-flex justify-between">
+                <form action="/update-order/<%= order._id %>?status=delivered" method="POST">
+                    <button type="submit" class="border-shadow btn btn-primary">
+                        <span class="text-white"><i class="ti-truck"></i> Delivered</span>
+                    </button>
+                </form>
+                <form action="/update-order/<%= order._id %>?status=canceled" method="POST">
+                    <button type="submit" class="border-shadow btn btn-danger">
+                        <span class="text-white"><i class="ti-close"></i> Canceled</span>
+                    </button>
+                </form>
+            </div>
+        </div>
         </div>
     </main>
     <%- include ('partials/footer') %>

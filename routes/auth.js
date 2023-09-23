@@ -8,7 +8,7 @@ const upload = require("../middleware/upload");
 const Vendor = require("../model/Vendor");
 const Product = require("../model/Product");
 const Shipper = require("../model/Shipper");
-const DistributionHub = require("../model/DistributionHub");
+
 
 // Homepage route (unchanged)
 router.get("/", async (req, res) => {

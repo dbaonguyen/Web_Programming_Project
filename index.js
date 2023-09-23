@@ -205,16 +205,62 @@ app.get(
         path: "products.product", // Populate the "product" property within each product item
       });
 
-      // Debugging: Output the order and productOrders to the console
-      console.log("Order:", order);
-      console.log("Product Orders:", order.products);
-
       const productOrders = order.products;
-      console.log("here after");
-      console.log(productOrders)
 
       // Render the order details template with the order data
-      res.render("view-order", { name, productOrders });
+      res.render("view-order", { name, productOrders, order });
+    } catch (err) {
+      res.json({ message: err.message });
+    }
+  }
+);
+
+app.post(
+  "/update-order/:orderId",
+  checkAuthention.checkAuthenticated,
+  async (req, res) => {
+    try {
+      // Get the order ID and status from the request parameters
+      const orderId = req.params.orderId;
+      const status = req.query.status; // "delivered" or "canceled"
+
+      // Find the order by ID and update its status
+      const order = await Order.findById(orderId);
+      if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+
+      // Update the order status
+      order.status = status;
+      await order.save();
+
+      // Remove the order from the distribution hub
+      const distributionHubId = order.distributionHub; // Replace with the actual field that stores the distribution hub ID in your Order schema
+
+      if (status === "delivered") {
+        // Handle order as "Delivered"
+        // Remove the order ID from the distribution hub's list of orders
+        await DistributionHub.findByIdAndUpdate(
+          distributionHubId,
+          {
+            $pull: { orders: orderId },
+          },
+          { new: true }
+        );
+      } else if (status === "canceled") {
+        // Handle order as "Canceled"
+        // Remove the order ID from the distribution hub's list of orders
+        await DistributionHub.findByIdAndUpdate(
+          distributionHubId,
+          {
+            $pull: { orders: orderId },
+          },
+          { new: true }
+        );
+      }
+
+      // Redirect to the shipper page after successfully updating and removing the order
+      res.redirect("/"); // Assuming "/shipper" is the route for the shipper page
     } catch (err) {
       res.json({ message: err.message });
     }
@@ -242,7 +288,11 @@ app.get("/shipper", checkAuthention.checkAuthenticated, async (req, res) => {
     const distributionHubName = distributionHub
       ? distributionHub.name
       : undefined;
-    const orders = distributionHub ? distributionHub.orders : [];
+    let orders = distributionHub ? distributionHub.orders : [];
+
+    orders = orders.filter(
+      (order) => order.status !== "delivered" && order.status !== "canceled"
+    );
 
     res.render("./home/shipper-page", {
       name,

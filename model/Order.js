@@ -5,10 +5,13 @@ const orderSchema = new Schema({
   products: [
     {
       product: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
       },
-      quantity: Number, // Quantity of the product
+      quantity: Number,
+      name: String, // Add a field for product name
+      image: String, // Add a field for product image
+      price: Number, // Add a field for product price
     },
   ],
   totalPrice: {
@@ -23,8 +26,8 @@ const orderSchema = new Schema({
     enum: ["active", "delivered", "canceled"],
   },
   checkoutDate: {
-    type: Date, // Date field to store the checkout date
-    default: Date.now, // Default value is the current date and time
+    type: Date,
+    default: Date.now,
   },
 });
 
