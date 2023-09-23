@@ -94,7 +94,7 @@ app.use("/category", categoryRouter);
 app.use("/", detailRouter);
 app.use(authRoutes);
 
-app.get("/cart", (req, res) => {
+app.get("/cart",checkAuthention.checkAuthenticated, (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("cart", { name });
 });
