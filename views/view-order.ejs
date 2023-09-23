@@ -1,0 +1,63 @@
+<%- include ('partials/header2') %>
+    <div class="breadcrumb-area pt-205 pb-210" style="background-image: url(/img/banner/shipper.jpg)">
+        <div class="container">
+            <div class="breadcrumb-content text-center">
+                <h2>Order Details</h2>
+            </div>
+        </div>
+    </div>
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <a href="/" class="border-shadow">
+                    <span class="text-gradient"><i class="ti-angle-double-left"></i> Back</span>
+                </a>
+            </div>
+
+            <!-- Display product details within the order -->
+            <table class="product-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Image</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% productOrders.forEach((product)=> { %>
+                        <tr>
+                            <td>
+                                <%= product.name %>
+                            </td>
+                            <td>
+                                <img src="<%= product.image %>" alt="<%= product.name %>" width="100px" height="100px">
+                            </td>
+                            <td>
+                                $<%= product.price.toFixed(2) %> <!-- Display price with two decimal places -->
+                            </td>
+                            <td>
+                                <%= product.quantity %>
+                            </td>
+
+                        </tr>
+                        <% }) %>
+                </tbody>
+            </table>
+            <div class="box-nav d-flex justify-between">
+                <form action="/update-order/<%= order._id %>?status=delivered" method="POST">
+                    <button type="submit" class="border-shadow btn btn-primary">
+                        <span class="text-white"><i class="ti-truck"></i> Delivered</span>
+                    </button>
+                </form>
+                <form action="/update-order/<%= order._id %>?status=canceled" method="POST">
+                    <button type="submit" class="border-shadow btn btn-danger">
+                        <span class="text-white"><i class="ti-close"></i> Canceled</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        </div>
+    </main>
+    <%- include ('partials/footer') %>
