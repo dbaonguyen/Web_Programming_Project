@@ -35,6 +35,7 @@ const authController = {
       const saltRounds = 10;
       const password = req.body.password;
       const passwordErrors = [];
+      const pfp = req.file ? req.file.filename : "default_user.jpg";
 
       const registrationType = req.body.registrationType;
       if (password.length < 8 || password.length > 20) {
@@ -94,9 +95,9 @@ const authController = {
         newUser = new Vendor({
           username: req.body.username,
           password: hashedPassword,
+          pfp: pfp,
           businessName: req.body.businessName,
           businessAddress: req.body.businessAddress,
-          pfp: req.file.filename,
           products: [], // Initialize the products array
         });
 
@@ -135,7 +136,7 @@ const authController = {
           username: req.body.username,
           password: hashedPassword,
           email: req.body.email,
-          pfp: req.file.filename,
+          pfp: pfp,
           address: req.body.address,
           phone: req.body.phone,
         });
@@ -164,7 +165,7 @@ const authController = {
         newUser = new Shipper({
           username: req.body.username,
           password: hashedPassword,
-          pfp: req.file.filename,
+          pfp: pfp,
           distributionHub: distributionHub._id,
         });
 

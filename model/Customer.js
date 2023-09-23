@@ -22,15 +22,23 @@ const customerSchema = new Schema({
   },
   phone: {
     type: String,
+    validate: {
+      validator: function (value) {
+        // Use a regular expression to validate the phone number
+        return /^[0-9]{10}$/.test(value); // This regex assumes a 10-digit phone number
+      },
+      message: "Invalid phone number format, must be a 10-digit number.",
+    },
   },
   pfp: {
     type: String,
+    default: "default_user.jpg",
   },
   role: {
     type: String,
     enum: ["customer"],
     default: "customer",
-  }
+  },
 });
 ({ timestamps: true });
 

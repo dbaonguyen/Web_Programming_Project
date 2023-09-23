@@ -26,6 +26,7 @@ const vendorSchema = new Schema(
     },
     pfp: {
       type: String,
+      default: "default_user.jpg"
     },
     role: {
       type: String,

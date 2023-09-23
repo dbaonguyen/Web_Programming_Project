@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const session = require("express-session");
 const Product = require("../model/Product");
 const Vendor = require("../model/Vendor");
 const multer = require("multer");
