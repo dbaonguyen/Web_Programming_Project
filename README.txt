@@ -11,13 +11,13 @@ Username and password to test:
     password: Bao@1234
 
 - Shipper Account:
-    username: baoshipper123
+    username: baoshipper123 (Da Nang)
     password: Bao@1234
 
-    username: duckoshipper123
+    username: duckoshipper123 (Ha Noi)
     password: Duck@1234
 
-    username: baoshipper321
+    username: baoshipper321 (Ho Chi Minh)
     password: Bao@1234
 
 - Vendor Account:
