@@ -63,9 +63,19 @@ const authController = {
       }
 
       if (passwordErrors.length > 0) {
-        return res.render("register", {
-          errorMessages: passwordErrors,
-        });
+        if (registrationType === "vendor") {
+          return res.render("./authentication/register_ven", {
+            errorMessages: passwordErrors,
+          });
+        } else if (registrationType === "shipper") {
+          return res.render("./authentication/register_ship", {
+            errorMessages: passwordErrors,
+          });
+        } else if (registrationType === "customer") {
+          return res.render("./authentication/register", {
+            errorMessages: passwordErrors,
+          });
+        }
       }
 
       const hashedPassword = await bcrypt.hash(password, saltRounds);
