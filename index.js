@@ -8,6 +8,8 @@ const morgan = require("morgan");
 const session = require("express-session");
 const passport = require("passport");
 const url = require("url");
+const Order = require('./model/Order');
+const DistributionHub = require('./model/DistributionHub')
 const Customer = require("./model/Customer");
 const Product = require("./model/Product");
 const productRoute = require("./routes/product");
@@ -21,9 +23,6 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
 const checkAuthention = require("./middleware/checkAuthentication");
-const Order = require("./model/Order");
-const DistributionHub = require("./model/DistributionHub");
-const { none } = require("./middleware/upload");
 
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
@@ -74,7 +73,7 @@ app.use(cors());
 app.use(bodyParser.json({}));
 app.use(express.static("public"));
 app.use(morgan("common"));
-app.use("/product", productRoute);
+
 app.use(flash());
 app.use(express.json());
 app.use(
@@ -93,19 +92,72 @@ app.use(express.static("uploads"));
 app.use("/category", categoryRouter);
 app.use("/", detailRouter);
 app.use(authRoutes);
+app.use("/product", productRoute);
 
-app.get("/cart",checkAuthention.checkAuthenticated, (req, res) => {
+app.get("/cart", checkAuthention.checkAuthenticated, (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
   res.render("cart", { name });
 });
-app.get("/product-details", (req, res) => {
+
+app.get("/profile", checkAuthention.profileRedirect);
+
+app.get("/complain", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("product-details", { name });
+  res.render("footers-info/footer-complain", { name });
 });
-app.get("/add-product", (req, res) => {
+app.get("/contact", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("add-product", { name });
+  res.render("footers-info/footer-contact", { name });
 });
+app.get("/privacy", (req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("footers-info/footer-privacy", { name });
+});
+app.get("/property", (req, res) => {
+  let name = req.isAuthenticated() ? req.user.username : undefined;
+  res.render("footers-info/footer-property", { name });
+});
+
+app.get(
+  "/shipper",
+  checkAuthention.checkAuthenticated,
+  async (req, res) => {
+    try {
+      const name = req.isAuthenticated() ? req.user.username : undefined;
+
+      // Find the shipper by ID and populate the associated distributionHub
+      const shipper = await Shipper.findById(req.user._id).populate({
+        path: "distributionHub",
+        populate: {
+          path: "orders",
+          populate: [
+            { path: "customer", select: "username address" }, // Populate the customer's username and address
+            { path: "products.product" }, // Populate the products within orders
+          ],
+        },
+      });
+
+      // Extract the distribution hub and its associated orders
+      const distributionHub = shipper.distributionHub;
+      const distributionHubName = distributionHub
+        ? distributionHub.name
+        : undefined;
+      let orders = distributionHub ? distributionHub.orders : [];
+
+      orders = orders.filter(
+        (order) => order.status !== "delivered" && order.status !== "canceled"
+      );
+
+      res.render("./home/shipper-page", {
+        name,
+        distributionHub: distributionHubName,
+        orders,
+      });
+    } catch (err) {
+      res.json({ message: err.message });
+    }
+  }
+);
 
 app.post("/checkout", async (req, res) => {
   try {
@@ -168,30 +220,6 @@ app.post("/checkout", async (req, res) => {
     res.status(500).json({ error: "Failed to create order" });
   }
 });
-
-app.get("/profile", checkAuthention.profileRedirect);
-
-app.get("/complain", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("footers-info/footer-complain", { name });
-});
-app.get("/contact", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("footers-info/footer-contact", { name });
-});
-app.get("/privacy", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("footers-info/footer-privacy", { name });
-});
-app.get("/property", (req, res) => {
-  let name = req.isAuthenticated() ? req.user.username : undefined;
-  res.render("footers-info/footer-property", { name });
-});
-
-async function getProduct(arg) {
-  const item = await Product.find({ name: { $regex: arg, $options: "i" } });
-  return item;
-}
 
 app.get(
   "/view-order/:orderId",
@@ -260,49 +288,17 @@ app.post(
       }
 
       // Redirect to the shipper page after successfully updating and removing the order
-      res.redirect("/"); // Assuming "/shipper" is the route for the shipper page
+      res.redirect("/shipper"); // Assuming "/shipper" is the route for the shipper page
     } catch (err) {
       res.json({ message: err.message });
     }
   }
 );
 
-app.get("/shipper", checkAuthention.checkAuthenticated, async (req, res) => {
-  try {
-    const name = req.isAuthenticated() ? req.user.username : undefined;
-
-    // Find the shipper by ID and populate the associated distributionHub
-    const shipper = await Shipper.findById(req.user._id).populate({
-      path: "distributionHub",
-      populate: {
-        path: "orders",
-        populate: [
-          { path: "customer", select: "username address" }, // Populate the customer's username and address
-          { path: "products.product" }, // Populate the products within orders
-        ],
-      },
-    });
-
-    // Extract the distribution hub and its associated orders
-    const distributionHub = shipper.distributionHub;
-    const distributionHubName = distributionHub
-      ? distributionHub.name
-      : undefined;
-    let orders = distributionHub ? distributionHub.orders : [];
-
-    orders = orders.filter(
-      (order) => order.status !== "delivered" && order.status !== "canceled"
-    );
-
-    res.render("./home/shipper-page", {
-      name,
-      distributionHub: distributionHubName,
-      orders,
-    });
-  } catch (err) {
-    res.json({ message: err.message });
-  }
-});
+async function getProduct(arg) {
+  const item = await Product.find({ name: { $regex: arg, $options: "i" } });
+  return item;
+}
 
 app.get("/products", (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;

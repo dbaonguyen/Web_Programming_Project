@@ -57,7 +57,7 @@ router.post(
 );
 
 //Get all products
-router.get("/vendor", async (req, res) => {
+router.get("/vendor",checkAuthention.checkAuthenticated, async (req, res) => {
   try {
     let name = req.isAuthenticated() ? req.user.username : undefined;
     let shop = req.isAuthenticated() ? req.user.businessName : undefined;
@@ -69,6 +69,7 @@ router.get("/vendor", async (req, res) => {
     res.json({ message: err.message });
   }
 });
+
 
 router.get("/add-product", checkAuthention.checkAuthenticated, (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
