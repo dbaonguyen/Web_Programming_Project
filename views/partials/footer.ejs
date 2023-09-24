@@ -40,28 +40,30 @@ Acknowledgement: Acknowledge the resources that you use here. -->
                 <ul>
                   <li><a href="https://group.lazada.com/en/about/?spm=a2o4n.home.footer_top.8.24303bdcxdygIC">About
                       us</a></li>
-                  <li><a href="https://www.lazada.vn/helpcenter/?spm=a2o4n.home.footer_top.1.7b643bdcikwN2H">Contact</a></li>
+                  <li><a href="https://www.lazada.vn/helpcenter/?spm=a2o4n.home.footer_top.1.7b643bdcikwN2H">Contact</a>
+                  </li>
                   <li><a href="https://www.lazada.com/en/careers/">Recruit</a></li>
                   <li><a
                       href="https://group.lazada.com/en/press-release/?spm=a2o4n.home.footer_top.14.50983bdcyOWev9">Press</a>
                   </li>
-                  <!-- <li><a
-                      href="https://pages.lazada.vn/wow/gcp/route/lazada/vn/upr_1000345_lazada/channel/vn/upr-router/vn?hybrid=1&data_prefetch=true&prefetch_replace=1&at_iframe=1&wh_pid=/lazada/channel/vn/legal/quy-che-ban-hang&from=icms:offline">Operating</a>
-                  </li> -->
+
                 </ul>
               </div>
             </div>
           </div>
           <div class="col-lg-3 col-md-3 col-sm-5">
             <div class="single-footer-caption mb-50">
-              <div class="footer-tittle">
-                <h4>More information</h4>
-                <ul>
-                  <li><a href="privacy">Privacy policy</a></li>
-                  <li><a href="property">Property violations</a></li>
-                  <li><a href="complain">Dispute resolution process</a></li>
-                </ul>
-              </div>
+              <% if (typeof categoryName==='undefined') { %>
+                <!-- Footer content specific to pages without categoryName -->
+                <div class="footer-tittle">
+                  <h4>More information</h4>
+                  <ul>
+                    <li><a href="privacy">Privacy policy</a></li>
+                    <li><a href="property">Property violations</a></li>
+                    <li><a href="complain">Dispute resolution process</a></li>
+                  </ul>
+                </div>
+                <% } %>
             </div>
           </div>
           <div class="col-lg-3 col-md-6 col-sm-7">
@@ -74,62 +76,11 @@ Acknowledgement: Acknowledge the resources that you use here. -->
                   <p style="line-height: 24px">Hotline: 19006509
                   </p>
                 </div>
-                <!-- <div class="footer-form">
-                            <div>
-                                <form class="subscribe_form relative mail_par position-relative" name="sub-newsletter">
-                                    <input required type="email" name="email" id="newsletter-form-email"
-                                           placeholder=" Email address " class="hide-on-focus"
-                                           onfocus="this.placeholder = ''"
-                                           onblur="this.placeholder = ' Địa chỉ email '">
-                                    <div class="form-icon">
-                                        <button type="submit" name="submit" id="newsletter-submit"
-                                                class="email_icon newsletter-submit button-contactForm"><img
-                                                src="../public/img/logo/form_icon.png" alt=""></button>
-                                    </div>
-                                    <div class="mt-10 info position-absolute" id="result-newsletter"></div>
-                                </form>
 
-                                <script>
-                                    const scriptURL = 'https://script.google.com/macros/s/AKfycbxjkiYJJ0sdSQfUp2CCEtY6vOaPR0R_7sYueS2xELNsf0edkare1Bx7lf23Xry6IRDB/exec'
-                                    const form = document.forms['sub-newsletter']
-
-                                    const alertPlaceholder = document.getElementById('result-newsletter')
-
-                                    const alert = (message, type) => {
-                                        alertPlaceholder.innerHTML = [
-                                            `<div id="myAlertNewsletter" class="mb-0 alert alert-${type} alert-dismissible" role="alert">`,
-                                            `   <div>${message}</div>`,
-                                            '</div>'
-                                        ].join('')
-                                    }
-
-                                    form.addEventListener('submit', e => {
-                                        e.preventDefault()
-                                        fetch(scriptURL, {method: 'POST', body: new FormData(form)})
-                                            .then(() => {
-                                                alert('Cám ơn bạn đã đăng ký!', 'success');
-                                                $("#myAlertNewsletter").fadeTo(2000, 0).slideUp(1000, function () {
-                                                    $("#myAlertNewsletter").alert('close');
-                                                });
-                                            })
-                                            .catch(error => console.error('Error!', error.message))
-                                    })
-                                </script>
-                            </div>
-                        </div> -->
               </div>
             </div>
             <div>
-              <!-- <form class="subscribe_form relative mail_par position-relative" name="sub-newsletter">
-                <input required type="email" name="email" id="newsletter-form-email" placeholder=" Email address "
-                  class="hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = ' Địa chỉ email '">
-                <div class="form-icon">
-                  <button type="submit" name="submit" id="newsletter-submit"
-                    class="email_icon newsletter-submit button-contactForm"><img src="../public/img/logo/form_icon.png"
-                      alt=""></button>
-                </div>
-                <div class="mt-10 info position-absolute" id="result-newsletter"></div>
-              </form> -->
+
 
               <script>
                 const scriptURL = 'https://script.google.com/macros/s/AKfycbxjkiYJJ0sdSQfUp2CCEtY6vOaPR0R_7sYueS2xELNsf0edkare1Bx7lf23Xry6IRDB/exec'

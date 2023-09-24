@@ -98,11 +98,11 @@ app.use(passport.session());
 app.use(methodOverride("_method"));
 app.use("", require("./routes/product"));
 app.use(express.static("uploads"));
+app.use("", require("./routes/footer-info"));
 app.use("/category", categoryRouter);
 app.use("/", detailRouter);
 app.use(authRoutes);
 app.use("/product", productRoute);
-app.use("", require("./routes/footer-info"));
 app.use("", require("./routes/order"));
 
 app.get("/cart", checkAuthention.checkAuthenticated, (req, res) => {
