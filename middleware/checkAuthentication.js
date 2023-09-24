@@ -1,4 +1,4 @@
-const Shipper = require('../model/Shipper');
+const Shipper = require("../model/Shipper");
 
 const checkAuthention = {
   checkAuthenticated: (req, res, next) => {
@@ -84,7 +84,26 @@ const checkAuthention = {
       businessName: businessName,
       businessAddress: businessAddress,
     });
-    
+  },
+  updateProfilePicture: async (req, res) => {
+    try {
+      // Access the uploaded file using req.file
+      if (!req.file) {
+        req.flash("error", "No file uploaded.");
+        return res.redirect("/profile");
+      }
+      const profilePicturePath = req.file.filename;
+
+      // Update the user's profile with the new image path
+      req.user.pfp = profilePicturePath;
+      console.log("New pfp path: " + profilePicturePath)
+      await req.user.save();
+
+      res.redirect("/profile");
+    } catch (error) {
+      console.error(error);
+      res.redirect("/profile");
+    }
   },
 };
 

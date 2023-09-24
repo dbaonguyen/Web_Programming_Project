@@ -1,6 +1,6 @@
 GitHub Repository: https://github.com/dbaonguyen/Web_Programming_Project
 
-Video Demonstration: 
+Video Demonstration: https://youtu.be/WTh7BgOHaEw?si=ejCpA_mtV8rIC48L
 
 Username and password to test:
 - Customer Account: 

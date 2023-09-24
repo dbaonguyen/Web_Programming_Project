@@ -17,6 +17,7 @@ const authRoutes = require("./routes/auth");
 const categoryRouter = require("./routes/category");
 const detailRouter = require("./routes/detail");
 const Shipper = require("./model/Shipper");
+const upload = require("./middleware/upload");
 const PORT = process.env.PORT || 3000;
 const app = express();
 const initializePassport = require("./middleware/passport-config");
@@ -91,8 +92,8 @@ app.use("/category", categoryRouter);
 app.use("/", detailRouter);
 app.use(authRoutes);
 app.use("/product", productRoute);
-app.use("", require('./routes/footer-info'));
-app.use("", require('./routes/order'));
+app.use("", require("./routes/footer-info"));
+app.use("", require("./routes/order"));
 
 app.get("/cart", checkAuthention.checkAuthenticated, (req, res) => {
   let name = req.isAuthenticated() ? req.user.username : undefined;
@@ -100,6 +101,13 @@ app.get("/cart", checkAuthention.checkAuthenticated, (req, res) => {
 });
 
 app.get("/profile", checkAuthention.profileRedirect);
+
+// Handle the profile picture update
+app.post(
+  "/profile/update-profile",
+  upload.single("pfp"),
+  checkAuthention.updateProfilePicture
+);
 
 async function getProduct(arg) {
   const item = await Product.find({ name: { $regex: arg, $options: "i" } });

@@ -1,49 +1,65 @@
 <%- include('../partials/header2') %>
-        <!-- header end -->
-		<div class="breadcrumb-area pt-205 pb-210 theme-bg-2" >
-            <div class="container">
-                <div class="breadcrumb-content text-center">
-                    <h2>My profile</h2>
-                   
-                        <img src="<%= photo %>" alt="user avatar" width="300" height="300">
-                     
-            </div>
+    <!-- header end -->
+    <div class="breadcrumb-area pt-205 pb-210 theme-bg-2">
+        <div class="container">
+            <div class="breadcrumb-content text-center">
+                <h2>My profile</h2>
+
+                <img src="<%= photo %>" alt="user avatar" width="300" height="300">
+                <div class="">
+                    <form action="/profile/update-picture" method="POST" enctype="multipart/form-data">
+                        <input type="file" name="profilePicture" accept="image/*">
+                        <button type="submit" class="btn btn-primary">Upload Profile Picture</button>
+                    </form>
                 </div>
             </div>
         </div>
-        
-        
-        
-        <div class="choose-area pb-100">
-            <div class="container">
-                
-                <div class="row">
-                    <div class="col-lg-2 col-md-12 theme-bg-1">
-                        
-                    </div>
-                    <div class="col-lg-8 col-md-12">
-                        <div class="all-causes">
-                            <div class="row">
-                                <div class="col-md-12 causes-res">
-                                    <div class="choose-wrapper">
-                                        <h4>Name:</h4>
-                                        <p><%= name %></p>
-                                    </div>
-                                    <div class="choose-wrapper">
-                                        <h4>Shipping hub:</h4>
-                                        <p><%= distributionHub %></p>
-                                    </div>
+    </div>
+    </div>
+
+
+
+    <div class="choose-area pb-100">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-2 col-md-12 theme-bg-1">
+
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="all-causes">
+                        <div class="row">
+                            <div class="col-md-12 causes-res">
+                                <div class="choose-wrapper">
+                                    <form action="/profile/update-profile" method="POST" enctype="multipart/form-data">
+                                        <input type="file" name="pfp" accept="image/*">
+                                        <button type="submit" class="btn btn-primary">Upload new profile
+                                            picture</button>
+                                    </form>
                                 </div>
-                                
+                                <div class="choose-wrapper">
+                                    <h4>Name:</h4>
+                                    <p>
+                                        <%= name %>
+                                    </p>
+                                </div>
+                                <div class="choose-wrapper">
+                                    <h4>Shipping hub:</h4>
+                                    <p>
+                                        <%= distributionHub %>
+                                    </p>
+                                </div>
                             </div>
+
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-12 theme-bg-1">
-                        
-                    </div>
+                </div>
+                <div class="col-lg-2 col-md-12 theme-bg-1">
+
                 </div>
             </div>
         </div>
-        
-        
-		<%- include ('../partials/footer') %>
+    </div>
+
+
+    <%- include ('../partials/footer') %>

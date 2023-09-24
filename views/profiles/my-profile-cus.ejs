@@ -5,9 +5,10 @@
             <div class="breadcrumb-content text-center">
                 <h2>My profile</h2>
                 <% console.log(photo) %>
-                <img src="<%= photo %>" alt="user avatar" width="300" height="300">
+                    <img src="<%= photo %>" alt="user avatar" width="300" height="300">
 
             </div>
+
         </div>
     </div>
 
@@ -18,12 +19,18 @@
 
             <div class="row">
                 <div class="col-lg-2 col-md-12 theme-bg-1">
-
+                    
                 </div>
                 <div class="col-lg-8 col-md-12">
                     <div class="all-causes">
                         <div class="row">
                             <div class="col-md-12 causes-res">
+                                <div class="choose-wrapper">
+                                    <form action="/profile/update-profile" method="POST" enctype="multipart/form-data">
+                                        <input type="file" name="pfp" accept="image/*">
+                                        <button type="submit" class="btn btn-primary">Upload new profile picture</button>
+                                    </form>
+                                </div>
                                 <div class="choose-wrapper">
                                     <h4>Name:</h4>
                                     <p>
