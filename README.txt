@@ -29,4 +29,4 @@ Username and password to test:
 
 How to run the website: node index.js or nodemon index.ejs or npm start
 
-Coupon code: COUPON50(will deduct the price by 50%)
+Coupon code: COUPON50(will deduct the total price by 50%)
