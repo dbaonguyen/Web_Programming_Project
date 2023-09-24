@@ -1,0 +1,63 @@
+<%- include ('../partials/header2') %>
+    <div class="breadcrumb-area pt-205 pb-210" style="background-image: url(/img/banner/shipper.jpg)">
+        <div class="container">
+            <div class="breadcrumb-content text-center">
+                <h2>
+                    <%= distributionHub %>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <a href="/add-product" class="border-shadow">
+                    <span class="text-gradient" hidden>New Product <i class="ti-back"></i></span>
+                </a>
+            </div>
+
+            <!-- Display order details with customer's username and address -->
+            <table class="product-table mb-40">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Customer Address</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>View order detail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% orders.forEach((order)=> { %>
+                        <% if (order.status !=='delivered' && order.status !=='canceled' ) { %>
+                            <tr>
+                                <td>
+                                    <%= order.customer.username %>
+                                </td>
+                                <td>
+                                    <%= order.customer.address %>
+                                </td>
+                                <td>
+                                    $<%= Math.round(order.totalPrice) %>
+                                </td>
+                                <td style="text-transform: capitalize;">
+                                    <%= order.status %>
+                                </td>
+                                <td>
+                                    <%= order.checkoutDate.toLocaleDateString(undefined, { year: 'numeric' ,
+                                        month: 'short' , day: '2-digit' }) %>
+                                </td>
+                                <td>
+                                    <a href="/view-order/<%= order._id %>" class="btn border-shadow update">
+                                        <span class="text-gradient"><i class="ti-pencil"></i></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <% } %>
+                                <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <%- include ('../partials/footer') %>

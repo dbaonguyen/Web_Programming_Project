@@ -1,0 +1,54 @@
+<%- include ('../partials/header2') %>
+<div class="breadcrumb-area pt-205 pb-210" style="background-image: url(/img/banner/vendor.jpg)">
+    <div class="container">
+        <div class="breadcrumb-content text-center">
+            <h2><%= shop %></h2>
+        </div>
+    </div>
+</div>
+<main id="site-main">
+    <div class="container">
+        <div class="box-nav d-flex justify-between">
+            <a href="/add-product" class="border-shadow">
+                <span class="text-gradient">New Product <i class="ti-user"></i></span>
+            </a>
+        </div>
+
+        <!-- form handling -->
+            <table class="product-table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Product Description</th>
+                        <th>Price</th>
+                        <th>Product Image</th>
+                        <th>Category</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% products.forEach((products) => {%>
+                        <tr>
+                            <th><%= products.name %></th>
+                            <th><%= products.description %></th>
+                            <th>$<%= products.price %></th>
+                            <th><img src="<%= products.image %>" width="100px" height="100px" class="img-thumbnail"></th>
+                            <% console.log("Img path: " + products.image) %>
+                            <th><%= products.category %></th>
+                            <th>
+                                <a href="/update-product/<%= products._id %>" class="btn border-shadow update">
+                                    <span class="text-gradient"><i class="ti-pencil"></i></span>
+                                </a>
+                                <a href="/delete-product/<%= products._id %>" class="btn border-shadow delete" >
+                                    <span class="text-gradient"><i class="ti-close"></i></span>
+                                </a>
+                            </th>
+                        </tr> 
+                    <%} ) %>           
+                </tbody>
+            </table>
+
+    </div>
+</main>
+        
+<%- include ('../partials/footer') %>
