@@ -28,3 +28,5 @@ Username and password to test:
     password: Kerasu@123
 
 How to run the website: node index.js or nodemon index.ejs or npm start
+
+Coupon code: COUPON50(will deduct the price by 50%)

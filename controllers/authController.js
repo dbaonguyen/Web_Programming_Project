@@ -35,7 +35,7 @@ const authController = {
       const saltRounds = 10;
       const password = req.body.password;
       const passwordErrors = [];
-      const pfp = req.file ? req.file.filename : "default_user.jpg";
+      const pfp = req.file ? req.file.filename : "default_user.png";
 
       const registrationType = req.body.registrationType;
       if (password.length < 8 || password.length > 20) {
